@@ -41,7 +41,7 @@ class Choosepage extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            GoRouter.of(context).push(Gorouter.klogin);
+            GoRouter.of(context).pushReplacement(Gorouter.klogin);
           },
           style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 40),

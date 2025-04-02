@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:project_greduation/core/assets.dart';
@@ -19,7 +18,7 @@ class SplashAnimation extends StatelessWidget {
         return SlideTransition(
           position: animation,
           child: SvgPicture.asset(
-            Assets.assetsImageVector,
+            Assets.assetsImageHead,
           ),
         );
       },

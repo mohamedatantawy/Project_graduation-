@@ -8,7 +8,8 @@ class customtextFormField extends StatefulWidget {
     this.icon,
     this.posticon = false,
     required this.text,
-    this.fill = true, this.validator,
+    this.fill = true,
+    this.validator,
   });
   final String title;
   final IconData? icon;
@@ -16,7 +17,7 @@ class customtextFormField extends StatefulWidget {
   final bool fill;
   final TextEditingController text;
   // final TextEditingController? confirm;
-  final String?  Function(String?)? validator;
+  final String? Function(String?)? validator;
   @override
   State<customtextFormField> createState() => _customtextFormFieldState();
 }
@@ -30,13 +31,15 @@ class _customtextFormFieldState extends State<customtextFormField> {
       height: 70,
       child: TextFormField(
         controller: widget.text,
-        validator:widget.fill? (value) {
-          if (value!.isEmpty) {
-            return 'this field is required';
-          } else {
-            return null;
-          }
-        }:widget.validator,
+        validator: widget.fill
+            ? (value) {
+                if (value!.isEmpty) {
+                  return 'this field is required';
+                } else {
+                  return null;
+                }
+              }
+            : widget.validator,
         obscuringCharacter: '*',
         obscureText: widget.posticon ? isactive : false,
         textAlign: TextAlign.start,

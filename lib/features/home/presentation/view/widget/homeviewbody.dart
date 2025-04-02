@@ -1,76 +1,68 @@
-//import 'dart:ui_web';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_greduation/constants.dart';
-import 'package:project_greduation/core/assets.dart';
+import 'package:project_greduation/core/gorouter.dart';
+import 'package:project_greduation/features/Auth/data/models/user/user.dart';
+import 'package:project_greduation/features/home/data/models/material/materialmodel.dart';
+import 'package:project_greduation/features/home/presentation/manger/cubit/materialshow_cubit.dart';
+import 'package:project_greduation/features/home/presentation/view/widget/listviewhomeviewbody.dart';
+import 'package:project_greduation/features/home/presentation/view/widget/trailIcontotakeAttandance.dart';
 
-class Homeviewbody extends StatelessWidget {
-  const Homeviewbody({super.key});
+class Homeviewbody extends StatefulWidget {
+  const Homeviewbody({super.key, required this.user});
+  final User user;
+
+  @override
+  State<Homeviewbody> createState() => _HomeviewbodyState();
+}
+
+class _HomeviewbodyState extends State<Homeviewbody> {
+  bool isloading = false;
+  int? subjectnumber;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(70),
-          topRight: Radius.circular(70),
-        ),
-      ),
-      child: ListView(
-        children: [
-          SizedBox(
-            height: 35,
-          ),
-          Container(
-            // height: 60,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            margin: EdgeInsets.symmetric(
-              horizontal: 100,
-            ),
-            decoration: BoxDecoration(
-              color: kprimarykey,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Center(
-              child: Text(
-                'My Courses',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                ),
+    return BlocConsumer<MaterialshowCubit, MaterialshowState>(
+      listener: (context, state) {
+        if (state is Materialshowloading) {
+          //   isloading = true;
+        } else if (state is MaterialshowSucess) {
+          ///  isloading = false;
+          subjectnumber = state.data.length;
+          //  detailsmodels=Detailsmodels(materialmodels: state.data, user: user)
+
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.data.last.schedule!.course.toString())));
+        } else if (state is Materialshowfailure) {
+          //  isloading = false;
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('bad bar ')));
+        }
+      },
+      builder: (context, state) {
+        if (state is Materialshowloading) {
+          return ModalProgressHUD(inAsyncCall: true, child: Container());
+        } else if (state is MaterialshowSucess) {
+          subjectnumber = state.data.length;
+          return Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(70),
+                topRight: Radius.circular(70),
               ),
             ),
-          ),
-          SizedBox(
-            height: 35,
-          ),
-          ListTile(
-            title: Text(
-              'E-commerce',
-              style: TextStyle(
-                color: kprimarykey,
-              ),
-            ),
-            subtitle: Text(
-              'take attandance',
-              style: TextStyle(
-                color: kprimarykey,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            trailing: SvgPicture.asset(
-              Assets.assetsImagecourse,
-              height: 40,
-              width: 40,
-              color: Colors.amber,
-            ),
-          ),
-        ],
-      ),
+            child: ListViewhomeViewbody(
+                listd: state.data,
+                subjectnumber: subjectnumber,
+                widget: widget),
+          );
+        } else {
+          return Container();
+        }
+      },
     );
   }
 }

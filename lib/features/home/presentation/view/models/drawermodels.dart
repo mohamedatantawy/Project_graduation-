@@ -1,4 +1,8 @@
+import 'package:flutter/widgets.dart';
+
 class Drawermodels {
   final String title;
-  final data
+  final IconData icon;
+
+  const Drawermodels({required this.title, required this.icon});
 }

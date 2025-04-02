@@ -12,9 +12,9 @@ class Customelevatedbutton extends StatelessWidget {
         horizontal: 30,
       ),
       height: 48,
-     //color: Colors.transparent,
+      //color: Colors.transparent,
       width: double.infinity,
-      
+
       child: ElevatedButton(
         onPressed: onpressed,
         style: ElevatedButton.styleFrom(

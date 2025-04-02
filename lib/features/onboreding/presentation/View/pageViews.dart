@@ -20,7 +20,6 @@ class Pageviews extends StatelessWidget {
       title: 'Get started',
       dateils: "Let's get started on how to learn about our attendance app ",
     ),
-   
   ];
   @override
   Widget build(BuildContext context) {

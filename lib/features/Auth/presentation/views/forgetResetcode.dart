@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_greduation/constants.dart';
-import 'package:project_greduation/features/Auth/presentation/views/widget/forgetResetbody.dart';
+import 'package:project_greduation/features/Auth/presentation/views/widget/forgetResetbodyotp.dart';
 
 class Forgetresetcode extends StatelessWidget {
-  const Forgetresetcode({super.key});
-
+  const Forgetresetcode({super.key, required this.email});
+  final String email;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +23,9 @@ class Forgetresetcode extends StatelessWidget {
               color: Color(0xff06224D),
             ),
           )),
-      body: const Forgetresetbody(),
+      body: Forgetresetbodyotp(
+        email: email,
+      ),
     );
   }
 }
