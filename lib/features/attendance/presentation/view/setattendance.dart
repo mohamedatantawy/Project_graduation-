@@ -30,13 +30,15 @@ class Setattendance extends StatelessWidget {
               style: Textstyles.font18lightwithe,
             ),
             Text(
-             materialmodels.schedule!.course!.name.toString(),
+              materialmodels.schedule!.course!.name.toString(),
               style: Textstyles.font18boldblue,
             ),
           ],
         ),
       ),
-      body: Setattendacebody(materialmodels: materialmodels,),
+      body: Setattendacebody(
+        materialmodels: materialmodels,
+      ),
     );
   }
 }

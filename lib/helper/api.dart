@@ -11,7 +11,8 @@ class Api {
   //         (cert, host, port) => true; // Ignore SSL errors
   //   };
   // }
-  final String baseurl = "https://attendance-production-0ecd.up.railway.app/api/";
+  final String baseurl = 'https://attendance-project.up.railway.app/api/';
+  //"https://attendance-production-0ecd.up.railway.app/api/";
   Future<dynamic> posts({
     required String path,
     Map? data,
@@ -29,7 +30,8 @@ class Api {
         return response.data;
         print(response.data);
       } else {
-        throw Exception('there is an Error');
+        return response.data;
+        //   throw Exception('there is an Error');
       }
     } on DioException catch (e) {
       return e.response!.data;
@@ -73,14 +75,13 @@ class Api {
       ), ); */
     try {
       Response response = await _dio.get(
-        "https://attendance-production-0ecd.up.railway.app/api/$path",
+        "https://attendance-project.up.railway.app/api/$path",
         options: Options(
           headers: token,
         ),
       );
-     
-        return response.data;
-      
+
+      return response.data;
     } on DioException catch (e) {
       return e.response!.data;
     }

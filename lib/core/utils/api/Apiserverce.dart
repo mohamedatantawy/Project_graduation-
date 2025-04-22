@@ -9,11 +9,11 @@ import 'package:project_greduation/helper/api.dart';
 class Apiserverce {
   final Dio dio;
   Apiserverce(this.dio);
-  String getmaterialname = 'https://nubaria.ddns.net/api/student/schedules';
+  String getmaterialname = 'https://attendance-project.up.railway.app/api/student/schedules';
   Future<User> getloginresonse(
       {required String email, required String password}) async {
     var data = await Api(Dio()).posts(
-      path: "https://attendance-production-0ecd.up.railway.app/api/login",
+      path: "https://attendance-project.up.railway.app/api/login",
       data: {
         "email": email,
         "password": password,
@@ -28,7 +28,8 @@ class Apiserverce {
 
   Future<dynamic> getresetpassword({required String email}) async {
     var data = await Api(Dio()).posts(
-      path: "https://attendance-production-0ecd.up.railway.app/api/send-otp",
+      path:
+          "https://attendance-project.up.railway.app/api/send-otp",
       data: {
         "email": email,
       },
@@ -57,7 +58,8 @@ class Apiserverce {
 
   Future<dynamic> getotp({required String email, required String otp}) async {
     var data = await Api(Dio()).posts(
-      path: "https://attendance-production-0ecd.up.railway.app/api/verify-otp",
+      path:
+          "https://attendance-project.up.railway.app/api/verify-otp",
       data: {
         "email": email,
         "otp": otp,
@@ -68,43 +70,43 @@ class Apiserverce {
     return data;
   }
 
-  Future<List<Materialmodels>> getsubject({required String token}) async {
-    var data = await Api(Dio()).geta(
-        path:
-            "https://attendance-production-0ecd.up.railway.app/api/student/schedules",
-        token: {
-          'Authorization': 'Bearer $token', // Include the token here
-        });
-    List<Materialmodels> subjectList = [];
-    List datamodels = data["schedules"];
-    //  print(datamodels.toString());
-    for (int i = 0; i < datamodels.length; i++) {
-      subjectList.add(Materialmodels.fromJson(datamodels[i]));
-    }
-    await Sharedperfernace.setString('token', token);
-    // print(subjectList.length.toString());
-    return subjectList;
-  }
+  // Future<List<Materialmodels>> getsubject({required String token}) async {
+  //   var data = await Api(Dio()).geta(
+  //       path:
+  //           "https://attendance-production-0ecd.up.railway.app/api/student/schedules",
+  //       token: {
+  //         'Authorization': 'Bearer $token', // Include the token here
+  //       });
+  //   List<Materialmodels> subjectList = [];
+  //   List datamodels = data["schedules"];
+  //   //  print(datamodels.toString());
+  //   for (int i = 0; i < datamodels.length; i++) {
+  //     subjectList.add(Materialmodels.fromJson(datamodels[i]));
+  //   }
+  //   await Sharedperfernace.setString('token', token);
+  //   // print(subjectList.length.toString());
+  //   return subjectList;
+  // }
 
-  Future<bool> Is_available(
-      {required String session, required String token,required int id}) async {
-    var data = await Api(Dio()).geta(
-      token: {
-        'Authorization': 'Bearer $token', // Include the token here
-      },
-      path:
-          "https://attendance-production-0ecd.up.railway.app/api/student/is-attendance-available/$id?session_type=$session",
-    );
+  // Future<bool> Is_available(
+  //     {required String session, required String token,required int id}) async {
+  //   var data = await Api(Dio()).geta(
+  //     token: {
+  //       'Authorization': 'Bearer $token', // Include the token here
+  //     },
+  //     path:
+  //         "student/is-attendance-available/$id?session_type=$session",
+  //   );
 
-    // print(data.toString());
-    if (data['message'] == "attendance is available for this course now") {
-      return true;
-    } else {
-      return false;
-    }
-    // print(subjectList.length.toString());
-    return data;
-  }
+  //   // print(data.toString());
+  //   if (data['message'] == "attendance is available for this course now") {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  //   // print(subjectList.length.toString());
+  //   //return data;
+  // }
 
   Future<dynamic> resetpassword(
       {required String email,
@@ -113,7 +115,7 @@ class Apiserverce {
       required String confirm}) async {
     var data = await Api(Dio()).posts(
       path:
-          "https://attendance-production-0ecd.up.railway.app/api/verify-otp-reset-password",
+          "https://attendance-project.up.railway.app/api/verify-otp-reset-password",
       data: {
         "email": email,
         "new_password": password,
@@ -135,12 +137,10 @@ class Apiserverce {
   }) async {
     var data = await Api(Dio()).petch(
       token: {
-           
-            'Authorization':
-                'Bearer $token', // Include the token here
-          },
+        'Authorization': 'Bearer $token', // Include the token here
+      },
       path:
-          "https://attendance-production-0ecd.up.railway.app/api/student/attend/$id",
+          "https://attendance-project.up.railway.app/api/student/attend/$id",
       data: {
         "session_type": session,
         "latitude": latitude,
@@ -158,8 +158,7 @@ class Apiserverce {
       token: {
         'Authorization': 'Bearer $token', // Include the token here
       },
-      path:
-          "https://attendance-production-0ecd.up.railway.app/api/student/attendance-history/$id?session_type=$session",
+      path: "student/attendance-history/$id?session_type=$session",
     );
 
     Reportattandancemodel subjectList;

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:project_greduation/core/styles/textstyles.dart';
 
 class Notificationviewbody extends StatelessWidget {
-  const Notificationviewbody({super.key});
-
+  const Notificationviewbody({super.key, required this.data});
+  final Map data;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,7 +23,7 @@ class Notificationviewbody extends StatelessWidget {
               size: 30,
             ),
             title: Text(
-              'You received a Warning in Computer Vision Subject.',
+              data.keys.first,
               style: Textstyles.font15extrlightblue,
             ),
             subtitle: Text(

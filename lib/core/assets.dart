@@ -17,6 +17,10 @@ class Assets {
   static const String assetsFontsInter28ptBold =
       "asset/fonts/Inter_28pt-Bold.ttf";
 
+  /// Assets for assetsImageChechm
+  /// asset/image/chechm.png
+  static const String assetsImageChechm = "asset/image/chechm.png";
+
   /// Assets for assetsImageGroup2
   /// asset/image/Group2.png
   static const String assetsImageGroup2 = "asset/image/Group2.png";

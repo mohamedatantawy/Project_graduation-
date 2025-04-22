@@ -1,16 +1,13 @@
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:project_greduation/core/utils/api/Apiserverce.dart';
-import 'package:project_greduation/features/home/data/data_sources/home_Remote_data_source.dart';
 import 'package:project_greduation/features/home/data/models/material/materialmodel.dart';
+import 'package:project_greduation/features/home/domain/Repos/homeRepos.dart';
 
 part 'materialshow_state.dart';
 
 class MaterialshowCubit extends Cubit<MaterialshowState> {
   MaterialshowCubit(this.homeRemoteDataSource) : super(MaterialshowInitial());
-  late List<Materialmodels> data;
+  // late List<Materialmodels> data;
   final HomeRemoteDataSource homeRemoteDataSource;
   getsubjectcu({required String token}) async {
     emit(Materialshowloading());

@@ -17,6 +17,7 @@ import 'package:project_greduation/features/home/presentation/view/HomeView.dart
 import 'package:project_greduation/features/home/presentation/view/models/detailsmodels.dart';
 import 'package:project_greduation/features/notification/presentation/view/notificationview.dart';
 import 'package:project_greduation/features/onboreding/presentation/View/pageViews.dart';
+import 'package:project_greduation/features/profile/presentation/view/changepassword.dart';
 import 'package:project_greduation/features/profile/presentation/view/profileview.dart';
 import 'package:project_greduation/features/setting/presentation/view/settingview.dart';
 import 'package:project_greduation/features/splash/presentation/view/splashView.dart';
@@ -34,6 +35,8 @@ abstract class Gorouter {
   static const notification = '/notification';
   static const klogin = '/loginview';
   static const ktake = '/take';
+  static const kchangepassword = '/kchangepassword';
+
   static const ktakesection = '/takesection';
   static const kattendancemothed = '/attendancemothed';
   static const sss = '/taksssssse ';
@@ -54,6 +57,13 @@ abstract class Gorouter {
       },
     ),
     GoRoute(
+      path: kchangepassword,
+      builder: (context, state) {
+        var token = GoRouterState.of(context).extra as String;
+        return Changepassword(token: token,);
+      },
+    ),
+    GoRoute(
       path: ktakesection,
       builder: (context, state) {
         var user = GoRouterState.of(context).extra as Detailsmodels;
@@ -66,7 +76,9 @@ abstract class Gorouter {
       path: kattendancemothed,
       builder: (context, state) {
         var data = GoRouterState.of(context).extra as Reportattandancemodel;
-        return Attendancemothed( reportattandancemodel: data,);
+        return Attendancemothed(
+          reportattandancemodel: data,
+        );
       },
     ),
     GoRoute(
@@ -92,9 +104,13 @@ abstract class Gorouter {
       },
     ),
     GoRoute(
-      path: notification,
-      builder: (context, state) => const Notificationview(),
-    ),
+        path: notification,
+        builder: (context, state) {
+          var token = GoRouterState.of(context).extra as String;
+          return Notificationview(
+            token: token,
+          );
+        }),
     GoRoute(
       path: setting,
       builder: (context, state) {

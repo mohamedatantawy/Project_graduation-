@@ -4,5 +4,5 @@ class Apiconstant {
 
   static const String endpoint = 'login';
   static const String login =
-      'https://attendance-production-0ecd.up.railway.app/api/logout';
+      'https://graduationa-project-production.up.railway.app/api/logout';
 }

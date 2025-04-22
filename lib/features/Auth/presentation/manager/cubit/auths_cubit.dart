@@ -19,7 +19,7 @@ class AuthsCubit extends Cubit<AuthsState> {
           await apiserverce.getloginresonse(email: email, password: password);
 
       print(data.toString());
-     
+
       emit(AuthsSucesslogin(user: data));
     } on Exception catch (e) {
       emit(Authsfailurelogin(User(), emassage: e.toString()));

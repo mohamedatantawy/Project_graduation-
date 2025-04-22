@@ -34,8 +34,9 @@ class Attendanceviewbody extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   if (index == index) {
-                  //  Apiserverce(Dio()).getReport(session: session, id: id, token: token)
-                    GoRouter.of(context).push(Gorouter.ksetattendance,extra: materialmodels[index]);
+                    //  Apiserverce(Dio()).getReport(session: session, id: id, token: token)
+                    GoRouter.of(context).push(Gorouter.ksetattendance,
+                        extra: materialmodels[index]);
                   }
                 },
                 child: Container(

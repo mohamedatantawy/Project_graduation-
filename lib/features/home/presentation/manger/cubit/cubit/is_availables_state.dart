@@ -7,6 +7,14 @@ final class IsAvailablesInitial extends IsAvailablesState {}
 
 final class IsAvailablesloading extends IsAvailablesState {}
 
-final class IsAvailablesSucuess extends IsAvailablesState {}
+final class IsAvailablesSucuess extends IsAvailablesState {
+  final bool isactive;
 
-final class IsAvailablesfailure extends IsAvailablesState {}
+  IsAvailablesSucuess({required this.isactive});
+}
+
+final class IsAvailablesfailure extends IsAvailablesState {
+  final String emassage;
+
+  IsAvailablesfailure({required this.emassage});
+}

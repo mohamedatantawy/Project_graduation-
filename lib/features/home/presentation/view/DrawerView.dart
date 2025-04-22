@@ -28,12 +28,13 @@ class _DrawerviewState extends State<Drawerview> {
       icon: Icons.settings,
     ),
   ];
-  late List<Materialmodels> materialmodels;
+  // late List<Materialmodels> materialmodels;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    materialmodels = BlocProvider.of<MaterialshowCubit>(context).data;
+    //materialmodels = BlocProvider.of<MaterialshowCubit>(context)
+    //   .getsubjectcu(token: widget.user.token!);
   }
 
   @override
@@ -51,7 +52,11 @@ class _DrawerviewState extends State<Drawerview> {
             kbackgrounddrawer,
             kbackgrounddrawershard
           ])),
-      child: Drawerviewbody(widget: widget, itemsofdrawer: itemsofdrawer, materialmodels: materialmodels),
+      child: Drawerviewbody(
+        widget: widget,
+        itemsofdrawer: itemsofdrawer,
+        // materialmodels: materialmodels
+      ),
     );
   }
 }

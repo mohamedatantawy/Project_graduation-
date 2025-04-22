@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -16,12 +15,12 @@ class Drawerviewbody extends StatelessWidget {
     super.key,
     required this.widget,
     required this.itemsofdrawer,
-    required this.materialmodels,
+    // required this.materialmodels,
   });
 
   final Drawerview widget;
   final List<Drawermodels> itemsofdrawer;
-  final List<Materialmodels> materialmodels;
+  // final List<Materialmodels> materialmodels;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +57,7 @@ class Drawerviewbody extends StatelessWidget {
             itemsofdrawer.length,
             (index) {
               return customdraweritems(
-                  materialmodels: materialmodels,
+                  // materialmodels: materialmodels,
                   user: widget.user,
                   title: itemsofdrawer[index].title,
                   index: index,

@@ -30,13 +30,15 @@ class Attendancemothed extends StatelessWidget {
               style: Textstyles.font18lightwithe,
             ),
             Text(
-             "Lecture",
+              "Lecture",
               style: Textstyles.font18boldblue,
             ),
           ],
         ),
       ),
-      body: Attendancemothedbody(reportattandancemodel: reportattandancemodel,),
+      body: Attendancemothedbody(
+        reportattandancemodel: reportattandancemodel,
+      ),
     );
   }
 }

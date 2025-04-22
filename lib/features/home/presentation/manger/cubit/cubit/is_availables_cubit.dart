@@ -1,20 +1,30 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:project_greduation/core/utils/api/Apiserverce.dart';
+import 'package:project_greduation/core/utils/errors/failure.dart';
+import 'package:project_greduation/features/home/domain/Repos/homeRepos.dart';
 
 part 'is_availables_state.dart';
 
 class IsAvailablesCubit extends Cubit<IsAvailablesState> {
-  IsAvailablesCubit() : super(IsAvailablesInitial());
-  getavialablemothed({required String session}) async {
+  IsAvailablesCubit(this.homeRemoteDataSource) : super(IsAvailablesInitial());
+  final HomeRemoteDataSource homeRemoteDataSource;
+  getavialablemothed(
+      {required String session, required String token, required int id}) async {
     emit(IsAvailablesloading());
-    try {
-     // var data = await Apiserverce(Dio()).Is_available(session: session);
-     // print(data.toString());
-      emit(IsAvailablesSucuess());
-    } on Exception catch (e) {
-      emit(IsAvailablesfailure());
-    }
+    var data = await homeRemoteDataSource.isavailablesubject(
+        token: token, id: id, session: session);
+    data.fold((failure) {
+      emit(IsAvailablesfailure(emassage: failure.errormassage));
+    }, (subject) {
+      if (subject == true) {
+        emit(IsAvailablesSucuess(isactive: subject));
+      }else 
+      {
+          emit(IsAvailablesfailure(emassage:'false'));
+      }
+    });
   }
 }

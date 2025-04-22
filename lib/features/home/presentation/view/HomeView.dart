@@ -15,7 +15,6 @@ import 'package:project_greduation/helper/api.dart';
 class Homeview extends StatelessWidget {
   const Homeview({super.key, required this.user});
   final User user;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +22,12 @@ class Homeview extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) =>
-              MaterialshowCubit(getIt.get<HomeRemoteDataSourceImple>())..getsubjectcu(token: user.token!),
+              MaterialshowCubit(getIt.get<HomeRemoteDataSourceImple>())
+                ..getsubjectcu(token: user.token!),
         ),
         BlocProvider(
-          create: (context) => IsAvailablesCubit(),
+          create: (context) =>
+              IsAvailablesCubit(getIt.get<HomeRemoteDataSourceImple>()),
         ),
       ],
       child: Scaffold(
