@@ -11,6 +11,7 @@ class Api {
   //         (cert, host, port) => true; // Ignore SSL errors
   //   };
   // }
+  //https://graduationa-project-production.up.railway.app/api/
   final String baseurl = 'https://attendance-project.up.railway.app/api/';
   //"https://attendance-production-0ecd.up.railway.app/api/";
   Future<dynamic> posts({
@@ -20,7 +21,7 @@ class Api {
   }) async {
     try {
       Response response = await _dio.post(
-        path,
+       "$baseurl$path",
         data: data,
         options: Options(
           headers: token,
@@ -29,10 +30,7 @@ class Api {
       if (response.statusCode == 200 || response.statusCode == 201) {
         return response.data;
         print(response.data);
-      } else {
-        return response.data;
-        //   throw Exception('there is an Error');
-      }
+      } 
     } on DioException catch (e) {
       return e.response!.data;
     }
@@ -44,7 +42,7 @@ class Api {
       required Map<String, dynamic> token}) async {
     try {
       Response response = await _dio.patch(
-        path,
+       "$baseurl$path",
         data: data,
         options: Options(
           headers: token,
@@ -52,9 +50,12 @@ class Api {
       );
 
       print(response.data);
-      return response.data;
+      if (response.statusCode ==200||response.statusCode==201)
+    {  return response.data;}
+   
     } on DioException catch (e) {
       print(e.response!.data.toString());
+      return e.response!.data;
     }
 
     // if (response.statusCode == 403) {

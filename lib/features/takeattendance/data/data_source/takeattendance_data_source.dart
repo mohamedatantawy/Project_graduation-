@@ -9,7 +9,7 @@ class TakeattendanceDataSourceimple implements TakeattandanceDataSoure {
 
   TakeattendanceDataSourceimple({required this.api});
   @override
-  Future< dynamic> getlocation(
+  Future<Either<Failure, dynamic>> getlocation(
       {required String session,
       required String latitude,
       required String longitude,
@@ -21,7 +21,7 @@ class TakeattendanceDataSourceimple implements TakeattandanceDataSoure {
           'Authorization': 'Bearer $token', // Include the token here
         },
         path:
-            "https://graduationa-project-production.up.railway.app/api/student/attend/$id",
+            "student/attend/$id",
         data: {
           "session_type": session,
           "latitude": latitude,
@@ -29,10 +29,16 @@ class TakeattendanceDataSourceimple implements TakeattandanceDataSoure {
         },
       );
       print(data.toString());
-        return data;
-      
-    }on DioException catch (e) {
-      return e.response!.data['message'];
+      return right(data);
+    } catch (e) {
+     if (e is DioException)
+    {  print(e.response.toString());
+        return left(Serverfailure.fromdioerror(e));
+      }else {
+        return left(Serverfailure(
+          errormassage: e.toString(),
+        ));
+      }
     }
   }
 }

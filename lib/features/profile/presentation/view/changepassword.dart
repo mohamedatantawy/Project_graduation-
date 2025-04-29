@@ -3,18 +3,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_greduation/constants.dart';
-import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/core/utils/customelevatedbutton.dart';
-import 'package:project_greduation/features/Auth/presentation/manager/cubit/auths_cubit.dart';
 import 'package:project_greduation/features/Auth/presentation/views/widget/textfield.dart';
 import 'package:project_greduation/features/profile/presentation/mange/cubit/changepassword_cubit.dart';
 
-class Changepassword extends StatelessWidget {
+class Changepassword extends StatefulWidget {
   const Changepassword({
     super.key,
     required this.token,
   });
   final String token;
+
+  @override
+  State<Changepassword> createState() => _ChangepasswordState();
+}
+
+class _ChangepasswordState extends State<Changepassword> {
+  bool isloading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,8 +36,33 @@ class Changepassword extends StatelessWidget {
               color: Color(0xff06224D),
             ),
           )),
-      body: Resetpasswordbodyd(
-        token: token,
+      body: BlocConsumer<ChangepasswordCubit, ChangepasswordState>(
+        listener: (context, state) {
+          if (state is Changepasswordloading) {
+            isloading = true;
+          } else if (state is ChangepasswordSucess) {
+            isloading = false;
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Your Password is change Now')));
+            GoRouter.of(context).pop();
+          } else if (state is ChangepasswordFailure) {
+            isloading = false;
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('${state.emassage}')));
+          } else {
+            isloading = false;
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Your Password is not change ')));
+          }
+        },
+        builder: (context, state) {
+          return ModalProgressHUD(
+            inAsyncCall: isloading,
+            child: Resetpasswordbodyd(
+              token: widget.token,
+            ),
+          );
+        },
       ),
     );
   }

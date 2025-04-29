@@ -7,8 +7,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/core/utils/customelevatedbutton.dart';
-import 'package:project_greduation/features/Auth/data/models/loginmodels.dart';
-import 'package:project_greduation/features/Auth/presentation/manager/cubit/auths_cubit.dart';
+import 'package:project_greduation/features/Auth/presentation/manager/auth_SendOTP/auth_send_otp_cubit.dart';
 
 class Forgetresetbodyotp extends StatefulWidget {
   const Forgetresetbodyotp({super.key, required this.email});
@@ -21,7 +20,7 @@ class _ForgetresetbodyotpState extends State<Forgetresetbodyotp> {
   GlobalKey<FormState> keyform = GlobalKey();
   final TextEditingController otp = TextEditingController();
   bool isloading = false;
-  late Loginmodels loginmodels;
+  Map<String, dynamic> dataofemail = {};
   @override
   void initState() {
     //  loginmodels = Loginmodels(email: widget.email, otp: otp.text);
@@ -30,142 +29,145 @@ class _ForgetresetbodyotpState extends State<Forgetresetbodyotp> {
 
   @override
   Widget build(BuildContext context) {
-    return ModalProgressHUD(
-      inAsyncCall: isloading,
-      child: BlocConsumer<AuthsCubit, AuthsState>(
-        listener: (context, state) {
-          if (state is Authsloadingotp) {
-            isloading = true;
-          } else if (state is AuthsSucessotp) {
-            isloading = false;
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('good bar ')));
-            GoRouter.of(context)
-                .pushReplacement(Gorouter.kresetpassword, extra: loginmodels);
-          } else if (state is Authsfailureotp) {
-            isloading = false;
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('good bar ')));
-            GoRouter.of(context)
-                .pushReplacement(Gorouter.kresetpassword, extra: loginmodels);
-          }
-        },
-        builder: (context, state) {
-          return ModalProgressHUD(
-            inAsyncCall: isloading,
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Form(
-                key: keyform,
-                child: ListView(
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Password reset code',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
-                        color: kprimarykey,
+    return BlocConsumer<AuthSendOtpCubit, AuthSendOtpState>(
+      listener: (context, state) {
+        if (state is AuthSendOtploading) {
+          isloading = true;
+        } else if (state is AuthSendOtpSucess) {
+          isloading = false;
+          dataofemail = {
+            "email": state.email,
+            "OTP": state.otp,
+          };
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('good bar ${state.data} ${state.otp}')));
+          GoRouter.of(context).pushReplacement(
+            Gorouter.kresetpassword,
+            extra: dataofemail,
+          );
+        } else if (state is AuthSendOtpfailure) {
+          isloading = false;
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('bad bar ${state.emassage}')));
+          setState(() {});
+          //   GoRouter.of(context)
+          //       .pushReplacement(Gorouter.kresetpassword, extra: loginmodels);
+          //
+        }
+      },
+      builder: (context, state) {
+        return ModalProgressHUD(
+          inAsyncCall: isloading,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Form(
+              key: keyform,
+              child: ListView(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Password reset code',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                      color: kprimarykey,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 37,
+                  ),
+                  const Text(
+                    'Email Verification',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: kprimarykey,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  const Text(
+                    'Get Your Code',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: kprimarykey,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 60,
+                  ),
+                  const Text(
+                    'Please enter the four-digit code',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: kprimarykey,
+                    ),
+                  ),
+                  const Text(
+                    'sent to your email address',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: kprimarykey,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 31,
+                  ),
+                  Custompincodeconfirm(
+                    otp: otp,
+                  ),
+                  const SizedBox(
+                    height: 31,
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        'If you do not receive the code !',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: kprimarykey,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 37,
-                    ),
-                    const Text(
-                      'Email Verification',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: kprimarykey,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    const Text(
-                      'Get Your Code',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: kprimarykey,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 60,
-                    ),
-                    const Text(
-                      'Please enter the four-digit code',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: kprimarykey,
-                      ),
-                    ),
-                    const Text(
-                      'sent to your email address',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: kprimarykey,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 31,
-                    ),
-                    Custompincodeconfirm(
-                      otp: otp,
-                    ),
-                    const SizedBox(
-                      height: 31,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          'If you do not receive the code !',
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'Reset',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w800,
                             color: kprimarykey,
                           ),
                         ),
-                        TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            'Reset',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w800,
-                              color: kprimarykey,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 150,
-                    ),
-                    Customelevatedbutton(
-                        onpressed: () {
-                          if (keyform.currentState!.validate()) {
-                            BlocProvider.of<AuthsCubit>(context)
-                                .getotp(email: widget.email, otp: otp.text);
-                            loginmodels =
-                                Loginmodels(email: widget.email, otp: otp.text);
-                          }
-                        },
-                        title: 'Verify')
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 150,
+                  ),
+                  Customelevatedbutton(
+                      onpressed: () {
+                        if (keyform.currentState!.validate()) {
+                          BlocProvider.of<AuthSendOtpCubit>(context)
+                              .sendOTP(email: widget.email, otp: otp.text);
+                        }
+                      },
+                      title: 'Verify')
+                ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -183,11 +185,25 @@ class Custompincodeconfirm extends StatefulWidget {
 
 class _CustompincodeconfirmState extends State<Custompincodeconfirm> {
   @override
-  void dispose() {
-    //  otp.clear();
-    // otp.dispose();
+  String? _errorMessage;
 
-    super.dispose();
+  void _validateInput(String value) {
+    try {
+      // Check if the input is valid
+      if (value.isEmpty || !RegExp(r'^\d+$').hasMatch(value)) {
+        throw Exception("Input must be a number.");
+      }
+      // Clear error message if valid
+      setState(() {
+        _errorMessage = null;
+      });
+    } catch (e) {
+      // Handle exception
+      setState(() {
+        _errorMessage = e.toString();
+        widget.otp.clear(); // Clear input on error
+      });
+    }
   }
 
   bool emptybool = false;
@@ -195,6 +211,9 @@ class _CustompincodeconfirmState extends State<Custompincodeconfirm> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 65),
+
+      // to try other  the solveing this problem
+
       child: PinCodeTextField(
         appContext: context,
         validator: (value) {
@@ -224,78 +243,3 @@ class _CustompincodeconfirmState extends State<Custompincodeconfirm> {
     );
   }
 }
-/* Form(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          color: Colors.grey,
-          height: 45,
-          width: 45,
-          child: TextFormField(
-            onSaved: (newValue) {},
-            onChanged: (value) {
-              FocusScope.of(context).nextFocus();
-            },
-            // keyboardType: TextInputType.number,
-            textAlign: TextAlign.center,
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-              FilteringTextInputFormatter.singleLineFormatter,
-            ],
-          ),
-        ),
-        Container(
-          color: Colors.grey,
-          height: 45,
-          width: 45,
-          child: TextFormField(
-            onSaved: (newValue) {},
-            onChanged: (value) {
-              FocusScope.of(context).nextFocus();
-            },
-            // keyboardType: TextInputType.number,
-            textAlign: TextAlign.center,
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-              FilteringTextInputFormatter.singleLineFormatter,
-            ],
-          ),
-        ),
-        Container(
-          color: Colors.grey,
-          height: 45,
-          width: 45,
-          child: TextFormField(
-            onSaved: (newValue) {},
-            onChanged: (value) {
-              FocusScope.of(context).nextFocus();
-            },
-            // keyboardType: TextInputType.number,
-            textAlign: TextAlign.center,
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-              FilteringTextInputFormatter.singleLineFormatter,
-            ],
-          ),
-        ),
-        Container(
-          color: Colors.grey,
-          height: 45,
-          width: 45,
-          child: TextFormField(
-            onSaved: (newValue) {},
-            onChanged: (value) {
-              FocusScope.of(context).nextFocus();
-            },
-            //keyboardType: TextInputType.emailAddress,
-            textAlign: TextAlign.center,
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-              FilteringTextInputFormatter.singleLineFormatter,
-            ],
-          ),
-        ),
-      ],
-    ));
-  */

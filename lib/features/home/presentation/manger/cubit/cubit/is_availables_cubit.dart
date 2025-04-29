@@ -20,7 +20,10 @@ class IsAvailablesCubit extends Cubit<IsAvailablesState> {
       emit(IsAvailablesfailure(emassage: failure.errormassage));
     }, (subject) {
       if (subject == true) {
-        emit(IsAvailablesSucuess(isactive: subject));
+        if(session=='lecture')
+        {emit(IsAvailablesSucuessLecture(isactive: subject));}else {
+          emit(IsAvailablesSucuessSection(isactive: subject));
+        }
       }else 
       {
           emit(IsAvailablesfailure(emassage:'false'));

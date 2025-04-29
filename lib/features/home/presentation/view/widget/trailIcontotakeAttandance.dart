@@ -47,7 +47,7 @@ class _trailIcontoTakeAttandanceState extends State<trailIcontoTakeAttandance> {
                 height: 120,
                 child: BlocConsumer<IsAvailablesCubit, IsAvailablesState>(
                   listener: (context, state) {
-                    if (state is IsAvailablesSucuess) {
+                    if (state is IsAvailablesSucuessLecture) {
                       GoRouter.of(context).push(
                         Gorouter.ktake,
                         extra: Detailsmodels(
@@ -60,7 +60,20 @@ class _trailIcontoTakeAttandanceState extends State<trailIcontoTakeAttandance> {
                       
                       isloading = false;
                       Navigator.of(context).pop();
-                    } else if (state is IsAvailablesloading) {
+                    } else if (state is IsAvailablesSucuessSection) {
+                      GoRouter.of(context).push(
+                        Gorouter.ktakesection,
+                        extra: Detailsmodels(
+                            materialmodels: widget.materialmodelslist,
+                            user: widget.widget.user),
+                      ); if (state.isactive==true) {
+                         ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('This section is sucess')));
+                       }
+                      
+                      isloading = false;
+                      Navigator.of(context).pop();
+                    }else if (state is IsAvailablesloading) {
                       isloading = true;
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('This Lecture is loading')));

@@ -1,8 +1,6 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_greduation/features/Auth/data/models/loginmodels.dart';
 import 'package:project_greduation/features/Auth/data/models/user/user.dart';
-import 'package:project_greduation/features/Auth/presentation/manager/cubit/auths_cubit.dart';
 import 'package:project_greduation/features/Auth/presentation/views/forgetResetcode.dart';
 import 'package:project_greduation/features/Auth/presentation/views/forgetpasswordView.dart';
 import 'package:project_greduation/features/Auth/presentation/views/login.dart';
@@ -11,7 +9,6 @@ import 'package:project_greduation/features/attendance/data/models/reportattanda
 import 'package:project_greduation/features/attendance/presentation/view/attendancemothed.dart';
 import 'package:project_greduation/features/attendance/presentation/view/attendanceview.dart';
 import 'package:project_greduation/features/attendance/presentation/view/setattendance.dart';
-import 'package:project_greduation/features/attendance/presentation/view/widget/attendancemothedbody.dart';
 import 'package:project_greduation/features/home/data/models/material/materialmodel.dart';
 import 'package:project_greduation/features/home/presentation/view/HomeView.dart';
 import 'package:project_greduation/features/home/presentation/view/models/detailsmodels.dart';
@@ -60,7 +57,9 @@ abstract class Gorouter {
       path: kchangepassword,
       builder: (context, state) {
         var token = GoRouterState.of(context).extra as String;
-        return Changepassword(token: token,);
+        return Changepassword(
+          token: token,
+        );
       },
     ),
     GoRoute(
@@ -156,14 +155,15 @@ abstract class Gorouter {
       },
     ),
     GoRoute(
-      path: kresetpassword,
-      builder: (context, state) {
-        var login = GoRouterState.of(context).extra as Loginmodels;
-        return Resetpassword(
-          email: login.email,
-          otp: login.otp,
-        );
-      },
-    ),
+        path: kresetpassword,
+        builder: (context, state) {
+          var login = GoRouterState.of(context).extra as Map;
+         // return Forgetpasswordview();
+            return Resetpassword(
+              email: login['email'],
+              otp: login['OTP'],
+            );
+          },
+        ),
   ]);
 }

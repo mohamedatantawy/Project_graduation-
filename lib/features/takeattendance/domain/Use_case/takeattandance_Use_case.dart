@@ -6,7 +6,7 @@ class TakeattandanceUseCase {
   final TakeattandanceDataSoure takeattandanceDataSoure;
 
   TakeattandanceUseCase({required this.takeattandanceDataSoure});
-  Future<dynamic> call({
+   Future<Either<Failure,dynamic>> call({
     required String session,
     required String latitude,
     required String longitude,

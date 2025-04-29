@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_greduation/constants.dart';
+import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/features/Auth/presentation/views/widget/forgetResetbodyotp.dart';
 
 class Forgetresetcode extends StatelessWidget {
@@ -16,7 +17,9 @@ class Forgetresetcode extends StatelessWidget {
           backgroundColor: kbackgroundcolor,
           leading: IconButton(
             onPressed: () {
-              GoRouter.of(context).pop();
+              GoRouter.of(context).pushReplacement(
+                Gorouter.klogin,
+              );
             },
             icon: const Icon(
               Icons.arrow_back_ios,

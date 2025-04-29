@@ -9,7 +9,8 @@ import 'package:project_greduation/helper/api.dart';
 class Apiserverce {
   final Dio dio;
   Apiserverce(this.dio);
-  String getmaterialname = 'https://attendance-project.up.railway.app/api/student/schedules';
+  String getmaterialname =
+      'https://attendance-project.up.railway.app/api/student/schedules';
   Future<User> getloginresonse(
       {required String email, required String password}) async {
     var data = await Api(Dio()).posts(
@@ -28,8 +29,7 @@ class Apiserverce {
 
   Future<dynamic> getresetpassword({required String email}) async {
     var data = await Api(Dio()).posts(
-      path:
-          "https://attendance-project.up.railway.app/api/send-otp",
+      path: "https://attendance-project.up.railway.app/api/send-otp",
       data: {
         "email": email,
       },
@@ -41,7 +41,7 @@ class Apiserverce {
 
   Future<dynamic> logout({required String token}) async {
     var dataa = await Api(Dio()).posts(
-      path: Apiconstant.login,
+      path: Apiconstant.logout,
       token: {
         'Authorization': 'Bearer $token', // Include the token here
       },
@@ -58,8 +58,7 @@ class Apiserverce {
 
   Future<dynamic> getotp({required String email, required String otp}) async {
     var data = await Api(Dio()).posts(
-      path:
-          "https://attendance-project.up.railway.app/api/verify-otp",
+      path: "https://attendance-project.up.railway.app/api/verify-otp",
       data: {
         "email": email,
         "otp": otp,
@@ -139,8 +138,7 @@ class Apiserverce {
       token: {
         'Authorization': 'Bearer $token', // Include the token here
       },
-      path:
-          "https://attendance-project.up.railway.app/api/student/attend/$id",
+      path: "https://attendance-project.up.railway.app/api/student/attend/$id",
       data: {
         "session_type": session,
         "latitude": latitude,

@@ -16,12 +16,25 @@ class NotificationcubitCubit extends Cubit<NotificationcubitState> {
     var data = await notificationUseCase.call(
       token: token,
     );
+
     data.fold(
       (failure) {
         emit(Notificationcubitfailure(emassage: failure.errormassage));
       },
       (list) {
-        emit(NotificationcubitSucess(worning: list));
+        List<String> keysitem = [];
+        for (String name in list.keys) {
+          keysitem.add(name);
+        }
+      
+        for (int i = 0; i < list.keys.length; i++) {
+          if (list['${ keysitem[i]}'] == []) {
+            list.remove('${keysitem[i]}');
+             keysitem.remove(keysitem[i]);
+          }
+        }
+        
+        emit(NotificationcubitSucess(keylist: keysitem, worning: list));
       },
     );
   }

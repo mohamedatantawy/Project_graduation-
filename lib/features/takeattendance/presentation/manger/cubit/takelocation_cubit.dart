@@ -23,19 +23,47 @@ class TakelocationCubit extends Cubit<TakelocationState> {
         longitude: longitude,
         session: session,
         token: token);
+    data.fold((failure) {
+      if (failure.errormassage == 'you are not in college') {
+        emit(Takelocationoutthecollege(emassage: failure.errormassage));
+      } else if (failure.errormassage == "attendance is already registered") {
+        emit(TakelocationalrdayRegister(emassage: failure.errormassage));
+      } else if (failure.errormassage == 'schedule not found') {
+        emit(TakelocationFailure(emassage: failure.errormassage));
+      } else if (failure.errormassage ==
+          'the student has not registered for this course') {
+        emit(TakelocationFailure(emassage: failure.errormassage));
+      } else if (failure.errormassage ==
+          'the doctor did not open the attendance today') {
+        emit(TakelocationFailure(emassage: failure.errormassage));
+      } else {
+        emit(TakelocationFailure(emassage: failure.errormassage));
+      }
+    }, (data) {
+      print(data.toString());
 
-    if (data == 'you are not in college') {
-      emit(Takelocationoutthecollege(emassage: data));
-    } else if (data ==  "attendance is already registered") {
-      emit(TakelocationalrdayRegister(emassage: data));
-    } else if (data == 'attendance is registered') {
-      emit(TakelocationSucess());
-    } else if (data == 'schedule not found') {
-      emit(TakelocationFailure(emassage: data));
-    } else if (data == 'the student has not registered for this course') {
-      emit(TakelocationFailure(emassage: data));
-    } else if (data == 'the doctor did not open the attendance today') {
-        emit(TakelocationFailure(emassage: data));
-    } else   {emit(TakelocationFailure(emassage: data.toString()));}
+      if (data['message'] == 'you are not in college') {
+        emit(Takelocationoutthecollege(emassage: data['message']));
+      } else if (data['message'] == "attendance is already registered") {
+        emit(TakelocationalrdayRegister(emassage: data['message']));
+      } else if (data['message'] == 'attendance is registered') {
+        emit(TakelocationSucess());
+      } else if (data['message'] == 'schedule not found') {
+        emit(TakelocationFailure(emassage: data['message']));
+      } else if (data['message'] ==
+          'the student has not registered for this course') {
+        emit(TakelocationFailure(emassage: data['message']));
+      } else if (data['message'] ==
+          'the doctor did not open the attendance today') {
+        emit(TakelocationFailure(emassage: data['message']));
+      } else {
+        emit(TakelocationFailure(emassage: data.toString()));
+      }
+    });
+
+  
   }
+  void  reset() {
+      emit(TakelocationInitial());
+    }
 }

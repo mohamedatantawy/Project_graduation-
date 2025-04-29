@@ -39,63 +39,6 @@ class _takeatandanceforLectureState extends State<takeatandanceforLecture> {
       ),
     );
 
-    //   return BlocConsumer<IsAvailablesCubit, IsAvailablesState>(
-    //     listener: (context, state) {
-    //       if (state is IsAvailablesSucuess) {
-    //         GoRouter.of(context).push(
-    //           Gorouter.ktake,
-    //           extra: Detailsmodels(
-    //               materialmodels: widget.materialmodelslist,
-    //               user: widget.widget.user),
-    //         );
-    //         Navigator.of(context).pop();
-    //       } else {
-    //         ScaffoldMessenger.of(context).showSnackBar(
-    //             SnackBar(content: Text('This Lecture not avalible now')));
-    //       }
-    //     },
-    //     builder: (context, state) {
-    //       if (state is IsAvailablesSucuess) {
-    //         return TextButton(
-    //             onPressed: () {
-    //               var response = context
-    //                   .read<IsAvailablesCubit>()
-    //                   .getavialablemothed(
-    //                       id: widget.materialmodelslist.academicScheduleId!,
-    //                       token: widget.widget.user.token!,
-    //                       session: 'lecture');
-    //               // var datas = await Apiserverce(Dio()).Is_available(
-    //               //     id: widget.materialmodelslist.academicScheduleId!,
-    //               //     token: widget.widget.user.token!,
-    //               //     session: 'lecture');
-    //             },
-    //             child: Text(
-    //               'Lecture',
-    //               style: Textstyles.font18boldblue,
-    //             ));
-    //       } else if (state is IsAvailablesloading) {
-    //         return ModalProgressHUD(inAsyncCall: true, child: Container());
-    //       } else  {
-    //         return TextButton(
-    //             onPressed: () {
-    //               var response = context
-    //                   .read<IsAvailablesCubit>()
-    //                   .getavialablemothed(
-    //                       id: widget.materialmodelslist.academicScheduleId!,
-    //                       token: widget.widget.user.token!,
-    //                       session: 'lecture');
-    //               // var datas = await Apiserverce(Dio()).Is_available(
-    //               //     id: widget.materialmodelslist.academicScheduleId!,
-    //               //     token: widget.widget.user.token!,
-    //               //     session: 'lecture');
-    //             },
-    //             child: Text(
-    //               'Lecture',
-    //               style: Textstyles.font18boldblue,
-    //             ));
-    //       }
-    //     },
-    //   );
-    // }
+
   }
 }

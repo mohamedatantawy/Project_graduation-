@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/styles/textstyles.dart';
 import 'package:project_greduation/features/home/presentation/view/models/detailsmodels.dart';
+import 'package:project_greduation/features/takeattendance/presentation/manger/cubit/takelocation_cubit.dart';
 import 'package:project_greduation/features/takeattendance/presentation/widget/takeattendance.dart';
 
 class Takeattendance extends StatelessWidget {
@@ -18,6 +20,7 @@ class Takeattendance extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             GoRouter.of(context).pop();
+            context.read<TakelocationCubit>().reset();
           },
           icon: const Icon(
             Icons.arrow_back_ios,

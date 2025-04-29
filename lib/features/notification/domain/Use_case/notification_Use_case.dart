@@ -7,7 +7,7 @@ class NotificationUseCase {
   final NotificationRemoteSource notificationRemoteSource;
 
   NotificationUseCase({required this.notificationRemoteSource});
-  Future<Either<Failure,  dynamic>> call({
+  Future<Either<Failure,  Map<String,dynamic>>> call({
     required String token,
   }) {
     return notificationRemoteSource.fetchNotification(

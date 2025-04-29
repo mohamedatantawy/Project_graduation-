@@ -5,7 +5,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/core/utils/customelevatedbutton.dart';
-import 'package:project_greduation/features/Auth/presentation/manager/cubit/auths_cubit.dart';
+import 'package:project_greduation/features/Auth/presentation/manager/auth_SendNewPassword/auth_send_new_password_cubit.dart';
 import 'package:project_greduation/features/Auth/presentation/views/widget/textfield.dart';
 
 class Resetpassword extends StatelessWidget {
@@ -21,7 +21,7 @@ class Resetpassword extends StatelessWidget {
           backgroundColor: kbackgroundcolor,
           leading: IconButton(
             onPressed: () {
-              GoRouter.of(context).pop();
+               GoRouter.of(context).pushReplacement(Gorouter.klogin);
             },
             icon: const Icon(
               Icons.arrow_back_ios,
@@ -54,19 +54,19 @@ class _ResetpasswordbodyState extends State<Resetpasswordbody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthsCubit, AuthsState>(
+    return BlocConsumer<AuthSendNewPasswordCubit, AuthSendNewPasswordState>(
       listener: (context, state) {
-        if (state is AuthsloadingReset) {
+        if (state is AuthSendNewPasswordloading) {
           isloading = true;
-        } else if (state is AuthsSucessReset) {
+        } else if (state is AuthSendNewPasswordSucess) {
           isloading = false;
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('good bar ')));
+              .showSnackBar(SnackBar(content: Text('good bar ${state.data} ')));
           GoRouter.of(context).pushReplacement(Gorouter.klogin);
-        } else if (state is AuthsfailureReset) {
+        } else if (state is AuthSendNewPasswordFailure) {
           isloading = false;
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('bad bar ')));
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('bad bar ${state.emassage} ')));
           GoRouter.of(context).pushReplacement(Gorouter.klogin);
         }
       },
@@ -168,11 +168,12 @@ class _ResetpasswordbodyState extends State<Resetpasswordbody> {
                     title: 'Verify',
                     onpressed: () {
                       if (keyform.currentState!.validate()) {
-                        BlocProvider.of<AuthsCubit>(context).Resetpass(
-                            email: widget.email,
-                            otp: widget.otp,
-                            password: _password.text,
-                            confirm: _confirmpassword.text);
+                        BlocProvider.of<AuthSendNewPasswordCubit>(context)
+                            .sendNewpasswordMethod(
+                                email: widget.email,
+                                otp: widget.otp,
+                                password: _password.text,
+                                confirm: _confirmpassword.text);
                         //   GoRouter.of(context).pushReplacement(Gorouter.klogin);
 
                         //show snackbar to teel you is correct

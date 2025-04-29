@@ -31,6 +31,7 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
     super.initState();
   }
 
+  bool isSucess = true;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -92,29 +93,25 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
             radius: 100,
             backgroundColor: kbackgroundcolor,
             child: GestureDetector(
-              onTap: () async {
-                String token = await Sharedperfernace.getString('token') ?? '';
-                var data = await location.getLocation();
-                print(" ${data.latitude} ${data.longitude}");
-                await context.read<TakelocationCubit>().getlocationmothed(
-                    id: widget.materialmodels.academicScheduleId!,
-                    token: token,
-                    latitude: "30.669295878641602", // data.latitude.toString(),
-                    longitude:
-                        "30.070144100553378", //data.longitude.toString(),
-                    session: "lecture");
-                // context.read<TakelocationCubit>().updateLocation('New Location'
-
-                //  String token = await Sharedperfernace.getString('token') ?? '';
-                // print(" ${data.latitude} ${data.longitude} section");
-                // var datas = await Apiserverce(Dio()).getloaction(
-                //     token: token,
-                //     id: widget.materialmodels.academicScheduleId!,
-                //     latitude: "30.669295878641602",
-                //     longitude: "30.070144100553378",
-                //     session: "lecture");
-              },
-              child: consumerchecklocation(),
+              onTap:
+                   () async {
+                      String token =
+                          await Sharedperfernace.getString('token') ?? '';
+                      var data = await location.getLocation();
+                      print(" ${data.latitude} ${data.longitude}");
+                      await context.read<TakelocationCubit>().getlocationmothed(
+                          id: widget.materialmodels.academicScheduleId!,
+                          token: token,
+                          latitude:
+                              "30.669295878641602", // data.latitude.toString(),
+                          longitude:
+                              "30.070144100553378", //data.longitude.toString(),
+                          session: "lecture");
+                    }
+                ,
+              child: consumerchecklocation(
+              
+              ),
             ),
           ),
         ),
@@ -199,10 +196,11 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
 }
 
 class consumerchecklocation extends StatefulWidget {
-  const consumerchecklocation({
+  consumerchecklocation({
     super.key,
+    
   });
-
+ 
   @override
   State<consumerchecklocation> createState() => _consumerchecklocationState();
 }
@@ -215,6 +213,7 @@ class _consumerchecklocationState extends State<consumerchecklocation> {
       listener: (context, state) {
         if (state is TakelocationSucess) {
           isloading = false;
+         
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text('This Lecture is Sucess')));
         } else if (state is Takelocationloading) {
@@ -223,21 +222,24 @@ class _consumerchecklocationState extends State<consumerchecklocation> {
               .showSnackBar(SnackBar(content: Text('This Lecture is loading')));
         } else if (state is TakelocationalrdayRegister) {
           isloading = false;
+           
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('This Lecture is alrday is register')));
         } else if (state is Takelocationoutthecollege) {
           isloading = false;
+           
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('This Lecture is not in the college')));
         } else if (state is TakelocationFailure) {
           isloading = false;
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('${state.emassage}')));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('${state.emassage}')));
         } else {
           isloading = false;
         }
       },
       builder: (context, state) {
+
         if (state is TakelocationSucess) {
           return CircleAvatar(
             radius: 70,
@@ -257,7 +259,6 @@ class _consumerchecklocationState extends State<consumerchecklocation> {
               ],
             ),
           );
-        
         } else if (state is TakelocationalrdayRegister) {
           return CircleAvatar(
             radius: 70,
@@ -277,7 +278,7 @@ class _consumerchecklocationState extends State<consumerchecklocation> {
               ],
             ),
           );
-        } else if (state is Takelocationoutthecollege) {
+        } else if (state is TakelocationalrdayRegister) {
           return CircleAvatar(
             radius: 70,
             backgroundColor: kcolorwhite,
@@ -289,7 +290,26 @@ class _consumerchecklocationState extends State<consumerchecklocation> {
                   height: 10,
                 ),
                 Text(
-                  'not true loaction',
+                  'Already',
+                  style:
+                      Textstyles.font16boldwithe.copyWith(color: kprimarykey),
+                ),
+              ],
+            ),
+          );
+        } else if (state is TakelocationInitial) {
+          return CircleAvatar(
+            radius: 70,
+            backgroundColor: kcolorwhite,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(Assets.assetsImageGroup2),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'CHECK IN',
                   style:
                       Textstyles.font14medinmblue.copyWith(color: kprimarykey),
                 ),
@@ -310,7 +330,7 @@ class _consumerchecklocationState extends State<consumerchecklocation> {
                     height: 10,
                   ),
                   Text(
-                    'CHECK1 IN',
+                    'CHECK IN',
                     style: Textstyles.font16medinmbluesetting
                         .copyWith(color: kprimarykey),
                   ),

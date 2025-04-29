@@ -7,10 +7,16 @@ final class IsAvailablesInitial extends IsAvailablesState {}
 
 final class IsAvailablesloading extends IsAvailablesState {}
 
-final class IsAvailablesSucuess extends IsAvailablesState {
+final class IsAvailablesSucuessLecture extends IsAvailablesState {
   final bool isactive;
 
-  IsAvailablesSucuess({required this.isactive});
+  IsAvailablesSucuessLecture({required this.isactive});
+}
+
+final class IsAvailablesSucuessSection extends IsAvailablesState {
+  final bool isactive;
+
+  IsAvailablesSucuessSection({required this.isactive});
 }
 
 final class IsAvailablesfailure extends IsAvailablesState {

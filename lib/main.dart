@@ -1,13 +1,16 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/core/utils/server_loaction.dart';
-import 'package:project_greduation/features/Auth/presentation/manager/cubit/auths_cubit.dart';
-import 'package:project_greduation/features/attendance/data/data_source/attendance_Remote_source.dart';
+import 'package:project_greduation/features/Auth/domain/Use_case/Auth_Use_Case_SendNewPassword.dart';
+import 'package:project_greduation/features/Auth/domain/Use_case/Auths_Use_Case_SendEmail.dart';
+import 'package:project_greduation/features/Auth/domain/Use_case/Auths_Use_Case_SendOTP.dart';
+import 'package:project_greduation/features/Auth/domain/Use_case/Auths_Use_Case_login.dart';
+import 'package:project_greduation/features/Auth/presentation/manager/Auth_SendEmail/auth_send_email_cubit.dart';
+import 'package:project_greduation/features/Auth/presentation/manager/Auth_login/auth_login_cubit.dart';
+import 'package:project_greduation/features/Auth/presentation/manager/auth_SendNewPassword/auth_send_new_password_cubit.dart';
+import 'package:project_greduation/features/Auth/presentation/manager/auth_SendOTP/auth_send_otp_cubit.dart';
 import 'package:project_greduation/features/attendance/domain/Use_Case/attendance_Use_Case.dart';
-import 'package:project_greduation/features/attendance/domain/repos/attendanceRepos.dart';
 import 'package:project_greduation/features/attendance/presentation/manage/cubit/attandance_report_cubit.dart';
 import 'package:project_greduation/features/home/data/data_sources/home_Remote_data_source.dart';
 import 'package:project_greduation/features/home/presentation/manger/cubit/cubit/is_availables_cubit.dart';
@@ -15,10 +18,8 @@ import 'package:project_greduation/features/notification/domain/Use_case/notific
 import 'package:project_greduation/features/notification/presentation/mange/cubit/notificationcubit_cubit.dart';
 import 'package:project_greduation/features/profile/domain/Use_case/Profile_Use_case.dart';
 import 'package:project_greduation/features/profile/presentation/mange/cubit/changepassword_cubit.dart';
-import 'package:project_greduation/features/takeattendance/data/data_source/takeattendance_data_source.dart';
 import 'package:project_greduation/features/takeattendance/domain/Use_case/takeattandance_Use_case.dart';
 import 'package:project_greduation/features/takeattendance/presentation/manger/cubit/takelocation_cubit.dart';
-import 'package:project_greduation/helper/api.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +37,16 @@ class PorjectGreduation extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthsCubit(),
+          create: (context) => AuthLoginCubit(getIt.get<AuthsUseCaseLogin>()),
+        ),
+         BlocProvider(
+          create: (context) => AuthSendEmailCubit(getIt.get<AuthsUseCaseSendemail>()),
+        ),
+        BlocProvider(
+          create: (context) => AuthSendOtpCubit(getIt.get<AuthsUseCaseSendotp>()),
+        ),
+         BlocProvider(
+          create: (context) => AuthSendNewPasswordCubit(getIt.get<AuthUseCaseSendnewpassword>()),
         ),
         BlocProvider(
           create: (context) => AttandanceReportCubit(

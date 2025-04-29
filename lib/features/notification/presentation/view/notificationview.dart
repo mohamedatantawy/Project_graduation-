@@ -47,6 +47,7 @@ class _NotificationviewState extends State<Notificationview> {
         builder: (context, state) {
           if (state is NotificationcubitSucess) {
             return Notificationviewbody(
+              keylist: state.keylist,
               data: state.worning,
             );
           } else if (state is Notificationcubitfailure) {

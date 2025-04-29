@@ -5,7 +5,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/core/utils/customelevatedbutton.dart';
-import 'package:project_greduation/features/Auth/presentation/manager/cubit/auths_cubit.dart';
+import 'package:project_greduation/features/Auth/presentation/manager/Auth_SendEmail/auth_send_email_cubit.dart';
 import 'package:project_greduation/features/Auth/presentation/views/widget/textfield.dart';
 
 class forgetpasswordbody extends StatefulWidget {
@@ -27,20 +27,20 @@ class _forgetpasswordbodyState extends State<forgetpasswordbody> {
   bool isloading = false;
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthsCubit, AuthsState>(
+    return BlocConsumer<AuthSendEmailCubit, AuthSendEmailState>(
       listener: (context, state) {
-        if (state is Authsloadingsendeamil) {
+        if (state is AuthSendEmailloading) {
           isloading = true;
-        } else if (state is AuthsSucesssendemail) {
+        } else if (state is AuthSendEmailSucess) {
           isloading = false;
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('good bar ')));
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('good bar ${state.data['message']} ')));
           GoRouter.of(context)
               .pushReplacement(Gorouter.forgetReset, extra: state.email);
-        } else if (state is Authsfailuresendemail) {
+        } else if (state is AuthSendEmailFailure) {
           isloading = false;
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('good bar ')));
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('bad bar${state.emassage} ')));
           GoRouter.of(context)
               .pushReplacement(Gorouter.forgetReset, extra: email.text);
         }
@@ -107,10 +107,13 @@ class _forgetpasswordbodyState extends State<forgetpasswordbody> {
                       height: 60,
                     ),
                     Customelevatedbutton(
-                        onpressed: () {
+                        onpressed: () async{
                           if (keyform.currentState!.validate()) {
-                            BlocProvider.of<AuthsCubit>(context)
-                                .getemailforgetpassword(email: email.text);
+                        //  await   context
+                        //         .read<AuthSendEmailCubit>()
+                        //         .sendpassword(email: email.text);
+                            BlocProvider.of<AuthSendEmailCubit>(context)
+                                .sendpassword(email: email.text);
                           }
                         },
                         title: 'Verify')
