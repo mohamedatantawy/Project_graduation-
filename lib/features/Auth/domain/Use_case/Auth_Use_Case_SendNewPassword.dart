@@ -6,10 +6,12 @@ class AuthUseCaseSendnewpassword {
   final AuthreposSendnewpassword authreposSendnewpassword;
 
   AuthUseCaseSendnewpassword({required this.authreposSendnewpassword});
-  Future<Either<Failure, dynamic>> Call( {required String email,
+  Future<Either<Failure, dynamic>> Call(
+      {required String email,
       required String otp,
       required String password,
       required String confirm}) {
-    return authreposSendnewpassword.fetchNewPassword(confirm:confirm,email:  email,otp: otp,password: password);
+    return authreposSendnewpassword.fetchNewPassword(
+        confirm: confirm, email: email, otp: otp, password: password);
   }
 }

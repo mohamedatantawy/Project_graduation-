@@ -14,10 +14,9 @@ class AuthSendOtpCubit extends Cubit<AuthSendOtpState> {
     data.fold((failure) {
       emit(AuthSendOtpfailure(emassage: failure.errormassage));
     }, (user) {
-      if(user['message']=='OTP is valid')
-      emit(AuthSendOtpSucess(email: email, otp: otp,data: user));
-      else 
-      {
+      if (user['message'] == 'OTP is valid')
+        emit(AuthSendOtpSucess(email: email, otp: otp, data: user));
+      else {
         emit(AuthSendOtpfailure(emassage: user['message']));
       }
     });

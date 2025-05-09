@@ -14,7 +14,7 @@ class AuthSendEmailCubit extends Cubit<AuthSendEmailState> {
     data.fold((failure) {
       emit(AuthSendEmailFailure(emassage: failure.errormassage));
     }, (data) {
-      emit(AuthSendEmailSucess(email: email,data: data));
+      emit(AuthSendEmailSucess(email: email, data: data));
     });
   }
 }

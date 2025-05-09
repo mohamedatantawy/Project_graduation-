@@ -38,7 +38,5 @@ class _takeatandanceforLectureState extends State<takeatandanceforLecture> {
         style: Textstyles.font18boldblue,
       ),
     );
-
-
   }
 }

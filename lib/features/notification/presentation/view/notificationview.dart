@@ -24,8 +24,6 @@ class _NotificationviewState extends State<Notificationview> {
 
   @override
   Widget build(BuildContext context) {
-    
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

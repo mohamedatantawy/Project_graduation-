@@ -12,7 +12,6 @@ class Notificationviewbody extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ListView(
         children: [
-        
           Column(
               children: List.generate(keylist.length, (index) {
             return showlistileworing(

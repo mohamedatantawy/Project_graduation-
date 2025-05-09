@@ -26,14 +26,14 @@ class NotificationcubitCubit extends Cubit<NotificationcubitState> {
         for (String name in list.keys) {
           keysitem.add(name);
         }
-      
+
         for (int i = 0; i < list.keys.length; i++) {
-          if (list['${ keysitem[i]}'] == []) {
+          if (list['${keysitem[i]}'] == []) {
             list.remove('${keysitem[i]}');
-             keysitem.remove(keysitem[i]);
+            keysitem.remove(keysitem[i]);
           }
         }
-        
+
         emit(NotificationcubitSucess(keylist: keysitem, worning: list));
       },
     );

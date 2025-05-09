@@ -17,7 +17,6 @@ class Forgetpasswordview extends StatelessWidget {
           leading: IconButton(
             onPressed: () {
               GoRouter.of(context).pushReplacement(Gorouter.klogin);
-        
             },
             icon: const Icon(
               Icons.arrow_back_ios,

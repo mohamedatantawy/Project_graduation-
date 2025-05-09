@@ -14,7 +14,7 @@ import 'package:project_greduation/helper/api.dart';
 
 class Homeview extends StatelessWidget {
   const Homeview({super.key, required this.user});
-  final User user;
+  final Usermodels user;
 
   @override
   Widget build(BuildContext context) {

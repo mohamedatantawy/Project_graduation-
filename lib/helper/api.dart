@@ -21,7 +21,7 @@ class Api {
   }) async {
     try {
       Response response = await _dio.post(
-       "$baseurl$path",
+        "$baseurl$path",
         data: data,
         options: Options(
           headers: token,
@@ -30,7 +30,7 @@ class Api {
       if (response.statusCode == 200 || response.statusCode == 201) {
         return response.data;
         print(response.data);
-      } 
+      }
     } on DioException catch (e) {
       return e.response!.data;
     }
@@ -42,7 +42,7 @@ class Api {
       required Map<String, dynamic> token}) async {
     try {
       Response response = await _dio.patch(
-       "$baseurl$path",
+        "$baseurl$path",
         data: data,
         options: Options(
           headers: token,
@@ -50,9 +50,9 @@ class Api {
       );
 
       print(response.data);
-      if (response.statusCode ==200||response.statusCode==201)
-    {  return response.data;}
-   
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return response.data;
+      }
     } on DioException catch (e) {
       print(e.response!.data.toString());
       return e.response!.data;

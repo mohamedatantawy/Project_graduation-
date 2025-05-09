@@ -22,8 +22,7 @@ class Serverfailure extends Failure {
         return Serverfailure(
             errormassage: "badCertificate timeout with ApiServer ");
       case DioExceptionType.badResponse:
-        
-                return Serverfailure(errormassage: dioEx.response!.data['message']);
+        return Serverfailure(errormassage: dioEx.response!.data['message']);
 
       case DioExceptionType.cancel:
         return Serverfailure(
@@ -39,8 +38,6 @@ class Serverfailure extends Failure {
     }
   }
   factory Serverfailure.fromResponse(int? statuscode, dynamic response) {
-   
-      return Serverfailure(errormassage: response['massage']);
-   
+    return Serverfailure(errormassage: response['massage']);
   }
 }

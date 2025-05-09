@@ -9,7 +9,7 @@ import 'package:project_greduation/features/profile/presentation/view/widget/pro
 
 class Profileview extends StatelessWidget {
   const Profileview({super.key, required this.user});
-  final User user;
+  final Usermodels user;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,12 +17,9 @@ class Profileview extends StatelessWidget {
         appBar: AppBar(
             actions: [
               IconButton(
-                  onPressed: () async{
-                 
-                    GoRouter.of(context).push(
-                      Gorouter.kchangepassword,
-                      extra:  user.token
-                    );
+                  onPressed: () async {
+                    GoRouter.of(context)
+                        .push(Gorouter.kchangepassword, extra: user.token);
                   },
                   icon: Icon(
                     Icons.password,

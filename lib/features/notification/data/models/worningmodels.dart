@@ -56,6 +56,6 @@ class Worningmodels {
         'warning_content': warningContent,
         'created_at': createdAt?.toIso8601String(),
         'updated_at': updatedAt?.toIso8601String(),
-         'course_name': course_name,
+        'course_name': course_name,
       };
 }

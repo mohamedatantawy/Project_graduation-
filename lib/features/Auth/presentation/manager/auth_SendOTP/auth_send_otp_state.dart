@@ -12,7 +12,8 @@ final class AuthSendOtpSucess extends AuthSendOtpState {
   final String otp;
   final dynamic data;
 
-  AuthSendOtpSucess({required this.email,required this.data, required this.otp});
+  AuthSendOtpSucess(
+      {required this.email, required this.data, required this.otp});
 }
 
 final class AuthSendOtpfailure extends AuthSendOtpState {

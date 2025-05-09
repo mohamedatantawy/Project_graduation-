@@ -26,8 +26,6 @@ class AuthSendnewpasswordImple implements AuthreposSendnewpassword {
       );
       print(data.toString());
 
-      
-
       return right(data);
     } catch (e) {
       if (e is DioException)

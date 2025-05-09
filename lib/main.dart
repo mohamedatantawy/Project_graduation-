@@ -1,7 +1,16 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/core/utils/server_loaction.dart';
+import 'package:project_greduation/feature_Doc/apis/absentStudents.dart';
+import 'package:project_greduation/feature_Doc/apis/attendance_api.dart';
+import 'package:project_greduation/feature_Doc/apis/attendancedrawer.dart';
+import 'package:project_greduation/feature_Doc/apis/getStudentAttendance.dart';
+import 'package:project_greduation/feature_Doc/logic/absentcubit/absent_cubit.dart';
+import 'package:project_greduation/feature_Doc/logic/attandancecubitdreaer/attandancedrewer_cubit.dart';
+import 'package:project_greduation/feature_Doc/logic/attendance/attendance_cubit.dart';
+import 'package:project_greduation/feature_Doc/logic/yesattandancecubit/yesattandance_cubit.dart';
 import 'package:project_greduation/features/Auth/domain/Use_case/Auth_Use_Case_SendNewPassword.dart';
 import 'package:project_greduation/features/Auth/domain/Use_case/Auths_Use_Case_SendEmail.dart';
 import 'package:project_greduation/features/Auth/domain/Use_case/Auths_Use_Case_SendOTP.dart';
@@ -24,7 +33,10 @@ import 'package:project_greduation/features/takeattendance/presentation/manger/c
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //  await Sharedperfernace.setString('token', 'token');
-
+  List<int> num = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  num.shuffle();
+  List<int> random = num.take(5).toList();
+  print(random);
   setupO();
   runApp(const PorjectGreduation());
 }
@@ -36,30 +48,43 @@ class PorjectGreduation extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        //AttandancedrewerCubit
         BlocProvider(
           create: (context) => AuthLoginCubit(getIt.get<AuthsUseCaseLogin>()),
         ),
+        BlocProvider(
+          create: (context) =>
+              YesattandanceCubit(Getstudentattendance(dio: Dio())),
+        ),
          BlocProvider(
-          create: (context) => AuthSendEmailCubit(getIt.get<AuthsUseCaseSendemail>()),
+          create: (context) =>
+              AttandancedrewerCubit(Attendancedrawer (dio: Dio())),
         ),
         BlocProvider(
-          create: (context) => AuthSendOtpCubit(getIt.get<AuthsUseCaseSendotp>()),
+          create: (context) =>
+              AuthSendEmailCubit(getIt.get<AuthsUseCaseSendemail>()),
         ),
-         BlocProvider(
-          create: (context) => AuthSendNewPasswordCubit(getIt.get<AuthUseCaseSendnewpassword>()),
+        BlocProvider(
+          create: (context) =>
+              AuthSendOtpCubit(getIt.get<AuthsUseCaseSendotp>()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              AuthSendNewPasswordCubit(getIt.get<AuthUseCaseSendnewpassword>()),
         ),
         BlocProvider(
           create: (context) => AttandanceReportCubit(
               attendanceUseCase: getIt.get<AttendanceUseCase>()),
         ),
- BlocProvider(
-          create: (context) => ChangepasswordCubit(
-              getIt.get<ProfileUseCase>()),
-        ),
-
         BlocProvider(
-          create: (context) => NotificationcubitCubit(
-              getIt.get<NotificationUseCase>()),
+          create: (context) => AttendanceCubit(AttendanceApi(dio: Dio())),
+        ),
+        BlocProvider(
+          create: (context) => ChangepasswordCubit(getIt.get<ProfileUseCase>()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              NotificationcubitCubit(getIt.get<NotificationUseCase>()),
         ),
         BlocProvider(
           create: (context) =>
@@ -68,6 +93,9 @@ class PorjectGreduation extends StatelessWidget {
         BlocProvider<TakelocationCubit>(
           create: (context) =>
               TakelocationCubit(getIt.get<TakeattandanceUseCase>()),
+        ),
+         BlocProvider(
+          create: (context) => AbsentCubit(Absentstudents(dio: Dio())),
         ),
       ],
       child: MaterialApp.router(

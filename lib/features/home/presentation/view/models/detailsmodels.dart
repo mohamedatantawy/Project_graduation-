@@ -3,7 +3,7 @@ import 'package:project_greduation/features/home/data/models/material/materialmo
 
 class Detailsmodels {
   final Materialmodels materialmodels;
-  final User user;
+  final Usermodels user;
 
   Detailsmodels({required this.materialmodels, required this.user});
 }

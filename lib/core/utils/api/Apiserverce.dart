@@ -11,7 +11,7 @@ class Apiserverce {
   Apiserverce(this.dio);
   String getmaterialname =
       'https://attendance-project.up.railway.app/api/student/schedules';
-  Future<User> getloginresonse(
+  Future<Usermodels> getloginresonse(
       {required String email, required String password}) async {
     var data = await Api(Dio()).posts(
       path: "https://attendance-project.up.railway.app/api/login",
@@ -22,7 +22,7 @@ class Apiserverce {
     );
     print(data.toString());
 
-    User user = User.fromJson(data);
+    Usermodels user = Usermodels.fromJson(data);
     // String token = data['token'];
     return user;
   }

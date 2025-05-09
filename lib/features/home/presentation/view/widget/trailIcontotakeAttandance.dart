@@ -53,11 +53,12 @@ class _trailIcontoTakeAttandanceState extends State<trailIcontoTakeAttandance> {
                         extra: Detailsmodels(
                             materialmodels: widget.materialmodelslist,
                             user: widget.widget.user),
-                      ); if (state.isactive==true) {
-                         ScaffoldMessenger.of(context).showSnackBar(
+                      );
+                      if (state.isactive == true) {
+                        ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('This Lecture is sucess')));
-                       }
-                      
+                      }
+
                       isloading = false;
                       Navigator.of(context).pop();
                     } else if (state is IsAvailablesSucuessSection) {
@@ -66,14 +67,15 @@ class _trailIcontoTakeAttandanceState extends State<trailIcontoTakeAttandance> {
                         extra: Detailsmodels(
                             materialmodels: widget.materialmodelslist,
                             user: widget.widget.user),
-                      ); if (state.isactive==true) {
-                         ScaffoldMessenger.of(context).showSnackBar(
+                      );
+                      if (state.isactive == true) {
+                        ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('This section is sucess')));
-                       }
-                      
+                      }
+
                       isloading = false;
                       Navigator.of(context).pop();
-                    }else if (state is IsAvailablesloading) {
+                    } else if (state is IsAvailablesloading) {
                       isloading = true;
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('This Lecture is loading')));

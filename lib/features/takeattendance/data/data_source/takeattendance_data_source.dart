@@ -20,8 +20,7 @@ class TakeattendanceDataSourceimple implements TakeattandanceDataSoure {
         token: {
           'Authorization': 'Bearer $token', // Include the token here
         },
-        path:
-            "student/attend/$id",
+        path: "student/attend/$id",
         data: {
           "session_type": session,
           "latitude": latitude,
@@ -31,10 +30,10 @@ class TakeattendanceDataSourceimple implements TakeattandanceDataSoure {
       print(data.toString());
       return right(data);
     } catch (e) {
-     if (e is DioException)
-    {  print(e.response.toString());
+      if (e is DioException) {
+        print(e.response.toString());
         return left(Serverfailure.fromdioerror(e));
-      }else {
+      } else {
         return left(Serverfailure(
           errormassage: e.toString(),
         ));

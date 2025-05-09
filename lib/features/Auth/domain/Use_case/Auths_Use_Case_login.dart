@@ -7,10 +7,10 @@ class AuthsUseCaseLogin {
   final AuthsreposLogin authsreposlogin;
 
   AuthsUseCaseLogin({required this.authsreposlogin});
-  Future<Either<Failure, User>> Call(
-      {required String email, required String password}) async{
+  Future<Either<Failure, Usermodels>> Call(
+      {required String email, required String password}) async {
     var data = authsreposlogin.fecthlogin(email: email, password: password);
-  
+
     //premissin
     return authsreposlogin.fecthlogin(email: email, password: password);
   }

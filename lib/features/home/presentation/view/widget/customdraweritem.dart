@@ -21,7 +21,7 @@ class customdraweritems extends StatelessWidget {
   final String title;
   final IconData icon;
   final int index;
-  final User user;
+  final Usermodels user;
 //  final List<Materialmodels> materialmodels;
   @override
   Widget build(BuildContext context) {
@@ -45,18 +45,16 @@ class customdraweritems extends StatelessWidget {
                       ),
                     ),
                     trailing: IconButton(
-                      onPressed: ()async {
-                        if(index==2)
-                        {
-                         
-                        }
+                      onPressed: () async {
+                        if (index == 2) {}
                         if (index == 0) {
                           GoRouter.of(context).pop();
                         } else if (index == 1) {
                           GoRouter.of(context)
                               .push(Gorouter.profile, extra: user);
                         } else if (index == 2) {
-                          GoRouter.of(context).push(Gorouter.notification,extra: user.token);
+                          GoRouter.of(context)
+                              .push(Gorouter.notification, extra: user.token);
                         } else if (index == 3) {
                           GoRouter.of(context)
                               .push(Gorouter.attendance, extra: state.data);

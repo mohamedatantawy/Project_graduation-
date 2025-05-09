@@ -38,7 +38,7 @@ void setupO() {
     () => NotificationUseCase(
         notificationRemoteSource: getIt<NotificationRemoteSourceImple>()),
   );
-   getIt.registerLazySingleton<NotificationRemoteSourceImple>(
+  getIt.registerLazySingleton<NotificationRemoteSourceImple>(
     () => NotificationRemoteSourceImple(api: getIt<Api>()),
   );
   getIt.registerLazySingleton<TakeattendanceDataSourceimple>(
@@ -51,36 +51,35 @@ void setupO() {
   getIt.registerLazySingleton<ProfileRemoteSourceImpl>(
     () => ProfileRemoteSourceImpl(api: getIt<Api>()),
   );
-    getIt.registerLazySingleton<ProfileUseCase>(
-    () => ProfileUseCase(
-        profileremoteSource: getIt<ProfileRemoteSourceImpl>()),
+  getIt.registerLazySingleton<ProfileUseCase>(
+    () => ProfileUseCase(profileremoteSource: getIt<ProfileRemoteSourceImpl>()),
   );
-    getIt.registerLazySingleton<AuthLoginRemoteSourceImple>(
+  getIt.registerLazySingleton<AuthLoginRemoteSourceImple>(
     () => AuthLoginRemoteSourceImple(api: getIt<Api>()),
   );
-   getIt.registerLazySingleton<AuthsUseCaseLogin>(
-    () => AuthsUseCaseLogin(
-        authsreposlogin: getIt<AuthLoginRemoteSourceImple>()),
+  getIt.registerLazySingleton<AuthsUseCaseLogin>(
+    () =>
+        AuthsUseCaseLogin(authsreposlogin: getIt<AuthLoginRemoteSourceImple>()),
   );
-   getIt.registerLazySingleton<AuthSendemailRemoteSourceImple>(
+  getIt.registerLazySingleton<AuthSendemailRemoteSourceImple>(
     () => AuthSendemailRemoteSourceImple(api: getIt<Api>()),
   );
-   getIt.registerLazySingleton<AuthsUseCaseSendemail>(
+  getIt.registerLazySingleton<AuthsUseCaseSendemail>(
     () => AuthsUseCaseSendemail(
         authsreposSendemail: getIt<AuthSendemailRemoteSourceImple>()),
   );
-  
-   getIt.registerLazySingleton<AuthSendotpRemoteImple>(
+
+  getIt.registerLazySingleton<AuthSendotpRemoteImple>(
     () => AuthSendotpRemoteImple(api: getIt<Api>()),
   );
-   getIt.registerLazySingleton<AuthsUseCaseSendotp>(
-    () => AuthsUseCaseSendotp(
-        authreposSendotp: getIt<AuthSendotpRemoteImple>()),
+  getIt.registerLazySingleton<AuthsUseCaseSendotp>(
+    () =>
+        AuthsUseCaseSendotp(authreposSendotp: getIt<AuthSendotpRemoteImple>()),
   );
-   getIt.registerLazySingleton<AuthSendnewpasswordImple>(
+  getIt.registerLazySingleton<AuthSendnewpasswordImple>(
     () => AuthSendnewpasswordImple(api: getIt<Api>()),
   );
-   getIt.registerLazySingleton<AuthUseCaseSendnewpassword>(
+  getIt.registerLazySingleton<AuthUseCaseSendnewpassword>(
     () => AuthUseCaseSendnewpassword(
         authreposSendnewpassword: getIt<AuthSendnewpasswordImple>()),
   );

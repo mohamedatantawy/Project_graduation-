@@ -6,14 +6,14 @@ import 'package:project_greduation/features/profile/presentation/view/models/pro
 
 class Profileviewbody extends StatefulWidget {
   const Profileviewbody({super.key, required this.user});
-  final User user;
+  final Usermodels user;
 
   @override
   State<Profileviewbody> createState() => _ProfileviewbodyState();
 }
 
 class _ProfileviewbodyState extends State<Profileviewbody> {
-  final List<Profilemodelstitle> infoprofile = const [
+  final List<Profilemodelstitle> infoprofilestudent = const [
     Profilemodelstitle(
       title: 'Name',
     ),
@@ -25,6 +25,20 @@ class _ProfileviewbodyState extends State<Profileviewbody> {
     ),
     Profilemodelstitle(
       title: 'Date Of Birth',
+    ),
+    Profilemodelstitle(
+      title: 'Deparment ( It Found )',
+    ),
+    Profilemodelstitle(
+      title: 'Phone',
+    ),
+  ];
+  final List<Profilemodelstitle> infoprofiledoc = const [
+    Profilemodelstitle(
+      title: 'Name',
+    ),
+    Profilemodelstitle(
+      title: 'Email',
     ),
     Profilemodelstitle(
       title: 'Deparment ( It Found )',
@@ -73,45 +87,83 @@ class _ProfileviewbodyState extends State<Profileviewbody> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: List.generate(
-              infoprofile.length,
+              widget.user.role == 'student'
+                  ? infoprofilestudent.length
+                  : infoprofiledoc.length,
               (index) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, bottom: 6, top: 16),
-                      child: Text(
-                        infoprofile[index].title,
-                        style: Textstyles.font18boldblue,
+                if (widget.user.role == 'student') {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 20, bottom: 6, top: 16),
+                        child: Text(
+                          infoprofilestudent[index].title,
+                          style: Textstyles.font18boldblue,
+                        ),
                       ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: kgraycolors,
+                      Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: kgraycolors,
+                        ),
+                        child: Text(
+                          index == 0
+                              ? "${widget.user.name}"
+                              : index == 1
+                                  ? "${widget.user.student!.grade}"
+                                  : index == 2
+                                      ? "${widget.user.email}"
+                                      : index == 3
+                                          ? "${widget.user.student!.dateOfBirth}"
+                                          : index == 4
+                                              ? "${widget.user.student!.department}"
+                                              : "${widget.user.phone}",
+                          style: Textstyles.font15extrlightblue,
+                        ),
+                      )
+                    ],
+                  );
+                } else {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 20, bottom: 6, top: 16),
+                        child: Text(
+                          infoprofiledoc[index].title,
+                          style: Textstyles.font18boldblue,
+                        ),
                       ),
-                      child: Text(
-                        index == 0
-                            ? "${widget.user.name}"
-                            : index == 1
-                                ? "${widget.user.student!.grade}"
-                                : index == 2
-                                    ? "${widget.user.email}"
-                                    : index == 3
-                                        ? "${widget.user.student!.dateOfBirth}"
-                                        : index == 4
-                                            ? "${widget.user.student!.department}"
-                                            : "${widget.user.phone}",
-                        style: Textstyles.font15extrlightblue,
-                      ),
-                    )
-                  ],
-                );
+                      Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: kgraycolors,
+                        ),
+                        child: Text(
+                          index == 0
+                              ? "${widget.user.name}"
+                              : index == 1
+                                  ? "${widget.user.email}"
+                                  : index == 2
+                                      ? "${widget.user.doctor!.department}"
+                                      : "${widget.user.phone}",
+                          style: Textstyles.font15extrlightblue,
+                        ),
+                      )
+                    ],
+                  );
+                }
               },
             ),
           )

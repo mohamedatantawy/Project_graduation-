@@ -8,16 +8,21 @@ final class AuthLoginInitial extends AuthLoginState {}
 final class AuthLoginLoading extends AuthLoginState {}
 
 final class AuthLoginSucessStudent extends AuthLoginState {
-  final User user;
- 
-  AuthLoginSucessStudent({required this.user, });
+  final Usermodels user;
+
+  AuthLoginSucessStudent({
+    required this.user,
+  });
 }
 
 final class AuthLoginSucessDoctor extends AuthLoginState {
-  final User user;
- 
-  AuthLoginSucessDoctor({required this.user, });
+  final Usermodels user;
+
+  AuthLoginSucessDoctor({
+    required this.user,
+  });
 }
+
 final class AuthLoginFailure extends AuthLoginState {
   final String emassage;
 

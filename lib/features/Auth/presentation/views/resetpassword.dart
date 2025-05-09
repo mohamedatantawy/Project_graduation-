@@ -21,7 +21,7 @@ class Resetpassword extends StatelessWidget {
           backgroundColor: kbackgroundcolor,
           leading: IconButton(
             onPressed: () {
-               GoRouter.of(context).pushReplacement(Gorouter.klogin);
+              GoRouter.of(context).pushReplacement(Gorouter.klogin);
             },
             icon: const Icon(
               Icons.arrow_back_ios,

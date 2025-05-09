@@ -13,6 +13,12 @@ abstract class Textstyles {
     fontWeight: FontWeight.w500,
     color: kthirdcolorkey,
   );
+
+  static TextStyle font50 = TextStyle(
+    fontSize: 50,
+    fontWeight: FontWeight.w500,
+    color: kcolorwhite,
+  );
   static TextStyle font14medinmblue = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,

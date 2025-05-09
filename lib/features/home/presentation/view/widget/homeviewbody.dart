@@ -12,7 +12,7 @@ import 'package:project_greduation/features/home/presentation/view/widget/trailI
 
 class Homeviewbody extends StatefulWidget {
   const Homeviewbody({super.key, required this.user});
-  final User user;
+  final Usermodels user;
 
   @override
   State<Homeviewbody> createState() => _HomeviewbodyState();

@@ -10,7 +10,7 @@ final class AuthSendEmailloading extends AuthSendEmailState {}
 final class AuthSendEmailSucess extends AuthSendEmailState {
   final String email;
   final dynamic data;
-  AuthSendEmailSucess({required this.email,required this.data});
+  AuthSendEmailSucess({required this.email, required this.data});
 }
 
 final class AuthSendEmailFailure extends AuthSendEmailState {

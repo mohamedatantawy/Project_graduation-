@@ -107,11 +107,11 @@ class _forgetpasswordbodyState extends State<forgetpasswordbody> {
                       height: 60,
                     ),
                     Customelevatedbutton(
-                        onpressed: () async{
+                        onpressed: () async {
                           if (keyform.currentState!.validate()) {
-                        //  await   context
-                        //         .read<AuthSendEmailCubit>()
-                        //         .sendpassword(email: email.text);
+                            //  await   context
+                            //         .read<AuthSendEmailCubit>()
+                            //         .sendpassword(email: email.text);
                             BlocProvider.of<AuthSendEmailCubit>(context)
                                 .sendpassword(email: email.text);
                           }

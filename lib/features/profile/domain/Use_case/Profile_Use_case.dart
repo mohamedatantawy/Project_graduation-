@@ -7,7 +7,15 @@ class ProfileUseCase {
 
   ProfileUseCase({required this.profileremoteSource});
   @override
-  Future<Either<Failure, dynamic>> call({required String token,required String oldpassword,required String newpassword,required String confrim}) {
-    return profileremoteSource.changepassword(token: token,oldpassword:oldpassword,newpassword: newpassword,confrim: confrim);
+  Future<Either<Failure, dynamic>> call(
+      {required String token,
+      required String oldpassword,
+      required String newpassword,
+      required String confrim}) {
+    return profileremoteSource.changepassword(
+        token: token,
+        oldpassword: oldpassword,
+        newpassword: newpassword,
+        confrim: confrim);
   }
 }

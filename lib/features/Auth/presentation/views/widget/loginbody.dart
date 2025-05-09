@@ -6,6 +6,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/core/utils/customelevatedbutton.dart';
+import 'package:project_greduation/feature_Doc/views/home/homepage.dart';
 import 'package:project_greduation/features/Auth/presentation/manager/Auth_login/auth_login_cubit.dart';
 import 'package:project_greduation/features/Auth/presentation/views/widget/textfield.dart';
 
@@ -28,18 +29,23 @@ class _LoginbodyState extends State<Loginbody> {
           isloading = false;
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('welcome in Attandance project')));
-          GoRouter.of(context)
-              .push(Gorouter.homeView, extra: state.user);
+          GoRouter.of(context).push(Gorouter.homeView, extra: state.user);
         } else if (state is AuthLoginSucessDoctor) {
           isloading = false;
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('welcome in Attandance project')));
+          GoRouter.of(context)
+              .pushReplacement(Gorouter.kdocHomeView, extra: state.user);
+          // Navigator.push(context, MaterialPageRoute(builder: (context) {
+          //   return HomeScreen();
+          // }));
           // GoRouter.of(context)
           //     .push(Gorouter.homeView,extra: state.user);
         } else if (state is AuthLoginFailure) {
           isloading = false;
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('there error in email or password ${state.emassage}')));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content:
+                  Text('there error in email or password ${state.emassage}')));
           // GoRouter.of(context).push(Gorouter.homeView, extra: state.user);
         }
       },
@@ -203,8 +209,8 @@ class _loginbodyformState extends State<loginbodyform> {
                   if (keyform.currentState!.validate()) {
                     // Apiserverce(Dio()).getloginresonse(
                     //    email: email.text, password: password.text);
-                    BlocProvider.of<AuthLoginCubit>(context)
-                        .LoginMothed(email: email.text, password: password.text);
+                    BlocProvider.of<AuthLoginCubit>(context).LoginMothed(
+                        email: email.text, password: password.text);
                     //  ScaffoldMessenger.of(context)
                     //    .showSnackBar(SnackBar(content: Text('good bar ')));
                     //  GoRouter.of(context).push(Gorouter.homeView);

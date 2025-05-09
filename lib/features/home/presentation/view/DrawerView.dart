@@ -10,7 +10,7 @@ import 'package:project_greduation/features/home/presentation/view/widget/drawer
 class Drawerview extends StatefulWidget {
   const Drawerview({super.key, required this.user});
 
-  final User user;
+  final Usermodels user;
 
   @override
   State<Drawerview> createState() => _DrawerviewState();

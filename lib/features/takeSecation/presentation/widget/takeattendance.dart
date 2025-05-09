@@ -40,8 +40,6 @@ class _TakeSectionbody extends State<TakeSectionbody> {
     super.initState();
   }
 
-
-
   bool isSucess = true;
   @override
   Widget build(BuildContext context) {

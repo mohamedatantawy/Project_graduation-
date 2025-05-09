@@ -10,7 +10,7 @@ class NotificationRemoteSourceImple implements NotificationRemoteSource {
 
   NotificationRemoteSourceImple({required this.api});
   @override
-  Future<Either<Failure, Map<String,dynamic>>> fetchNotification({
+  Future<Either<Failure, Map<String, dynamic>>> fetchNotification({
     required String token,
   }) async {
     try {

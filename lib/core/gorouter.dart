@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:project_greduation/feature_Doc/views/home/homepage.dart';
 import 'package:project_greduation/features/Auth/data/models/loginmodels.dart';
 import 'package:project_greduation/features/Auth/data/models/user/user.dart';
 import 'package:project_greduation/features/Auth/presentation/views/forgetResetcode.dart';
@@ -33,6 +34,7 @@ abstract class Gorouter {
   static const klogin = '/loginview';
   static const ktake = '/take';
   static const kchangepassword = '/kchangepassword';
+  static const kdocHomeView = '/kdocHomeView';
 
   static const ktakesection = '/takesection';
   static const kattendancemothed = '/attendancemothed';
@@ -40,6 +42,7 @@ abstract class Gorouter {
   static const ksetattendance = '/setattendance';
   static const kforgetpassword = '/forgetpassword';
   static final router = GoRouter(routes: [
+    //HomeScreen
     GoRoute(
       path: '/',
       builder: (context, state) => const Splashview(),
@@ -49,6 +52,15 @@ abstract class Gorouter {
       builder: (context, state) {
         var user = GoRouterState.of(context).extra as Detailsmodels;
         return Takeattendance(
+          user: user,
+        );
+      },
+    ),
+    GoRoute(
+      path: kdocHomeView,
+      builder: (context, state) {
+        var user = GoRouterState.of(context).extra as Usermodels;
+        return HomeScreen(
           user: user,
         );
       },
@@ -96,7 +108,7 @@ abstract class Gorouter {
     GoRoute(
       path: profile,
       builder: (context, state) {
-        var user = GoRouterState.of(context).extra as User;
+        var user = GoRouterState.of(context).extra as Usermodels;
         return Profileview(
           user: user,
         );
@@ -131,7 +143,7 @@ abstract class Gorouter {
     GoRoute(
       path: homeView,
       builder: (context, state) {
-        var user = GoRouterState.of(context).extra as User;
+        var user = GoRouterState.of(context).extra as Usermodels;
         return Homeview(
           user: user,
         );
@@ -155,15 +167,15 @@ abstract class Gorouter {
       },
     ),
     GoRoute(
-        path: kresetpassword,
-        builder: (context, state) {
-          var login = GoRouterState.of(context).extra as Map;
-         // return Forgetpasswordview();
-            return Resetpassword(
-              email: login['email'],
-              otp: login['OTP'],
-            );
-          },
-        ),
+      path: kresetpassword,
+      builder: (context, state) {
+        var login = GoRouterState.of(context).extra as Map;
+        // return Forgetpasswordview();
+        return Resetpassword(
+          email: login['email'],
+          otp: login['OTP'],
+        );
+      },
+    ),
   ]);
 }

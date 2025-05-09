@@ -1,6 +1,8 @@
+import 'package:project_greduation/features/Auth/data/models/user/doctor.dart';
+
 import 'student.dart';
 
-class User {
+class Usermodels {
   int? id;
   String? email;
   String? name;
@@ -9,23 +11,27 @@ class User {
   DateTime? createdAt;
   DateTime? updatedAt;
   Student? student;
+  Doctormodels? doctor;
   String? token;
-  User({
-    this.id,
-    this.email,
-    this.name,
-    this.phone,
-    this.role,
-    this.createdAt,
-    this.updatedAt,
-    this.student,
-    this.token,
-  });
+  Usermodels(
+      {this.id,
+      this.email,
+      this.name,
+      this.phone,
+      this.role,
+      this.createdAt,
+      this.updatedAt,
+      this.student,
+      this.token,
+      this.doctor});
 
-  factory User.fromJson(Map<String, dynamic> json) {
+  factory Usermodels.fromJson(Map<String, dynamic> json) {
     var user = json['user'];
-    return User(
+    return Usermodels(
         id: user['id'] as int?,
+        doctor: user['doctor'] == null
+            ? null
+            : Doctormodels.fromJson(user['doctor'] as Map<String, dynamic>),
         email: user['email'] as String?,
         name: user['name'] as String?,
         phone: user['phone'] as String?,
@@ -48,6 +54,7 @@ class User {
         'name': name,
         'phone': phone,
         'role': role,
+        'doctor': doctor?.toJson(),
         'created_at': createdAt?.toIso8601String(),
         'updated_at': updatedAt?.toIso8601String(),
         'student': student?.toJson(),

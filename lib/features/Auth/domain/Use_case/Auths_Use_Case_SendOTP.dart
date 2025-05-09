@@ -6,7 +6,8 @@ class AuthsUseCaseSendotp {
   final AuthreposSendotp authreposSendotp;
 
   AuthsUseCaseSendotp({required this.authreposSendotp});
-  Future<Either<Failure, dynamic>> Call({required String email, required String otp}) {
-    return authreposSendotp.fetchSendOTP(email: email,otp: otp);
+  Future<Either<Failure, dynamic>> Call(
+      {required String email, required String otp}) {
+    return authreposSendotp.fetchSendOTP(email: email, otp: otp);
   }
 }

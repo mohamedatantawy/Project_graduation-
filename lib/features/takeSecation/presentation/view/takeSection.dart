@@ -21,7 +21,6 @@ class Takesection extends StatelessWidget {
           onPressed: () {
             GoRouter.of(context).pop();
             context.read<TakelocationCubit>().reset();
-
           },
           icon: const Icon(
             Icons.arrow_back_ios,

@@ -60,10 +60,9 @@ class TakelocationCubit extends Cubit<TakelocationState> {
         emit(TakelocationFailure(emassage: data.toString()));
       }
     });
-
-  
   }
-  void  reset() {
-      emit(TakelocationInitial());
-    }
+
+  void reset() {
+    emit(TakelocationInitial());
+  }
 }
