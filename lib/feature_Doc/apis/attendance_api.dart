@@ -9,11 +9,11 @@ class AttendanceApi {
   final Dio dio;
 
   Future<dynamic> openAtendance(
-      {required String token, required int id}) async {
+      {required String token, required int id ,required int minute}) async {
     var res = await dio.patch(
-      'https://attendance-project.up.railway.app/api/doctor/open-attendance/$id',
+      'https://nubaria.ddns.net/api/doctor/open-attendance/$id',
       data: {
-        'time': '5',
+        'time': '$minute',
       },
       options: Options(
         headers: {
@@ -25,9 +25,9 @@ class AttendanceApi {
   }
 
   Future<dynamic> closeAtendance(
-      {required String token, required int id}) async {
+      {required String token, required int id,}) async {
     var res = await dio.patch(
-      'https://attendance-project.up.railway.app/api/doctor/close-attendance/$id',
+      'https://nubaria.ddns.net/api/doctor/close-attendance/$id',
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',
@@ -35,5 +35,5 @@ class AttendanceApi {
       ),
     );
     return res.data;
-  }
+  }//nubaria.ddns.net
 }

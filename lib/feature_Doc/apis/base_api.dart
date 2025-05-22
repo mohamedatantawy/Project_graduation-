@@ -1,1 +1,1 @@
-const String baseUrl = 'https://attendance-project.up.railway.app/api/';
+const String baseUrl = 'https://nubaria.ddns.net/api/';

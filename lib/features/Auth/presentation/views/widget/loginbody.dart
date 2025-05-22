@@ -45,7 +45,7 @@ class _LoginbodyState extends State<Loginbody> {
           isloading = false;
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content:
-                  Text('there error in email or password ${state.emassage}')));
+                  Text(' ${state.emassage}')));
           // GoRouter.of(context).push(Gorouter.homeView, extra: state.user);
         }
       },

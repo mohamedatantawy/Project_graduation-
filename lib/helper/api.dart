@@ -12,28 +12,21 @@ class Api {
   //   };
   // }
   //https://graduationa-project-production.up.railway.app/api/
-  final String baseurl = 'https://attendance-project.up.railway.app/api/';
+  final String baseurl = 'https://nubaria.ddns.net/api/';
   //"https://attendance-production-0ecd.up.railway.app/api/";
   Future<dynamic> posts({
     required String path,
     Map? data,
     Map<String, dynamic>? token,
   }) async {
-    try {
-      Response response = await _dio.post(
-        "$baseurl$path",
-        data: data,
-        options: Options(
-          headers: token,
-        ),
-      );
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return response.data;
-        print(response.data);
-      }
-    } on DioException catch (e) {
-      return e.response!.data;
-    }
+    Response response = await _dio.post(
+      "$baseurl$path",
+      data: data,
+      options: Options(
+        headers: token,
+      ),
+    );
+    return response.data;
   }
 
   Future<dynamic> petch(
@@ -76,7 +69,7 @@ class Api {
       ), ); */
     try {
       Response response = await _dio.get(
-        "https://attendance-project.up.railway.app/api/$path",
+        "https://nubaria.ddns.net/api/$path",
         options: Options(
           headers: token,
         ),

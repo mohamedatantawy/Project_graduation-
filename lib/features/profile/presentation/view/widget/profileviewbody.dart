@@ -155,9 +155,9 @@ class _ProfileviewbodyState extends State<Profileviewbody> {
                               ? "${widget.user.name}"
                               : index == 1
                                   ? "${widget.user.email}"
-                                  : index == 2
-                                      ? "${widget.user.doctor!.department}"
-                                      : "${widget.user.phone}",
+                                  : index == 2?
+                                   widget.user.role=='doctor'?   "${widget.user.doctor!.department}":"${widget.user.assistant!.department}":
+                                       "${widget.user.phone}",
                           style: Textstyles.font15extrlightblue,
                         ),
                       )

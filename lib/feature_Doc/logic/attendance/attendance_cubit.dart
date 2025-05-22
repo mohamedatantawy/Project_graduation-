@@ -10,10 +10,10 @@ class AttendanceCubit extends Cubit<AttendanceState> {
 
   final AttendanceApi attendanceApi;
 
-  Future<void> openAttendance({required String token, required int id}) async {
+  Future<void> openAttendance({required String token, required int id,required int minute}) async {
     emit(AttendanceLoading());
     try {
-      var messageMap = await attendanceApi.openAtendance(token: token, id: id);
+      var messageMap = await attendanceApi.openAtendance(token: token, id: id, minute:minute);
       String mess = messageMap['message'];
       print(mess.toString());
       emit(AttendanceSuccess(message: mess));

@@ -9,12 +9,11 @@ import 'package:project_greduation/helper/api.dart';
 class Apiserverce {
   final Dio dio;
   Apiserverce(this.dio);
-  String getmaterialname =
-      'https://attendance-project.up.railway.app/api/student/schedules';
+  String getmaterialname = 'https://nubaria.ddns.net/api/student/schedules';
   Future<Usermodels> getloginresonse(
       {required String email, required String password}) async {
     var data = await Api(Dio()).posts(
-      path: "https://attendance-project.up.railway.app/api/login",
+      path: "https://nubaria.ddns.net/api/login",
       data: {
         "email": email,
         "password": password,
@@ -29,7 +28,7 @@ class Apiserverce {
 
   Future<dynamic> getresetpassword({required String email}) async {
     var data = await Api(Dio()).posts(
-      path: "https://attendance-project.up.railway.app/api/send-otp",
+      path: "https://nubaria.ddns.net/api/send-otp",
       data: {
         "email": email,
       },
@@ -58,7 +57,7 @@ class Apiserverce {
 
   Future<dynamic> getotp({required String email, required String otp}) async {
     var data = await Api(Dio()).posts(
-      path: "https://attendance-project.up.railway.app/api/verify-otp",
+      path: "https://nubaria.ddns.net/api/verify-otp",
       data: {
         "email": email,
         "otp": otp,
@@ -113,8 +112,7 @@ class Apiserverce {
       required String password,
       required String confirm}) async {
     var data = await Api(Dio()).posts(
-      path:
-          "https://attendance-project.up.railway.app/api/verify-otp-reset-password",
+      path: "https://nubaria.ddns.net/api/verify-otp-reset-password",
       data: {
         "email": email,
         "new_password": password,
@@ -138,7 +136,7 @@ class Apiserverce {
       token: {
         'Authorization': 'Bearer $token', // Include the token here
       },
-      path: "https://attendance-project.up.railway.app/api/student/attend/$id",
+      path: "https://nubaria.ddns.net/api/student/attend/$id",
       data: {
         "session_type": session,
         "latitude": latitude,

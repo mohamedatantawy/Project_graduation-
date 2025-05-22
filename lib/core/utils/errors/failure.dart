@@ -22,7 +22,8 @@ class Serverfailure extends Failure {
         return Serverfailure(
             errormassage: "badCertificate timeout with ApiServer ");
       case DioExceptionType.badResponse:
-        return Serverfailure(errormassage: dioEx.response!.data['message']);
+        return Serverfailure.fromResponse(
+            dioEx.response!.data, dioEx.response!.statusCode!);
 
       case DioExceptionType.cancel:
         return Serverfailure(
@@ -37,7 +38,15 @@ class Serverfailure extends Failure {
         return Serverfailure(errormassage: "opps, there was  with ApiServer ");
     }
   }
-  factory Serverfailure.fromResponse(int? statuscode, dynamic response) {
-    return Serverfailure(errormassage: response['massage']);
+  factory Serverfailure.fromResponse(dynamic response, int code) {
+    if (code == 403 || code == 422) {
+      return Serverfailure(errormassage: response['message']);
+    } else if (code == 409 || code == 401 || code == 400 || code == 303) {
+      return Serverfailure(errormassage: response['message']);
+    } else if (code == 404) {
+      return Serverfailure(errormassage: response['message']);
+    } else {
+      return Serverfailure(errormassage: 'There was an Error ,try later ');
+    }
   }
 }

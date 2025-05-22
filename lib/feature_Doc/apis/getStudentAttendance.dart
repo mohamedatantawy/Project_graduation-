@@ -13,7 +13,7 @@ class Getstudentattendance {
     // String? token = prefs.getString('token');
 
     var response = await dio.get(
-      'https://attendance-project.up.railway.app/api/doctor/today-attendance/$id',
+      'https://nubaria.ddns.net/api/doctor/today-attendance/$id',
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',

@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_greduation/core/styles/textstyles.dart';
 import 'package:project_greduation/feature_Doc/logic/absentcubit/absent_cubit.dart';
+import 'package:project_greduation/feature_Doc/logic/yesattandancecubit/yesattandance_cubit.dart';
 import 'package:project_greduation/feature_Doc/models/yesattandancemodels/yesattandancemodels.dart';
+import 'package:project_greduation/feature_Doc/views/attendance/view/random_attendance.dart';
 import 'package:project_greduation/features/Auth/data/models/user/user.dart';
 
 class RandomAttendanceCard extends StatefulWidget {
@@ -110,8 +112,23 @@ class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
                 height: 120,
                 child: BlocConsumer<AbsentCubit, AbsentState>(
                   listener: (context, state) {
-                    // if (state is Absentloading) {
-                    // } else if (state is IsAvailablesSucuessSection) {
+                    if (state is Absentloading) {
+                      isloading = true;
+                    } else if (state is AbsentSucess) {
+                      isloading = false;
+                      // BlocProvider.of<YesattandanceCubit>(context).reset();
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                              'AbsentSucess هذا الطالب تم الفاء الحضور عمه')));
+                      Navigator.pop(context);
+                    } else {
+                      isloading = false;
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content:
+                              Text('else هذا الطالب تم الفاء الحضور عمه')));
+                      Navigator.pop(context);
+                    }
+                    //else if (state is IsAvailablesSucuessSection) {
                     // } else if (state is IsAvailablesloading) {
                     //   //   isloading = true;
                     //   //   ScaffoldMessenger.of(context).showSnackBar(
@@ -131,27 +148,51 @@ class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
                             ? Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  TextButton(
-                                      onPressed: () {
-                                        BlocProvider.of<AbsentCubit>(context)
-                                            .absentStudentsmothed(
-                                                token: widget.token,
-                                                id: widget.id,
-                                                idst: widget.user.student!.id!);
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text(
-                                        "Yes",
-                                        style: Textstyles.font16boldwithe,
-                                      )),
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text(
-                                        "No",
-                                        style: Textstyles.font16boldwithe,
-                                      ))
+                                  Container(
+                                    height: 45,
+                                    width: MediaQuery.sizeOf(context).width,
+                                    child: ElevatedButton(
+                                        onPressed: () {
+                                          BlocProvider.of<AbsentCubit>(context)
+                                              .absentStudentsmothed(
+                                                  token: widget.token,
+                                                  id: widget.id,
+                                                  idst:
+                                                      widget.user.student!.id!);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      ' هذا الطالب تم الفاء الحضور عنه')));
+                                          Navigator.pop(context);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12)),
+                                            backgroundColor: Colors.blueGrey),
+                                        child: Text(
+                                          "Yes",
+                                          style: Textstyles.font26medinmblue,
+                                        )),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 12),
+                                    height: 45,
+                                    width: MediaQuery.sizeOf(context).width,
+                                    child: TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12)),
+                                            backgroundColor: Colors.blueGrey),
+                                        child: Text(
+                                          "No",
+                                          style: Textstyles.font26medinmblue,
+                                        )),
+                                  )
                                 ],
                               )
                             : Container(

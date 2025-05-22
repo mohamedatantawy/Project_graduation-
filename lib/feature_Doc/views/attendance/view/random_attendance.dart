@@ -30,6 +30,7 @@ class _RandomAttendanceScreenState extends State<RandomAttendanceScreen> {
     super.initState();
     BlocProvider.of<YesattandanceCubit>(context)
         .getyesattandance(token: widget.token, id: widget.id);
+    //                        BlocProvider.of<YesattandanceCubit>(context).reset();
   }
 
   bool isloading = false;
@@ -53,8 +54,8 @@ class _RandomAttendanceScreenState extends State<RandomAttendanceScreen> {
                     }),
                 const SizedBox(width: 35),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10, horizontal: 40),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
                   decoration: BoxDecoration(
                     color: const Color(0xFF0D2442),
                     borderRadius: BorderRadius.circular(12),
@@ -89,30 +90,29 @@ class _RandomAttendanceScreenState extends State<RandomAttendanceScreen> {
                       nn.add(state.students[i]);
                     }
                   }
-    
+
                   nn.shuffle();
                   List<Yesattandancemodels> randum = nn.take(2).toList();
                   return Expanded(
-                    child: ModalProgressHUD(
-                      inAsyncCall: isloading,
-                      child: ListView.builder(
-                        itemCount: randum.length,
-                        itemBuilder: (context, index) {
-                        
-                          return RandomAttendanceCard(
-                           token: widget.token,
-                           id: widget.id,
-                           user: randum[index],
-                          );
-                        },
-                      ),
+                    child: ListView.builder(
+                      itemCount: randum.length,
+                      itemBuilder: (context, index) {
+                        //BlocProvider.of<YesattandanceCubit>(context).reset();
+                        return randum.length == 0
+                            ? Container()
+                            : RandomAttendanceCard(
+                                token: widget.token,
+                                id: widget.id,
+                                user: randum[index],
+                              );
+                      },
                     ),
                   );
                 } else if (state is YesattandanceLoading) {
                   return Container(
                     height: 400,
-                    child: ModalProgressHUD(
-                        inAsyncCall: true, child: Container()),
+                    child:
+                        ModalProgressHUD(inAsyncCall: true, child: Container()),
                   );
                 } else {
                   return Container();

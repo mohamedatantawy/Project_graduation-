@@ -1,3 +1,4 @@
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:project_greduation/core/utils/errors/failure.dart';
@@ -14,25 +15,25 @@ class AuthLoginRemoteSourceImple implements AuthsreposLogin {
       {required String email, required String password}) async {
     try {
       var data = await api.posts(
-        path: "login",
+        path: "mobile/login",
         data: {
           "email": email,
           "password": password,
         },
       );
       print(data.toString());
-
+ 
       Usermodels user = Usermodels.fromJson(data);
 
       return right(user);
-    } catch (e) {
-      if (e is DioException)
-        return left(Serverfailure.fromdioerror(e));
-      else {
-        return left(Serverfailure(
-          errormassage: e.toString(),
-        ));
-      }
+    }on DioException catch (e) {
+       return left(Serverfailure.fromdioerror(e));
+      // if (e is DioException)
+      // return left(Serverfailure(errormassage:  e.toString()));
+      // //  return left(Serverfailure.fromdioerror(e.type));
+      // else {
+      //   return left(Serverfailure(errormassage:  e.toString()));
+      // }
     }
   }
 }

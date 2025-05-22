@@ -22,4 +22,8 @@ class LectureCubit extends Cubit<LectureState> {
       emit(LectureFailure(message: e.toString()));
     }
   }
+
+  restart() {
+    emit(LectureInitial());
+  }
 }

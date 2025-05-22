@@ -34,29 +34,23 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
   bool isSucess = true;
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: [
         SizedBox(
           height: 80,
         ),
-        Text(
-          '${widget.materialmodels.schedule!.lectureStartHour!.padLeft(2, "y")} AM',
-          style: Textstyles.font26medinmblue,
-        ),
+        // Center(
+        //   child: Text(
+        //     '${widget.materialmodels.schedule!.lectureStartHour!.toString().substring(0, 5)}',
+        //     style: Textstyles.font26medinmblue,
+        //   ),
+        // ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '${widget.materialmodels.createdAt}',
-              style: Textstyles.font16boldwithe
-                  .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Text(
               '${widget.materialmodels.schedule!.lectureDay}',
-              style: Textstyles.font16boldwithe
+              style: Textstyles.font26medinmblue
                   .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
             ),
           ],
@@ -66,22 +60,26 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
           children: [
             Text(
               '${widget.materialmodels.schedule!.doctor!.user!.name}',
-              style: Textstyles.font16boldwithe
+              style: Textstyles.font26medinmblue
                   .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
             ),
             SizedBox(
               width: 40,
             ),
-            Text(
-              '${widget.materialmodels.schedule!.lectureHall!.name}',
-              style: Textstyles.font16boldwithe
-                  .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
+            Center(
+              child: Text(
+                '${widget.materialmodels.schedule!.lectureHall!.name}',
+                style: Textstyles.font26medinmblue.copyWith(
+                    fontWeight: FontWeight.w400, color: kthirdcolorkey),
+              ),
             ),
           ],
         ),
-        Text(
-          'Lecture',
-          style: Textstyles.font26medinmblue,
+        Center(
+          child: Text(
+            'Lecture',
+            style: Textstyles.font26medinmblue,
+          ),
         ),
         SizedBox(
           height: 20,
@@ -123,7 +121,7 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
                   color: kprimarykey,
                 ),
                 Text(
-                  '9:00 AM',
+                  '${widget.materialmodels.schedule!.lectureStartHour.toString().substring(0, 5)}',
                   style: Textstyles.font22medinmwithe.copyWith(
                       fontWeight: FontWeight.bold, color: kprimarykey),
                 ),
@@ -148,7 +146,7 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
                   color: kprimarykey,
                 ),
                 Text(
-                  '9:00 AM',
+                  '${widget.materialmodels.schedule!.lectureEndHour.toString().substring(0, 5)}',
                   style: Textstyles.font22medinmwithe.copyWith(
                       fontWeight: FontWeight.bold, color: kprimarykey),
                 ),
@@ -207,12 +205,11 @@ class _consumerchecklocationState extends State<consumerchecklocation> {
         if (state is TakelocationSucess) {
           isloading = false;
 
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('This Lecture is Sucess')));
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('the doctor take your attandance')));
         } else if (state is Takelocationloading) {
           isloading = true;
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('This Lecture is loading')));
+         
         } else if (state is TakelocationalrdayRegister) {
           isloading = false;
 

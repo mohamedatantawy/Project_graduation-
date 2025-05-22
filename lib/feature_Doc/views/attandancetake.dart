@@ -19,14 +19,7 @@ class Attandancetake extends StatefulWidget {
 }
 
 class _AttandancetakeState extends State<Attandancetake> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // BlocProvider.of<AttendanceCubit>(context).closeAttendance(
-    //   t
-    // )
-  }
+  int minute = 5;
 
   bool isloading = false;
   @override
@@ -87,12 +80,22 @@ class _AttandancetakeState extends State<Attandancetake> {
             ),
             const SizedBox(height: 30),
             Text(
-              widget.lecture.sectionStartHour.toString(),
+              widget.user.role == 'doctor'
+                  ? "Start Time: ${widget.lecture.lectureStartHour.toString().substring(0, 5)}"
+                  : "Start Time: ${widget.lecture.sectionStartHour.toString().substring(0, 5)}",
               style: Textstyles.font26medinmblue,
             ),
-
-            const Text(
-              'Saturday, Nov 7\nIn Hall 1',
+            Text(
+              widget.user.role == 'doctor'
+                  ? "End Time: ${widget.lecture.lectureEndHour.toString().substring(0, 5)}"
+                  : "End Time: ${widget.lecture.sectionEndHour.toString().substring(0, 5)}",
+              style: Textstyles.font26medinmblue,
+            ),
+            Text(
+              widget.user.role == 'doctor'
+                  ? "Day: ${widget.lecture.lectureDay.toString()}\nHall: ${widget.lecture.lectureHall!.name.toString()} "
+                  : "Day: ${widget.lecture.sectionDay.toString()}\nHall: ${widget.lecture.sectionHall!.name.toString()} ",
+              //    'Saturday, Nov 7\nIn Hall 1',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Color(0xFF0D2442),
@@ -121,8 +124,45 @@ class _AttandancetakeState extends State<Attandancetake> {
                     child: Column(
                       children: [
                         Text(
-                          '9:10',
-                          style: Textstyles.font50,
+                          "Choose the minute",
+                          style: Textstyles.font26medinmblue,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: kprimarykey),
+                                child: Text(
+                                  '5',
+                                  style: Textstyles.font16boldwithe,
+                                )),
+                            ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    minute = 10;
+                                  });
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: kprimarykey),
+                                child: Text(
+                                  '10',
+                                  style: Textstyles.font16boldwithe,
+                                )),
+                            ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    minute = 15;
+                                  });
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: kprimarykey),
+                                child: Text(
+                                  '15',
+                                  style: Textstyles.font16boldwithe,
+                                )),
+                          ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -143,8 +183,10 @@ class _AttandancetakeState extends State<Attandancetake> {
                                 onPressed: () {
                                   BlocProvider.of<AttendanceCubit>(context)
                                       .openAttendance(
+                                          minute: minute,
                                           token: widget.user.token!,
                                           id: widget.lecture.course!.id!);
+                                  print(minute.toString());
                                 },
                                 icon: Icon(
                                   Icons.play_circle,

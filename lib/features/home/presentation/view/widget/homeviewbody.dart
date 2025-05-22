@@ -9,6 +9,7 @@ import 'package:project_greduation/features/home/data/models/material/materialmo
 import 'package:project_greduation/features/home/presentation/manger/cubit/materialshow_cubit.dart';
 import 'package:project_greduation/features/home/presentation/view/widget/listviewhomeviewbody.dart';
 import 'package:project_greduation/features/home/presentation/view/widget/trailIcontotakeAttandance.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class Homeviewbody extends StatefulWidget {
   const Homeviewbody({super.key, required this.user});
@@ -21,6 +22,29 @@ class Homeviewbody extends StatefulWidget {
 class _HomeviewbodyState extends State<Homeviewbody> {
   bool isloading = false;
   int? subjectnumber;
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    try {
+      // Trigger BLoC to fetch fresh data
+      context.read<MaterialshowCubit>().getsubjectcu(token: widget.user.token!);
+
+      // Wait for the state to update (you might need to adjust this)
+      await Future.delayed(const Duration(milliseconds: 500));
+
+      _refreshController.refreshCompleted();
+    } catch (e) {
+      _refreshController.refreshFailed();
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Refresh failed: ${e.toString()}')));
+    }
+  }
+
+  void _onLoading() async {
+    // Implement pagination if needed
+    _refreshController.loadComplete();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +57,12 @@ class _HomeviewbodyState extends State<Homeviewbody> {
           subjectnumber = state.data.length;
           //  detailsmodels=Detailsmodels(materialmodels: state.data, user: user)
 
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(state.data.last.schedule!.course.toString())));
+          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          //     content: Text(state.data.last.schedule!.course.toString())));
         } else if (state is Materialshowfailure) {
           //  isloading = false;
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('bad bar ')));
+          // ScaffoldMessenger.of(context)
+          //     .showSnackBar(SnackBar(content: Text('bad bar ')));
         }
       },
       builder: (context, state) {
@@ -46,6 +70,7 @@ class _HomeviewbodyState extends State<Homeviewbody> {
           return ModalProgressHUD(inAsyncCall: true, child: Container());
         } else if (state is MaterialshowSucess) {
           subjectnumber = state.data.length;
+
           return Container(
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -54,10 +79,16 @@ class _HomeviewbodyState extends State<Homeviewbody> {
                 topRight: Radius.circular(70),
               ),
             ),
-            child: ListViewhomeViewbody(
-                listd: state.data,
-                subjectnumber: subjectnumber,
-                widget: widget),
+            child: SmartRefresher(
+              controller: _refreshController,
+              onLoading: _onLoading,
+              onRefresh: _onRefresh,
+              enablePullDown: true,
+              child: ListViewhomeViewbody(
+                  listd: state.data,
+                  subjectnumber: subjectnumber,
+                  widget: widget),
+            ),
           );
         } else {
           return Container();

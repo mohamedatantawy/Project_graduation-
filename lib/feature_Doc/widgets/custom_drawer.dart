@@ -1,14 +1,19 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_greduation/core/gorouter.dart';
+import 'package:project_greduation/core/utils/api/Apiserverce.dart';
+import 'package:project_greduation/feature_Doc/models/lecture_model/lecture_model.dart';
 import 'package:project_greduation/feature_Doc/views/attandanceDrawer.dart';
+import 'package:project_greduation/feature_Doc/views/attandancesubjects.dart';
 import 'package:project_greduation/feature_Doc/views/attendance/no/student_attendance.dart';
 import 'package:project_greduation/features/Auth/data/models/user/user.dart';
 import 'package:project_greduation/features/home/presentation/view/models/drawermodels.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({super.key, required this.user});
+  const CustomDrawer({super.key, required this.user, required this.lectures});
   final Usermodels user;
+ final List<LectureModel> lectures;
   final List<Drawermodels> itemsdrawer = const [
     Drawermodels(title: 'Home', icon: Icons.home),
     Drawermodels(title: 'Profile', icon: Icons.person),
@@ -83,9 +88,10 @@ class CustomDrawer extends StatelessWidget {
                         } else if (index == 2) {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return Attandancedrawer(
+                            return Attandancesubjects(
+lectures: lectures,
                               token: user.token!,
-                              id: 2,
+                             
                             );
                           }));
                         } else if (index == 3) {
@@ -219,13 +225,15 @@ class CustomDrawer extends StatelessWidget {
             const SizedBox(height: 120),
             Center(
               child: ElevatedButton(
-                onPressed: () {
-                  // Navigator.pushReplacement(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const SignInScreen(),
-                  //   ),
-                  // );
+                onPressed: ()async {
+                 bool datas =
+                await Apiserverce(Dio()).logout(token: user.token!);
+            print(datas.toString());
+            if (datas == true) {
+              GoRouter.of(context).pushReplacement(Gorouter.klogin);
+            } else {
+              print('dont logout ');
+            }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,

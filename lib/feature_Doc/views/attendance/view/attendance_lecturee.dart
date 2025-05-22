@@ -34,7 +34,7 @@ class _AttendanceLectureState extends State<AttendanceLecture> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff557DBB),
-      body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+      body: Column(children: [
         const SizedBox(
           height: 50,
         ),
@@ -80,20 +80,17 @@ class _AttendanceLectureState extends State<AttendanceLecture> {
           builder: (context, state) {
             if (state is YesattandanceSucess) {
               return Expanded(
-                child: ModalProgressHUD(
-                  inAsyncCall: isloading,
-                  child: ListView.builder(
-                    itemCount: state.students.length,
-                    itemBuilder: (context, index) {
-                      // final student = students[index];
-                      return AttendanceCard(
-                        name: state.students[index].user!.name!,
-                        email: state.students[index].user!.email!,
-                        time: state.students[index].attendAt!,
-                        status: state.students[index].attendanceStatus!,
-                      );
-                    },
-                  ),
+                child: ListView.builder(
+                  itemCount: state.students.length,
+                  itemBuilder: (context, index) {
+                    // final student = students[index];
+                    return AttendanceCard(
+                      name: state.students[index].user!.name!,
+                      email: state.students[index].user!.email!,
+                      time: state.students[index].attendAt!,
+                      status: state.students[index].attendanceStatus!,
+                    );
+                  },
                 ),
               );
             } else if (state is YesattandanceLoading) {

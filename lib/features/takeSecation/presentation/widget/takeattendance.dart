@@ -43,54 +43,41 @@ class _TakeSectionbody extends State<TakeSectionbody> {
   bool isSucess = true;
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: [
         SizedBox(
-          height: 80,
-        ),
-        Text(
-          '${widget.materialmodels.schedule!.lectureStartHour!.padLeft(2, "y")} AM',
-          style: Textstyles.font26medinmblue,
+          height: 40,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '${widget.materialmodels.createdAt}',
-              style: Textstyles.font16boldwithe
-                  .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Text(
-              '${widget.materialmodels.schedule!.lectureDay}',
-              style: Textstyles.font16boldwithe
+              '${widget.materialmodels.schedule!.sectionDay}',
+              style: Textstyles.font26medinmblue
                   .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
             ),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '${widget.materialmodels.schedule!.doctor!.user!.name}',
-              style: Textstyles.font16boldwithe
-                  .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
-            ),
-            SizedBox(
-              width: 40,
-            ),
-            Text(
-              '${widget.materialmodels.schedule!.lectureHall!.name}',
-              style: Textstyles.font16boldwithe
-                  .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
-            ),
-          ],
-        ),
-        Text(
-          'Section',
-          style: Textstyles.font26medinmblue,
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text(
+            '${widget.materialmodels.schedule!.assistant!.user!.name}',
+            style: Textstyles.font26medinmblue
+                .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
+          ),
+          SizedBox(
+            width: 40,
+          ),
+          Text(
+            '${widget.materialmodels.schedule!.sectionHall!.name}',
+            style: Textstyles.font26medinmblue
+                .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
+          ),
+        ]),
+        Center(
+          child: Text(
+            'Section',
+            style: Textstyles.font26medinmblue,
+          ),
         ),
         SizedBox(
           height: 20,
@@ -138,7 +125,7 @@ class _TakeSectionbody extends State<TakeSectionbody> {
                   color: kprimarykey,
                 ),
                 Text(
-                  '9:00 AM',
+                  "${widget.materialmodels.schedule!.sectionStartHour!.toString().substring(0, 5)}",
                   style: Textstyles.font22medinmwithe.copyWith(
                       fontWeight: FontWeight.bold, color: kprimarykey),
                 ),
@@ -163,7 +150,7 @@ class _TakeSectionbody extends State<TakeSectionbody> {
                   color: kprimarykey,
                 ),
                 Text(
-                  '9:00 AM',
+                  "${widget.materialmodels.schedule!.sectionEndHour!.toString().substring(0, 5)}",
                   style: Textstyles.font22medinmwithe.copyWith(
                       fontWeight: FontWeight.bold, color: kprimarykey),
                 ),
@@ -224,11 +211,10 @@ class _consumerschecklocationState extends State<consumerschecklocation> {
           isloading = false;
           widget.isSucess = false;
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('This Section is Sucess')));
+              .showSnackBar(SnackBar(content: Text('لقد تم اخذ حضودك')));
         } else if (state is Takelocationloading) {
           isloading = true;
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('This Section is loading')));
+         
         } else if (state is TakelocationalrdayRegister) {
           isloading = false;
           widget.isSucess = false;

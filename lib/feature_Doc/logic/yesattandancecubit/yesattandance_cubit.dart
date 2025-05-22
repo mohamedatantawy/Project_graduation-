@@ -32,4 +32,8 @@ class YesattandanceCubit extends Cubit<YesattandanceState> {
       );
     }
   }
+
+  reset() {
+    emit(YesattandanceInitial());
+  }
 }

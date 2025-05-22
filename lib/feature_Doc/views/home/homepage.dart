@@ -10,12 +10,14 @@ import 'package:project_greduation/feature_Doc/logic/absentcubit/absent_cubit.da
 import 'package:project_greduation/feature_Doc/logic/attendance/attendance_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/lecture/lecture_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/lecture/lecture_state.dart';
+import 'package:project_greduation/feature_Doc/models/lecture_model/lecture_model.dart';
 import 'package:project_greduation/feature_Doc/views/no/active_sessions/grade.dart';
 import 'package:project_greduation/feature_Doc/views/no/active_sessions/sessions.dart';
 import 'package:project_greduation/feature_Doc/views/attandancetake.dart';
 import 'package:project_greduation/feature_Doc/widgets/custom_drawer.dart';
 import 'package:project_greduation/feature_Doc/widgets/home_appbar.dart';
 import 'package:project_greduation/features/Auth/data/models/user/user.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.user});
@@ -26,6 +28,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
+  
+  List<LectureModel> lectures = [];
+
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -34,7 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
           create: (context) => LectureCubit(LectureInfoApi(dio: Dio()))
             ..getLecInfo(token: widget.user.token!),
         ),
-       
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -42,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         backgroundColor: const Color(0xFFE8EBF2),
         drawer: CustomDrawer(
+          lectures: lectures,
           user: widget.user,
         ),
         body: Column(
@@ -65,9 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           )),
                     );
                   } else if (state is LectureSuccess) {
+                    lectures = state.lectures;
                     return Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: List.generate(state.lectures.length, (index) {
+                        children:
+                            List.generate(state.lectures.length, (index) {
+                          //   lectures.add(state.lectures[index]);
                           return SizedBox(
                             height: 80,
                             child: ListTile(

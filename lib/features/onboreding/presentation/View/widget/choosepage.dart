@@ -14,7 +14,7 @@ class Choosepage extends StatelessWidget {
           height: 150,
         ),
         const Text(
-          "Choose Your Option",
+          "Enter Start to go the Login",
           style: const TextStyle(
             color: Colors.white,
             fontSize: 25,
@@ -25,13 +25,15 @@ class Choosepage extends StatelessWidget {
           height: 30,
         ),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+             GoRouter.of(context).pushReplacement(Gorouter.klogin);
+          },
           style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12))),
           child: const Text(
-            'Doctor',
+            ' Start ',
             style: TextStyle(
                 fontSize: 22, color: kprimarykey, fontWeight: FontWeight.bold),
           ),
@@ -39,20 +41,21 @@ class Choosepage extends StatelessWidget {
         const SizedBox(
           height: 30,
         ),
-        ElevatedButton(
-          onPressed: () {
-            GoRouter.of(context).pushReplacement(Gorouter.klogin);
-          },
-          style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12))),
-          child: const Text(
-            'Student',
-            style: TextStyle(
-                fontSize: 22, color: kprimarykey, fontWeight: FontWeight.bold),
-          ),
-        ),
+        //   ElevatedButton(
+        //     onPressed: () {
+        //       GoRouter.of(context).pushReplacement(Gorouter.klogin);
+        //     },
+        //     style: ElevatedButton.styleFrom(
+        //         padding: const EdgeInsets.symmetric(horizontal: 40),
+        //         shape: RoundedRectangleBorder(
+        //             borderRadius: BorderRadius.circular(12))),
+        //     child: const Text(
+        //       'Student',
+        //       style: TextStyle(
+        //           fontSize: 22, color: kprimarykey, fontWeight: FontWeight.bold),
+        //     ),
+        //   ),
+        // ],
       ],
     );
   }

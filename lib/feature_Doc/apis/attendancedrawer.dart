@@ -9,7 +9,7 @@ class Attendancedrawer {
   Future<List<Studentsfordrawermodels>> attendancedrawermethod(
       {required String token, required int id}) async {
     var res = await dio.get(
-      'https://attendance-project.up.railway.app/api/doctor/term-attendance/$id',
+      'https://nubaria.ddns.net/api/doctor/term-attendance/$id',
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',

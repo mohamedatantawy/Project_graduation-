@@ -12,7 +12,7 @@ class LectureInfoApi {
     // String? token = prefs.getString('token');
 
     var response = await dio.get(
-      'https://attendance-project.up.railway.app/api/doctor/schedules',
+      'https://nubaria.ddns.net/api/doctor/schedules',
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',

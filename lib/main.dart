@@ -33,10 +33,7 @@ import 'package:project_greduation/features/takeattendance/presentation/manger/c
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //  await Sharedperfernace.setString('token', 'token');
-  List<int> num = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  num.shuffle();
-  List<int> random = num.take(5).toList();
-  print(random);
+ 
   setupO();
   runApp(const PorjectGreduation());
 }
