@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AttendanceApi {
   AttendanceApi({required this.dio});
@@ -9,31 +6,66 @@ class AttendanceApi {
   final Dio dio;
 
   Future<dynamic> openAtendance(
-      {required String token, required int id ,required int minute}) async {
-    var res = await dio.patch(
-      'https://nubaria.ddns.net/api/doctor/open-attendance/$id',
-      data: {
-        'time': '$minute',
-      },
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
-      ),
-    );
+      {required String token,
+      required int id,
+      required int minute,
+      required String depname}) async {
+    var res;
+    depname == 'assistant'
+        ? {
+            res = await dio.patch(
+              'https://nubaria.ddns.net/api/assistant/sections/$id/attendance/open',
+              data: {
+                ///api/assistant/sections/2/attendance/open
+                'time': '$minute',
+              },
+              options: Options(
+                headers: {
+                  'Authorization': 'Bearer $token',
+                },
+              ),
+            ),
+          }
+        : {
+            res = await dio.patch(
+              'https://nubaria.ddns.net/api/doctor/schedules/$id/attendance/open',
+              data: {
+                'time': '$minute',
+              },
+              options: Options(
+                headers: {
+                  'Authorization': 'Bearer $token',
+                },
+              ),
+            ),
+          };
     return res.data;
   }
 
   Future<dynamic> closeAtendance(
-      {required String token, required int id,}) async {
-    var res = await dio.patch(
-      'https://nubaria.ddns.net/api/doctor/close-attendance/$id',
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
-      ),
-    );
+      {required String token, required int id, required String depname}) async {
+    var res;
+    depname == "assistant"
+        ? {
+            res = await dio.patch(
+              'https://nubaria.ddns.net/api/assistant/sections/$id/attendance/close',
+              options: Options(
+                headers: {
+                  'Authorization': 'Bearer $token',
+                },
+              ),
+            )
+          }
+        : {
+            res = await dio.patch(
+              'https://nubaria.ddns.net/api/doctor/schedules/$id/attendance/close',
+              options: Options(
+                headers: {
+                  'Authorization': 'Bearer $token',
+                },
+              ),
+            )
+          };
     return res.data;
-  }//nubaria.ddns.net
+  } //nubaria.ddns.net
 }

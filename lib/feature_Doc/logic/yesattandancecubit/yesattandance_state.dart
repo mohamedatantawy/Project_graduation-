@@ -9,8 +9,15 @@ final class YesattandanceLoading extends YesattandanceState {}
 
 final class YesattandanceSucess extends YesattandanceState {
   final List<Yesattandancemodels> students;
+  final num present;
+  YesattandanceSucess(this.present, {required this.students});
+}
 
-  YesattandanceSucess({required this.students});
+final class YesattandanceSucessshow extends YesattandanceState {
+  final num present;
+  YesattandanceSucessshow(
+    this.present,
+  );
 }
 
 final class Yesattandancefailure extends YesattandanceState {

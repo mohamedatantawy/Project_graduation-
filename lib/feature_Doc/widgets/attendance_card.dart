@@ -57,9 +57,13 @@ class AttendanceCard extends StatelessWidget {
                           style: TextStyle(color: Colors.white)),
                       const SizedBox(width: 30),
                       Text(status == 1 ? "Present" : "Absent",
-                          style: const TextStyle(
-                              color: Color(0xff4FF918),
-                              fontWeight: FontWeight.bold)),
+                          style: status == 1
+                              ? const TextStyle(
+                                  color: Color(0xff4FF918),
+                                  fontWeight: FontWeight.bold)
+                              : const TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ],

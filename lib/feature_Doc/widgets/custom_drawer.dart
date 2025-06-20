@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/core/utils/api/Apiserverce.dart';
 import 'package:project_greduation/feature_Doc/models/lecture_model/lecture_model.dart';
+import 'package:project_greduation/feature_Doc/models/section_models/section_models.dart';
 import 'package:project_greduation/feature_Doc/views/attandanceDrawer.dart';
 import 'package:project_greduation/feature_Doc/views/attandancesubjects.dart';
 import 'package:project_greduation/feature_Doc/views/attendance/no/student_attendance.dart';
@@ -11,9 +12,12 @@ import 'package:project_greduation/features/Auth/data/models/user/user.dart';
 import 'package:project_greduation/features/home/presentation/view/models/drawermodels.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({super.key, required this.user, required this.lectures});
+  const CustomDrawer(
+      {super.key, required this.user, this.lectures, this.section});
   final Usermodels user;
- final List<LectureModel> lectures;
+  final List<LectureModel>? lectures;
+  final List<SectionModels>? section;
+
   final List<Drawermodels> itemsdrawer = const [
     Drawermodels(title: 'Home', icon: Icons.home),
     Drawermodels(title: 'Profile', icon: Icons.person),
@@ -89,9 +93,12 @@ class CustomDrawer extends StatelessWidget {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
                             return Attandancesubjects(
-lectures: lectures,
+                              role: user.role!,
+                              lectures:
+                                  user.role == 'assistant' ? null : lectures,
                               token: user.token!,
-                             
+                              section:
+                                  user.role == 'assistant' ? section : null,
                             );
                           }));
                         } else if (index == 3) {
@@ -225,15 +232,15 @@ lectures: lectures,
             const SizedBox(height: 120),
             Center(
               child: ElevatedButton(
-                onPressed: ()async {
-                 bool datas =
-                await Apiserverce(Dio()).logout(token: user.token!);
-            print(datas.toString());
-            if (datas == true) {
-              GoRouter.of(context).pushReplacement(Gorouter.klogin);
-            } else {
-              print('dont logout ');
-            }
+                onPressed: () async {
+                  bool datas =
+                      await Apiserverce(Dio()).logout(token: user.token!);
+                  print(datas.toString());
+                  if (datas == true) {
+                    GoRouter.of(context).pushReplacement(Gorouter.klogin);
+                  } else {
+                    print('dont logout ');
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,

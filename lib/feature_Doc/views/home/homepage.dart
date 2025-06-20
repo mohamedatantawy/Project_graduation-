@@ -2,22 +2,17 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/styles/textstyles.dart';
-import 'package:project_greduation/feature_Doc/apis/absentStudents.dart';
-import 'package:project_greduation/feature_Doc/apis/attendance_api.dart';
 import 'package:project_greduation/feature_Doc/apis/lecture_info_api.dart';
-import 'package:project_greduation/feature_Doc/logic/absentcubit/absent_cubit.dart';
-import 'package:project_greduation/feature_Doc/logic/attendance/attendance_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/lecture/lecture_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/lecture/lecture_state.dart';
 import 'package:project_greduation/feature_Doc/models/lecture_model/lecture_model.dart';
-import 'package:project_greduation/feature_Doc/views/no/active_sessions/grade.dart';
-import 'package:project_greduation/feature_Doc/views/no/active_sessions/sessions.dart';
+import 'package:project_greduation/feature_Doc/models/section_models/section_models.dart';
 import 'package:project_greduation/feature_Doc/views/attandancetake.dart';
 import 'package:project_greduation/feature_Doc/widgets/custom_drawer.dart';
 import 'package:project_greduation/feature_Doc/widgets/home_appbar.dart';
 import 'package:project_greduation/features/Auth/data/models/user/user.dart';
-import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.user});
@@ -28,9 +23,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
-  
-  List<LectureModel> lectures = [];
 
+  List<LectureModel> lectures = [];
+  List<SectionModels> section = [];
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       providers: [
         BlocProvider(
           create: (context) => LectureCubit(LectureInfoApi(dio: Dio()))
-            ..getLecInfo(token: widget.user.token!),
+            ..getLecInfo(token: widget.user.token!, depname: widget.user.role!),
         ),
       ],
       child: Scaffold(
@@ -47,10 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         backgroundColor: const Color(0xFFE8EBF2),
         drawer: CustomDrawer(
-          lectures: lectures,
+          lectures: widget.user.role == 'assistant' ? null : lectures,
+          section: widget.user.role == 'assistant' ? section : null,
           user: widget.user,
         ),
-        body: Column(
+        body: ListView(
           key: scaffoldkey,
           children: [
             HomeAppbar(
@@ -67,22 +63,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ModalProgressHUD(
                           inAsyncCall: true,
                           child: Container(
-                            color: Colors.white,
+                            color: const Color(0xFFE8EBF2),
                           )),
                     );
                   } else if (state is LectureSuccess) {
                     lectures = state.lectures;
                     return Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:
-                            List.generate(state.lectures.length, (index) {
+                        children: List.generate(state.lectures.length, (index) {
                           //   lectures.add(state.lectures[index]);
                           return SizedBox(
                             height: 80,
                             child: ListTile(
+                              subtitle: Text(
+                                'Take attandance }',
+                                style: Textstyles.font14medinmblue,
+                              ),
                               title: Text(
                                 state.lectures[index].course!.name.toString(),
-                                style: Textstyles.font26medinmblue,
+                                style: Textstyles.font26medinmblue
+                                    .copyWith(color: kprimarykey),
                               ),
                               trailing: IconButton(
                                 iconSize: 50,
@@ -101,44 +101,49 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           );
-                        })
-                        // [
-                        //   TextButton(
-                        //     onPressed: () {
-                        //       Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //           builder: (context) => SessionsView(),
-                        //         ),
-                        //       );
-                        //     },
-                        //     child: const Text(
-                        //       'Active sessions',
-                        //       style: TextStyle(
-                        //         decoration: TextDecoration.underline,
-                        //         fontWeight: FontWeight.bold,
-                        //         fontSize: 25,
-                        //         color: Color(0xFF06224D),
-                        //       ),
-                        //     ),
-                        //   ),
-                        //   IconButton(
-                        //     iconSize: 50,
-                        //     color: const Color(0xFF06224D),
-                        //     onPressed: () {
-                        //       Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) => SessionsView()),
-                        //       );
-                        //     },
-                        //     icon: const Icon(Icons.play_arrow_rounded),
-                        //   ),
-                        // ],
-                        );
+                        }));
+                  } else if (state is SectionSuccess) {
+                    section = state.section;
+
+                    return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: List.generate(state.section.length, (index) {
+                          //   lectures.add(state.lectures[index]);
+                          return SizedBox(
+                            height: 80,
+                            child: ListTile(
+                              subtitle: Text(
+                                'Take attandance    --> ${state.section[index].academicSchedule!.lectureDay!} \n Start at : ${state.section[index].academicSchedule!.lectureStartHour!.toString().substring(0, 5)}',
+                                style: Textstyles.font14medinmblue,
+                              ),
+                              title: Text(
+                                state.section[index].academicSchedule!.course!
+                                    .name
+                                    .toString(),
+                                style: Textstyles.font26medinmblue
+                                    .copyWith(color: kprimarykey),
+                              ),
+                              trailing: IconButton(
+                                iconSize: 50,
+                                color: const Color(0xFF06224D),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Attandancetake(
+                                              section: state.section[index],
+                                              user: widget.user,
+                                            )),
+                                  );
+                                },
+                                icon: const Icon(Icons.play_arrow_rounded),
+                              ),
+                            ),
+                          );
+                        }));
                   } else {
                     return Container(
-                      color: Colors.red,
+                      color: Colors.transparent,
                       height: 100,
                     );
                   }

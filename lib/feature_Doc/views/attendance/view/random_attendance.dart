@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_greduation/feature_Doc/apis/absentStudents.dart';
 import 'package:project_greduation/feature_Doc/logic/absentcubit/absent_cubit.dart';
+import 'package:project_greduation/feature_Doc/logic/counter/counter_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/yesattandancecubit/yesattandance_cubit.dart';
 import 'package:project_greduation/feature_Doc/models/yesattandancemodels/yesattandancemodels.dart';
 import 'package:project_greduation/feature_Doc/widgets/random_attendance_card.dart';
@@ -11,7 +12,9 @@ import 'package:project_greduation/feature_Doc/widgets/random_attendance_card.da
 class RandomAttendanceScreen extends StatefulWidget {
   final String token;
   final int id;
-  RandomAttendanceScreen({super.key, required this.token, required this.id});
+  final String role;
+  RandomAttendanceScreen(
+      {super.key, required this.token, required this.id, required this.role});
 
   @override
   State<RandomAttendanceScreen> createState() => _RandomAttendanceScreenState();
@@ -28,8 +31,11 @@ class _RandomAttendanceScreenState extends State<RandomAttendanceScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    BlocProvider.of<YesattandanceCubit>(context)
-        .getyesattandance(token: widget.token, id: widget.id);
+    BlocProvider.of<YesattandanceCubit>(context).getyesattandance(
+      token: widget.token,
+      id: widget.id,
+      role: widget.role,
+    );
     //                        BlocProvider.of<YesattandanceCubit>(context).reset();
   }
 
@@ -51,6 +57,10 @@ class _RandomAttendanceScreenState extends State<RandomAttendanceScreen> {
                     ),
                     onPressed: () {
                       Navigator.pop(context);
+                      BlocProvider.of<CounterCubit>(context).showPresent1(
+                          role: widget.role,
+                          token: widget.token,
+                          id: widget.id);
                     }),
                 const SizedBox(width: 35),
                 Container(
@@ -90,9 +100,8 @@ class _RandomAttendanceScreenState extends State<RandomAttendanceScreen> {
                       nn.add(state.students[i]);
                     }
                   }
-
                   nn.shuffle();
-                  List<Yesattandancemodels> randum = nn.take(2).toList();
+                  List<Yesattandancemodels> randum = nn.take(10).toList();
                   return Expanded(
                     child: ListView.builder(
                       itemCount: randum.length,
@@ -101,6 +110,7 @@ class _RandomAttendanceScreenState extends State<RandomAttendanceScreen> {
                         return randum.length == 0
                             ? Container()
                             : RandomAttendanceCard(
+                                role: widget.role,
                                 token: widget.token,
                                 id: widget.id,
                                 user: randum[index],
@@ -109,13 +119,15 @@ class _RandomAttendanceScreenState extends State<RandomAttendanceScreen> {
                     ),
                   );
                 } else if (state is YesattandanceLoading) {
-                  return Container(
-                    height: 400,
-                    child:
-                        ModalProgressHUD(inAsyncCall: true, child: Container()),
+                  return Expanded(
+                    child: Container(
+                      height: 400,
+                      child: ModalProgressHUD(
+                          inAsyncCall: true, child: Container()),
+                    ),
                   );
                 } else {
-                  return Container();
+                  return Expanded(child: Container());
                 }
               },
             )

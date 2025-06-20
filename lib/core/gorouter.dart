@@ -79,6 +79,7 @@ abstract class Gorouter {
       builder: (context, state) {
         var user = GoRouterState.of(context).extra as Detailsmodels;
         return Takesection(
+
           user: user,
         );
       },

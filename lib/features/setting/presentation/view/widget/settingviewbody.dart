@@ -6,6 +6,7 @@ import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/core/styles/textstyles.dart';
 import 'package:project_greduation/core/utils/api/Apiserverce.dart';
 import 'package:project_greduation/core/utils/customelevatedbutton.dart';
+import 'package:project_greduation/core/utils/sharedperfernace.dart';
 import 'package:project_greduation/features/setting/presentation/models/settingmodel.dart';
 
 class Settingviewbody extends StatelessWidget {
@@ -92,6 +93,7 @@ class Settingviewbody extends StatelessWidget {
               title: 'Logout',
               onpressed: () async {
                 bool datas = await Apiserverce(Dio()).logout(token: token);
+                await Sharedperfernace.setbool('isremid', false);
                 print(datas.toString());
                 if (datas == true) {
                   GoRouter.of(context).pushReplacement(Gorouter.klogin);

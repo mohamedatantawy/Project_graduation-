@@ -17,7 +17,7 @@ class Assistant {
 
   factory Assistant.fromJson(Map<String, dynamic> json) => Assistant(
         id: json['id'] as int?,
-        department: json['department'] as String?,
+        department: json['department']['department'] as String?,
         createdAt: json['created_at'] as dynamic,
         updatedAt: json['updated_at'] as dynamic,
         user: json['user'] == null

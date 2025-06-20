@@ -8,8 +8,12 @@ import 'package:project_greduation/features/takeSecation/presentation/widget/tak
 import 'package:project_greduation/features/takeattendance/presentation/manger/cubit/takelocation_cubit.dart';
 
 class Takesection extends StatelessWidget {
-  const Takesection({super.key, required this.user});
+  const Takesection({
+    super.key,
+    required this.user,
+  });
   final Detailsmodels user;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +62,7 @@ class Takesection extends StatelessWidget {
           ),
         ),
         child: TakeSectionbody(
+          number: user.number ?? -1,
           materialmodels: user.materialmodels,
         ),
       ),

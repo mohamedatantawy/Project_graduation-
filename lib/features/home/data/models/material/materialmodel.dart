@@ -1,3 +1,5 @@
+import 'package:project_greduation/features/home/data/models/material/schedule/schedule.dart';
+
 import 'schedule.dart';
 
 class Materialmodels {

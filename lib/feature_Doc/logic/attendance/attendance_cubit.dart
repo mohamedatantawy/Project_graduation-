@@ -10,27 +10,34 @@ class AttendanceCubit extends Cubit<AttendanceState> {
 
   final AttendanceApi attendanceApi;
 
-  Future<void> openAttendance({required String token, required int id,required int minute}) async {
+  Future<void> openAttendance(
+      {required String token,
+      required int id,
+      required int minute,
+      required String depname}) async {
     emit(AttendanceLoading());
     try {
-      var messageMap = await attendanceApi.openAtendance(token: token, id: id, minute:minute);
+      var messageMap = await attendanceApi.openAtendance(
+          depname: depname, token: token, id: id, minute: minute);
       String mess = messageMap['message'];
       print(mess.toString());
       emit(AttendanceSuccess(message: mess));
     } on DioException catch (e) {
-      print(e.response!.data['message'].toString());
+      //  print(e.response!.data['message'].toString());
       emit(
         AttendanceFailure(
-          errMessage: e.response!.data['message'],
+          errMessage: e.response!.data.toString(),
         ),
       );
     }
   }
 
-  Future<void> closeAttendance({required String token, required int id}) async {
+  Future<void> closeAttendance(
+      {required String token, required int id, required String depname}) async {
     emit(AttendanceLoading());
     try {
       var messageMap = await attendanceApi.closeAtendance(
+        depname: depname,
         token: token,
         id: id,
       );
@@ -38,10 +45,10 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       print(mess);
       emit(AttendanceSuccess(message: mess));
     } on DioException catch (e) {
-      print(e.response!.data.toString());
+      // print(e.response!.data.toString());
       emit(
         AttendanceFailure(
-          errMessage: e.response!.data['message'],
+          errMessage: e.response!.data.toString(),
         ),
       );
     }

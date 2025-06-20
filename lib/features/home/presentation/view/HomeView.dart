@@ -1,7 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/utils/server_loaction.dart';
 import 'package:project_greduation/features/Auth/data/models/user/user.dart';
@@ -10,7 +8,6 @@ import 'package:project_greduation/features/home/presentation/manger/cubit/cubit
 import 'package:project_greduation/features/home/presentation/manger/cubit/materialshow_cubit.dart';
 import 'package:project_greduation/features/home/presentation/view/DrawerView.dart';
 import 'package:project_greduation/features/home/presentation/view/widget/homeviewbody.dart';
-import 'package:project_greduation/helper/api.dart';
 
 class Homeview extends StatelessWidget {
   const Homeview({super.key, required this.user});

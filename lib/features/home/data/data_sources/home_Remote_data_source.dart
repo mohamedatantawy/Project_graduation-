@@ -46,8 +46,9 @@ class HomeRemoteDataSourceImple implements HomeRemoteDataSource {
   Future<Either<Failure, bool>> isavailablesubject(
       {required String token, required int id, required String session}) async {
     try {
-      var data = await api.geta(
-          path: "student/is-attendance-available/$id?session_type=$session",
+      var data = await api.geta(///api/student/schedules/1/attendance/available
+
+          path: "student/schedules/$id/attendance/available?session_type=$session",
           token: {
             'Authorization': 'Bearer $token', // Include the token here
           });

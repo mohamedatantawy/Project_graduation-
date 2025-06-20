@@ -8,7 +8,7 @@ class Student {
   factory Student.fromJson(Map<String, dynamic> json) => Student(
         id: json['id'] as int?,
         grade: json['grade'] as int?,
-        department: json['department'] as String?,
+        department: json['department']['department'] as String?,
       );
 
   Map<String, dynamic> toJson() => {

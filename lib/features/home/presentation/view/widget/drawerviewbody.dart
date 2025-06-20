@@ -1,10 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/core/styles/textstyles.dart';
 import 'package:project_greduation/core/utils/api/Apiserverce.dart';
+import 'package:project_greduation/core/utils/sharedperfernace.dart';
+import 'package:project_greduation/features/Auth/presentation/manager/Auth_login/auth_login_cubit.dart';
 import 'package:project_greduation/features/home/data/models/material/materialmodel.dart';
 import 'package:project_greduation/features/home/presentation/view/DrawerView.dart';
 import 'package:project_greduation/features/home/presentation/view/models/drawermodels.dart';
@@ -72,8 +75,12 @@ class Drawerviewbody extends StatelessWidget {
           onPressed: () async {
             bool datas =
                 await Apiserverce(Dio()).logout(token: widget.user.token!);
+
             print(datas.toString());
             if (datas == true) {
+              await Sharedperfernace.setString('email', '');
+              await Sharedperfernace.setString('password', '');
+              await Sharedperfernace.setbool('isremid', false);
               GoRouter.of(context).pushReplacement(Gorouter.klogin);
             } else {
               print('dont logout ');

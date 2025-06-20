@@ -3,17 +3,22 @@ import 'package:go_router/go_router.dart';
 import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/styles/textstyles.dart';
 import 'package:project_greduation/feature_Doc/models/lecture_model/lecture_model.dart';
+import 'package:project_greduation/feature_Doc/models/section_models/section_models.dart';
 import 'package:project_greduation/feature_Doc/views/attandanceDrawer.dart';
 
 class Attandancesubjects extends StatelessWidget {
-  const Attandancesubjects(
-      {super.key,
-      required this.lectures,
-      required this.token,
-      });
-  final List<LectureModel> lectures;
+  const Attandancesubjects({
+    super.key,
+    this.lectures,
+    required this.token,
+    required this.role,
+    this.section,
+  });
+  final List<LectureModel>? lectures;
+  final List<SectionModels>? section;
+
   final String token;
- 
+  final String role;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,18 +52,27 @@ class Attandancesubjects extends StatelessWidget {
         ),
       ),
       body: Attandancebody(
-     
+        role: role,
         token: token,
-        lectures: lectures,
+        section: role == 'assistant' ? section : null,
+        lectures: role == 'assistant' ? null : lectures,
       ),
     );
   }
 }
 
 class Attandancebody extends StatelessWidget {
-  const Attandancebody({super.key, required this.lectures, required this.token, });
-  final List<LectureModel> lectures;
+  const Attandancebody({
+    super.key,
+    this.lectures,
+    required this.token,
+    required this.role,
+    this.section,
+  });
+  final List<LectureModel>? lectures;
   final String token;
+  final String role;
+  final List<SectionModels>? section;
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +90,7 @@ class Attandancebody extends StatelessWidget {
         SizedBox(
           height: MediaQuery.sizeOf(context).height * 0.62,
           child: GridView.builder(
-            itemCount: lectures.length,
+            itemCount: role == 'assistant' ? section!.length : lectures!.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
@@ -90,11 +104,13 @@ class Attandancebody extends StatelessWidget {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return Attandancedrawer(
-                        id:lectures[index].course!.id!  ,
-                        token:token ,
+                        role: role,
+                        id: role == 'assistant'
+                            ? section![index].id!
+                            : lectures![index].id!,
+                        token: token,
                       );
                     }));
-                   
                   }
                 },
                 child: Container(
@@ -110,11 +126,10 @@ class Attandancebody extends StatelessWidget {
                         )
                       ]),
                   child: Card(
-                    
                     shadowColor: Colors.black,
                     child: Center(
                         child: Text(
-                     '${lectures[index].course!.name}',
+                      '${role == 'assistant' ? section![index].academicSchedule!.course!.name : lectures![index].course!.name}',
                       style: Textstyles.font15semiboldwite,
                     )),
                     color: kcolorcard,

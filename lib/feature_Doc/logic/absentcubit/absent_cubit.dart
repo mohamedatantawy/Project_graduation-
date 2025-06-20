@@ -9,12 +9,15 @@ class AbsentCubit extends Cubit<AbsentState> {
   AbsentCubit(this.absentstudents) : super(AbsentInitial());
   final Absentstudents absentstudents;
   absentStudentsmothed(
-      {required String token, required int id, required int idst}) async {
+      {required String token,
+      required int id,
+      required int idst,
+      required String role}) async {
     emit(Absentloading());
     try {
-      var data =
-          await absentstudents.absent(token: token, id: id, idstudent: idst);
-      emit(AbsentSucess( data: data));
+      var data = await absentstudents.absent(
+          token: token, id: id, idstudent: idst, role: role);
+      emit(AbsentSucess(data: data));
     } on DioException catch (e) {
       emit(AbsentFailure(
         emassage: e.response!.data.toString(),

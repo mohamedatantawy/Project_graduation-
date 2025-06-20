@@ -1,29 +1,19 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/assets.dart';
 import 'package:project_greduation/core/styles/textstyles.dart';
-import 'package:project_greduation/core/utils/api/Apiserverce.dart';
 import 'package:project_greduation/core/utils/sharedperfernace.dart';
 import 'package:project_greduation/features/home/data/models/material/materialmodel.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:location/location.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:project_greduation/constants.dart';
-import 'package:project_greduation/core/assets.dart';
-import 'package:project_greduation/core/styles/textstyles.dart';
-import 'package:project_greduation/core/utils/api/Apiserverce.dart';
-import 'package:project_greduation/core/utils/sharedperfernace.dart';
-import 'package:project_greduation/features/home/data/models/material/materialmodel.dart';
 import 'package:project_greduation/features/takeattendance/presentation/manger/cubit/takelocation_cubit.dart';
 
 class TakeSectionbody extends StatefulWidget {
-  const TakeSectionbody({super.key, required this.materialmodels});
+  const TakeSectionbody(
+      {super.key, required this.materialmodels, required this.number});
   final Materialmodels materialmodels;
+  final int number;
   @override
   State<TakeSectionbody> createState() => _TakeSectionbody();
 }
@@ -52,7 +42,7 @@ class _TakeSectionbody extends State<TakeSectionbody> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '${widget.materialmodels.schedule!.sectionDay}',
+              '${widget.materialmodels.schedule!.course!.name}',
               style: Textstyles.font26medinmblue
                   .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
             ),
@@ -60,7 +50,7 @@ class _TakeSectionbody extends State<TakeSectionbody> {
         ),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
-            '${widget.materialmodels.schedule!.assistant!.user!.name}',
+            '${widget.materialmodels.schedule!.sections![widget.number].sectionHall!.name!}',
             style: Textstyles.font26medinmblue
                 .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
           ),
@@ -68,7 +58,7 @@ class _TakeSectionbody extends State<TakeSectionbody> {
             width: 40,
           ),
           Text(
-            '${widget.materialmodels.schedule!.sectionHall!.name}',
+            '${widget.materialmodels.schedule!.sections![widget.number].sectionDay!}',
             style: Textstyles.font26medinmblue
                 .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
           ),
@@ -96,12 +86,13 @@ class _TakeSectionbody extends State<TakeSectionbody> {
                       var data = await location.getLocation();
                       print(" ${data.latitude} ${data.longitude}");
                       await context.read<TakelocationCubit>().getlocationmothed(
-                          id: widget.materialmodels.academicScheduleId!,
+                          id: widget.materialmodels.schedule!
+                              .sections![widget.number].id!,
                           token: token,
-                          latitude:
-                              "30.669295878641602", // data.latitude.toString(),
-                          longitude:
-                              "30.070144100553378", //data.longitude.toString(),
+                          latitude:  "30.669295878641602",
+                            //  data.latitude.toString(),
+                          longitude:  "30.070144100553378",
+                             // data.longitude.toString(), //"30.070144100553378",
                           session: "section");
                     }
                   : () {},
@@ -125,7 +116,7 @@ class _TakeSectionbody extends State<TakeSectionbody> {
                   color: kprimarykey,
                 ),
                 Text(
-                  "${widget.materialmodels.schedule!.sectionStartHour!.toString().substring(0, 5)}",
+                  "${widget.materialmodels.schedule!.sections![widget.number].sectionStartHour.toString().substring(0, 5)}",
                   style: Textstyles.font22medinmwithe.copyWith(
                       fontWeight: FontWeight.bold, color: kprimarykey),
                 ),
@@ -150,7 +141,7 @@ class _TakeSectionbody extends State<TakeSectionbody> {
                   color: kprimarykey,
                 ),
                 Text(
-                  "${widget.materialmodels.schedule!.sectionEndHour!.toString().substring(0, 5)}",
+                  "${widget.materialmodels.schedule!.sections![widget.number].sectionEndHour.toString().substring(0, 5)}",
                   style: Textstyles.font22medinmwithe.copyWith(
                       fontWeight: FontWeight.bold, color: kprimarykey),
                 ),
@@ -211,20 +202,19 @@ class _consumerschecklocationState extends State<consumerschecklocation> {
           isloading = false;
           widget.isSucess = false;
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('لقد تم اخذ حضودك')));
+              .showSnackBar(SnackBar(content: Text('Your attandance is done')));
         } else if (state is Takelocationloading) {
           isloading = true;
-         
         } else if (state is TakelocationalrdayRegister) {
           isloading = false;
           widget.isSucess = false;
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('This Section is alrday is register')));
+              SnackBar(content: Text('You are already is register')));
         } else if (state is Takelocationoutthecollege) {
           isloading = false;
           widget.isSucess = false;
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('This Section is not in the college')));
+              SnackBar(content: Text('You are not in the college')));
         } else if (state is TakelocationFailure) {
           isloading = false;
           ScaffoldMessenger.of(context)

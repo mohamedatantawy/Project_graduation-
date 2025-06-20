@@ -20,7 +20,10 @@ class TakeattendanceDataSourceimple implements TakeattandanceDataSoure {
         token: {
           'Authorization': 'Bearer $token', // Include the token here
         },
-        path: "student/attend/$id",
+
+        ///api/student/schedules/1/attendance
+
+        path: "student/schedules/$id/attendance",
         data: {
           "session_type": session,
           "latitude": latitude,

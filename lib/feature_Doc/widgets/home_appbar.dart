@@ -19,11 +19,11 @@ class HomeAppbar extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(width: 16),
-          CircleAvatar(
-            radius: 30,
-            backgroundImage: AssetImage(
-                Assets.assetsImageVector), // replace with actual image path
-          ),
+          // CircleAvatar(
+          //   radius: 30,
+          //   backgroundImage: AssetImage(
+          //       Assets.assetsImageVector), // replace with actual image path
+          // ),
           SizedBox(width: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

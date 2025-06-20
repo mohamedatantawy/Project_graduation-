@@ -10,7 +10,7 @@ class Doctormodels {
   factory Doctormodels.fromJson(Map<String, dynamic> json) {
     return Doctormodels(
       id: json['id'] as int,
-      department: json['department'] as String,
+      department: json['department']['department'] as String,
     );
   }
 

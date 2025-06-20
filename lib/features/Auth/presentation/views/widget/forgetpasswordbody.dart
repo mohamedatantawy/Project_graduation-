@@ -109,35 +109,11 @@ class _forgetpasswordbodyState extends State<forgetpasswordbody> {
                     Customelevatedbutton(
                         onpressed: () async {
                           if (keyform.currentState!.validate()) {
-                            //  await   context
-                            //         .read<AuthSendEmailCubit>()
-                            //         .sendpassword(email: email.text);
                             BlocProvider.of<AuthSendEmailCubit>(context)
                                 .sendpassword(email: email.text);
                           }
                         },
                         title: 'Verify')
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 50),
-                    //   child: ListTile(
-                    //     tileColor: Colors.white,
-                    //     shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(12),
-                    //         side: const BorderSide(color: Colors.white)),
-                    //     onTap: () {
-                    //       GoRouter.of(context).push(Gorouter.forgetReset);
-                    //     },
-                    //     title: const Center(
-                    //       child: Text(
-                    //         'Password recovery',
-                    //         style: TextStyle(
-                    //             color: Color(0xff082B61),
-                    //             fontSize: 16,
-                    //             fontWeight: FontWeight.w600),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // )
                   ],
                 ),
               ),

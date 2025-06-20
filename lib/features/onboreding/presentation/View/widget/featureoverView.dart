@@ -13,6 +13,9 @@ class Featureoverview extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const SizedBox(
+            height: 40,
+          ),
           SvgPicture.asset(Assets.assetsImageHead),
           const SizedBox(
             height: 40,

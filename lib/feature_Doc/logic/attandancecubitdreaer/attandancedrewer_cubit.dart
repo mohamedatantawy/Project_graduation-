@@ -10,11 +10,12 @@ class AttandancedrewerCubit extends Cubit<AttandancedrewerState> {
   AttandancedrewerCubit(this.attendancedrawer)
       : super(AttandancedrewerInitial());
   final Attendancedrawer attendancedrawer;
-  getallStudents({required String token, required int id}) async {
+  getallStudents(
+      {required String token, required int id, required String role}) async {
     emit(AttandancedrewerLoading());
     try {
-      var data =
-          await attendancedrawer.attendancedrawermethod(token: token, id: id);
+      var data = await attendancedrawer.attendancedrawermethod(
+          token: token, id: id, role: role);
       emit(AttandancedrewerSucess(students: data));
     } on DioException catch (e) {
       emit(AttandancedrewerFailure(

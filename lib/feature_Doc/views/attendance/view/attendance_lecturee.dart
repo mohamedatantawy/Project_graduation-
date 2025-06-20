@@ -1,31 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:project_greduation/feature_Doc/logic/counter/counter_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/yesattandancecubit/yesattandance_cubit.dart';
 import 'package:project_greduation/feature_Doc/widgets/attendance_card.dart';
 
 class AttendanceLecture extends StatefulWidget {
-  AttendanceLecture({super.key, required this.token, required this.id});
+  AttendanceLecture(
+      {super.key, required this.token, required this.id, required this.role});
   final String token;
   final int id;
+  final String role;
+
   @override
   State<AttendanceLecture> createState() => _AttendanceLectureState();
 }
 
 class _AttendanceLectureState extends State<AttendanceLecture> {
-  final List<Map<String, String>> attendanceList = List.generate(10, (index) {
-    return {
-      "name": "Ahmed Fathi",
-      "email": "s2021784515448@cis.dmu.edu.eg",
-      "time": "9:01 AM",
-      "status": "present",
-    };
-  });
   void initState() {
     // TODO: implement initState
     super.initState();
-    BlocProvider.of<YesattandanceCubit>(context)
-        .getyesattandance(token: widget.token, id: widget.id);
+    BlocProvider.of<YesattandanceCubit>(context).getyesattandance(
+        token: widget.token, id: widget.id, role: widget.role);
   }
 
   bool isloading = false;
@@ -47,6 +43,8 @@ class _AttendanceLectureState extends State<AttendanceLecture> {
                 ),
                 onPressed: () {
                   Navigator.pop(context);
+                  BlocProvider.of<CounterCubit>(context).showPresent1(
+                      role: widget.role, token: widget.token, id: widget.id);
                 }),
             const SizedBox(width: 35),
             Container(
@@ -94,12 +92,15 @@ class _AttendanceLectureState extends State<AttendanceLecture> {
                 ),
               );
             } else if (state is YesattandanceLoading) {
-              return Container(
-                height: 350,
-                child: ModalProgressHUD(inAsyncCall: true, child: Container()),
+              return Expanded(
+                child: Container(
+                  height: 350,
+                  child:
+                      ModalProgressHUD(inAsyncCall: true, child: Container()),
+                ),
               );
             } else {
-              return Container();
+              return Expanded(child: Container());
             }
           },
         )

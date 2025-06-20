@@ -45,12 +45,18 @@ class Apiserverce {
         'Authorization': 'Bearer $token', // Include the token here
       },
     );
-
+    await Sharedperfernace.setString('email', '');
+    await Sharedperfernace.setString('password', '');
+    await Sharedperfernace.setbool('isremid', false);
     print(dataa.toString());
-    // return true;
-    if (dataa['message'] == "logged out") {
-      return true;
-    } else {
+
+    try {
+      if (dataa['message'] == "logged out") {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
       return false;
     }
   }

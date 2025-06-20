@@ -1,5 +1,9 @@
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:project_greduation/core/gorouter.dart';
+import 'package:project_greduation/core/utils/customelevatedbutton.dart';
+import 'package:project_greduation/core/utils/sharedperfernace.dart';
 import 'package:project_greduation/features/onboreding/presentation/View/widget/choosepage.dart';
 import 'package:project_greduation/features/onboreding/presentation/View/widget/dot_indicator.dart';
 import 'package:project_greduation/features/onboreding/presentation/View/widget/featureoverView.dart';
@@ -20,9 +24,12 @@ class overViewbody extends StatefulWidget {
 class _overViewbodyState extends State<overViewbody> {
   PageController pageController = PageController();
   int currentindex = 0;
+  int numberOfview = 0;
   @override
   void initState() {
-    // TODO: implement initState
+    numberOfview++;
+
+    showviewonboreding();
     super.initState();
     pageController.addListener(
       () {
@@ -30,6 +37,10 @@ class _overViewbodyState extends State<overViewbody> {
         setState(() {});
       },
     );
+  }
+
+  showviewonboreding() async {
+    await Sharedperfernace.setint('onb', numberOfview);
   }
 
   @override
@@ -46,15 +57,7 @@ class _overViewbodyState extends State<overViewbody> {
           child: ExpandablePageView(
               controller: pageController,
               children: List.generate(
-                4,
-                (index) {
-                  if (index != 3) {
-                    return Featureoverview(data: widget.data[index]);
-                  } else {
-                    return const Choosepage();
-                  }
-                },
-              )),
+                  3, (index) => Featureoverview(data: widget.data[index]))),
         ),
         const Expanded(
           child: SizedBox(
@@ -71,9 +74,19 @@ class _overViewbodyState extends State<overViewbody> {
                 : const SizedBox(),
           ],
         ),
-        const Expanded(
+        SizedBox(
+          height: 25,
+        ),
+        SizedBox(
+          child: Customelevatedbutton(
+            title: 'Start',
+            onpressed: () =>
+                GoRouter.of(context).pushReplacement(Gorouter.klogin),
+          ),
+        ),
+        Expanded(
           child: SizedBox(
-            height: 50,
+            height: 40,
           ),
         ),
       ],

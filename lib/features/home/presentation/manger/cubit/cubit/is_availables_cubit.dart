@@ -12,7 +12,10 @@ class IsAvailablesCubit extends Cubit<IsAvailablesState> {
   IsAvailablesCubit(this.homeRemoteDataSource) : super(IsAvailablesInitial());
   final HomeRemoteDataSource homeRemoteDataSource;
   getavialablemothed(
-      {required String session, required String token, required int id}) async {
+      {required String session,
+      required String token,
+       int? number,
+      required int id}) async {
     emit(IsAvailablesloading());
     var data = await homeRemoteDataSource.isavailablesubject(
         token: token, id: id, session: session);
@@ -23,7 +26,7 @@ class IsAvailablesCubit extends Cubit<IsAvailablesState> {
         if (session == 'lecture') {
           emit(IsAvailablesSucuessLecture(isactive: subject));
         } else {
-          emit(IsAvailablesSucuessSection(isactive: subject));
+          emit(IsAvailablesSucuessSection(numberindex: number??-1, isactive: subject));
         }
       } else {
         emit(IsAvailablesfailure(emassage: 'false'));

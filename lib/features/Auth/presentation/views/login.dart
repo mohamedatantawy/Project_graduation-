@@ -11,17 +11,18 @@ class Login extends StatelessWidget {
     return Scaffold(
       backgroundColor: kbackgroundcolor,
       appBar: AppBar(
-          toolbarHeight: 122,
-          backgroundColor: kbackgroundcolor,
-          leading: IconButton(
-            onPressed: () {
-              //   GoRouter.of(context).pop();
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Color(0xff06224D),
-            ),
-          )),
+        toolbarHeight: 122,
+        backgroundColor: kbackgroundcolor,
+        // leading: IconButton(
+        //   onPressed: () {
+        //     //   GoRouter.of(context).pop();
+        //   },
+        //   icon: const Icon(
+        //     Icons.arrow_back_ios,
+        //     color: Color(0xff06224D),
+        //   ),
+        // )
+      ),
       body: const Loginbody(),
     );
   }

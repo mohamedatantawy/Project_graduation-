@@ -21,7 +21,6 @@ class MaterialshowCubit extends Cubit<MaterialshowState> {
     });
   }
 
-  
   // getAvailable({required String session}) async {
   //   emit(MaterialAvailableloading());
   //    try {

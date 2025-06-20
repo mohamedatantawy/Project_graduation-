@@ -6,10 +6,12 @@ import 'package:project_greduation/core/utils/server_loaction.dart';
 import 'package:project_greduation/feature_Doc/apis/absentStudents.dart';
 import 'package:project_greduation/feature_Doc/apis/attendance_api.dart';
 import 'package:project_greduation/feature_Doc/apis/attendancedrawer.dart';
+import 'package:project_greduation/feature_Doc/apis/conterpresent.dart';
 import 'package:project_greduation/feature_Doc/apis/getStudentAttendance.dart';
 import 'package:project_greduation/feature_Doc/logic/absentcubit/absent_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/attandancecubitdreaer/attandancedrewer_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/attendance/attendance_cubit.dart';
+import 'package:project_greduation/feature_Doc/logic/counter/counter_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/yesattandancecubit/yesattandance_cubit.dart';
 import 'package:project_greduation/features/Auth/domain/Use_case/Auth_Use_Case_SendNewPassword.dart';
 import 'package:project_greduation/features/Auth/domain/Use_case/Auths_Use_Case_SendEmail.dart';
@@ -33,7 +35,7 @@ import 'package:project_greduation/features/takeattendance/presentation/manger/c
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //  await Sharedperfernace.setString('token', 'token');
- 
+
   setupO();
   runApp(const PorjectGreduation());
 }
@@ -47,15 +49,19 @@ class PorjectGreduation extends StatelessWidget {
       providers: [
         //AttandancedrewerCubit
         BlocProvider(
-          create: (context) => AuthLoginCubit(getIt.get<AuthsUseCaseLogin>()),
+          create: (context) =>
+              AuthLoginCubit(getIt.get<AuthsUseCaseLogin>())..alreadylogin(),
+        ),
+        BlocProvider(
+          create: (context) => CounterCubit(Conterpresent(dio: Dio())),
         ),
         BlocProvider(
           create: (context) =>
               YesattandanceCubit(Getstudentattendance(dio: Dio())),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) =>
-              AttandancedrewerCubit(Attendancedrawer (dio: Dio())),
+              AttandancedrewerCubit(Attendancedrawer(dio: Dio())),
         ),
         BlocProvider(
           create: (context) =>
@@ -91,7 +97,7 @@ class PorjectGreduation extends StatelessWidget {
           create: (context) =>
               TakelocationCubit(getIt.get<TakeattandanceUseCase>()),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => AbsentCubit(Absentstudents(dio: Dio())),
         ),
       ],

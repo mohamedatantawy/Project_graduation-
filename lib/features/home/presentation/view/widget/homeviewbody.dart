@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:project_greduation/constants.dart';
-import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/features/Auth/data/models/user/user.dart';
-import 'package:project_greduation/features/home/data/models/material/materialmodel.dart';
 import 'package:project_greduation/features/home/presentation/manger/cubit/materialshow_cubit.dart';
 import 'package:project_greduation/features/home/presentation/view/widget/listviewhomeviewbody.dart';
-import 'package:project_greduation/features/home/presentation/view/widget/trailIcontotakeAttandance.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class Homeviewbody extends StatefulWidget {

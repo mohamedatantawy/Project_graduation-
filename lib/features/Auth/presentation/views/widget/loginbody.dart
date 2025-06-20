@@ -6,7 +6,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/core/utils/customelevatedbutton.dart';
-import 'package:project_greduation/feature_Doc/views/home/homepage.dart';
+import 'package:project_greduation/core/utils/sharedperfernace.dart';
 import 'package:project_greduation/features/Auth/presentation/manager/Auth_login/auth_login_cubit.dart';
 import 'package:project_greduation/features/Auth/presentation/views/widget/textfield.dart';
 
@@ -43,9 +43,8 @@ class _LoginbodyState extends State<Loginbody> {
           //     .push(Gorouter.homeView,extra: state.user);
         } else if (state is AuthLoginFailure) {
           isloading = false;
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content:
-                  Text(' ${state.emassage}')));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(' ${state.emassage}')));
           // GoRouter.of(context).push(Gorouter.homeView, extra: state.user);
         }
       },
@@ -90,6 +89,13 @@ class _loginbodyformState extends State<loginbodyform> {
     email.dispose();
     password.dispose();
     super.dispose();
+  }
+
+  bool? isremid;
+  @override
+  void initState() {
+    isremid = false;
+    super.initState();
   }
 
   @override
@@ -166,13 +172,33 @@ class _loginbodyformState extends State<loginbodyform> {
           Row(
             children: [
               Checkbox(
-                value: true,
-                onChanged: (value) {},
+                value: isremid,
+                onChanged: (value) async {
+                  setState(() {
+                    isremid = value ?? false;
+
+                    print(isremid);
+                  });
+                  if (value == false) {
+                    await Sharedperfernace.setbool('isremid', false);
+                    await Sharedperfernace.setString('email', email.text);
+                  }
+                  // if (isremid == true) {
+                  //   await Sharedperfernace.setString('email', email.text);
+                  //   await Sharedperfernace.setString('password', password.text);
+                  //   await Sharedperfernace.setbool('isremid', isremid);
+                  // }else{
+                  //    await Sharedperfernace.setString('email', '');
+                  //   await Sharedperfernace.setString('password', '');
+                  //                       await Sharedperfernace.setbool('isremid', false);
+
+                  // }
+                },
                 checkColor: Colors.white,
                 shape: CircleBorder(),
               ),
               const Text(
-                'remind me ',
+                'Remind me ',
                 style: TextStyle(
                   color: kprimarykey,
                   fontSize: 16,
@@ -207,10 +233,10 @@ class _loginbodyformState extends State<loginbodyform> {
             child: Customelevatedbutton(
                 onpressed: () {
                   if (keyform.currentState!.validate()) {
-                    // Apiserverce(Dio()).getloginresonse(
-                    //    email: email.text, password: password.text);
                     BlocProvider.of<AuthLoginCubit>(context).LoginMothed(
-                        email: email.text, password: password.text);
+                        email: email.text,
+                        password: password.text,
+                        isremid: isremid);
                     //  ScaffoldMessenger.of(context)
                     //    .showSnackBar(SnackBar(content: Text('good bar ')));
                     //  GoRouter.of(context).push(Gorouter.homeView);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_greduation/core/assets.dart';
 import 'package:project_greduation/core/gorouter.dart';
+import 'package:project_greduation/core/utils/sharedperfernace.dart';
 import 'package:project_greduation/features/splash/presentation/view/widget/splashAnimation.dart';
 
 class Splashviewbody extends StatefulWidget {
@@ -25,11 +26,17 @@ class _SplashviewbodyState extends State<Splashviewbody>
     navigatorhome();
   }
 
-  void navigatorhome() {
+  void navigatorhome() async {
+    int num = 0;
+    // await Sharedperfernace.getint('onb') ?? 0;
     Future.delayed(
       const Duration(seconds: 5),
       () {
-        GoRouter.of(context).pushReplacement(Gorouter.pageViews);
+        if (num < 1) {
+          GoRouter.of(context).pushReplacement(Gorouter.pageViews);
+        } else {
+          GoRouter.of(context).pushReplacement(Gorouter.klogin);
+        }
       },
     );
   }

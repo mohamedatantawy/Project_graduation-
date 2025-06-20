@@ -44,7 +44,7 @@ class _trailIcontoTakeAttandanceState extends State<trailIcontoTakeAttandance> {
                 style: Textstyles.font18boldblue,
               ),
               content: SizedBox(
-                height: 120,
+                height: 250,
                 child: BlocConsumer<IsAvailablesCubit, IsAvailablesState>(
                   listener: (context, state) {
                     if (state is IsAvailablesSucuessLecture) {
@@ -65,6 +65,7 @@ class _trailIcontoTakeAttandanceState extends State<trailIcontoTakeAttandance> {
                       GoRouter.of(context).push(
                         Gorouter.ktakesection,
                         extra: Detailsmodels(
+                            number: state.numberindex,
                             materialmodels: widget.materialmodelslist,
                             user: widget.widget.user),
                       );
@@ -86,28 +87,29 @@ class _trailIcontoTakeAttandanceState extends State<trailIcontoTakeAttandance> {
                     }
                   },
                   builder: (context, state) {
-                    return SizedBox(
-                      height: 120,
-                      child: ModalProgressHUD(
-                        inAsyncCall: isloading,
-                        child: !isloading
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  takeatandanceforLecture(
-                                      widget: widget.widget,
-                                      materialmodelslist:
-                                          widget.materialmodelslist),
-                                  takeattandanceforSection(
-                                      widget: widget.widget,
-                                      materialmodelslist:
-                                          widget.materialmodelslist),
-                                ],
-                              )
-                            : Container(
-                                color: Colors.white,
-                              ),
-                      ),
+                    return ModalProgressHUD(
+                      inAsyncCall: isloading,
+                      child: !isloading
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                takeatandanceforLecture(
+                                    widget: widget.widget,
+                                    materialmodelslist:
+                                        widget.materialmodelslist),
+                                Flexible(
+                                  child: SingleChildScrollView(
+                                    child: takeattandanceforSection(
+                                        widget: widget.widget,
+                                        materialmodelslist:
+                                            widget.materialmodelslist),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Container(
+                              color: Colors.white,
+                            ),
                     );
                   },
                 ),

@@ -4,6 +4,7 @@ import 'package:project_greduation/features/home/data/models/material/materialmo
 class Detailsmodels {
   final Materialmodels materialmodels;
   final Usermodels user;
-
-  Detailsmodels({required this.materialmodels, required this.user});
+  int? number;
+  Detailsmodels(
+      {this.number, required this.materialmodels, required this.user});
 }

@@ -1,14 +1,23 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:project_greduation/constants.dart';
+import 'package:project_greduation/feature_Doc/apis/downloadexcel.dart';
 import 'package:project_greduation/feature_Doc/logic/attandancecubitdreaer/attandancedrewer_cubit.dart';
 import 'package:project_greduation/feature_Doc/widgets/CardAttandDrawer.dart';
 import 'package:project_greduation/feature_Doc/widgets/attendance_card.dart';
 
 class Attandancedrawer extends StatefulWidget {
-  const Attandancedrawer({super.key, required this.token, required this.id});
+  const Attandancedrawer(
+      {super.key, required this.token, required this.id, required this.role});
   final String token;
   final int id;
+  final String role;
   @override
   State<Attandancedrawer> createState() => _AttandancedrawerState();
 }
@@ -18,7 +27,7 @@ class _AttandancedrawerState extends State<Attandancedrawer> {
     // TODO: implement initState
     super.initState();
     BlocProvider.of<AttandancedrewerCubit>(context)
-        .getallStudents(token: widget.token, id: widget.id);
+        .getallStudents(token: widget.token, id: widget.id, role: widget.role);
   }
 
   bool isloading = false;
@@ -41,22 +50,54 @@ class _AttandancedrawerState extends State<Attandancedrawer> {
                   Navigator.pop(context);
                 }),
             const SizedBox(width: 35),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-              decoration: BoxDecoration(
-                color: const Color(0xFF0D2442),
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: const [
-                  BoxShadow(color: Colors.black12, blurRadius: 4)
-                ],
-              ),
-              child: const Text(
-                'Attendance Lecture',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
+            Column(
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF0D2442),
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: const [
+                      BoxShadow(color: Colors.black12, blurRadius: 4)
+                    ],
+                  ),
+                  child: const Text(
+                    'Attendance Lecture',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: kprimarykey),
+                  onPressed: () async {
+                    var response = await Downloadexcel(dio: Dio())
+                        .downloadexcel(
+                            token: widget.token,
+                            role: widget.role,
+                            id: widget.id);
+                    final directory = await getExternalStorageDirectory();
+                    final path = '${directory!.path}/attendance.xlsx';
+                    final file = File(path);
+                    await file.writeAsBytes(response);
+
+                    print('File saved at: $path');
+                    final result = await OpenFile.open(path);
+                  },
+                  child: const Text(
+                    'Download Attendance',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                )
+              ],
             ),
           ],
         ),
@@ -96,7 +137,12 @@ class _AttandancedrawerState extends State<Attandancedrawer> {
             } else {
               return Container(
                 height: 100,
-                color: Colors.amber,
+                // color: Colors.amber,
+                child: Center(
+                    child: Text(
+                  'There was an Error',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                )),
               );
             }
           },

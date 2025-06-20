@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_greduation/constants.dart';
-import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/features/home/data/models/material/materialmodel.dart';
 import 'package:project_greduation/features/home/presentation/view/widget/homeviewbody.dart';
 import 'package:project_greduation/features/home/presentation/view/widget/trailIcontotakeAttandance.dart';
@@ -17,6 +16,7 @@ class ListViewhomeViewbody extends StatelessWidget {
   final int? subjectnumber;
   final Homeviewbody widget;
   final List<Materialmodels> listd;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,7 +49,8 @@ class ListViewhomeViewbody extends StatelessWidget {
           height: 35,
         ),
         Expanded(
-          child: SingleChildScrollView(
+          child: SizedBox(
+            height: 180,
             child: Column(
               children: List.generate(
                 subjectnumber ?? 0,
@@ -60,30 +61,23 @@ class ListViewhomeViewbody extends StatelessWidget {
                       color: kprimarykey,
                     ),
                   ),
-                  subtitle: GestureDetector(
-                    onTap: () => GoRouter.of(context).push(Gorouter.sss),
-                    child: listd[index].schedule!.isLectureAttendanceOpen ==
-                                1 ||
-                            listd[index].schedule!.isSectionAttendanceOpen == 1
-                        ? Text(
-                            listd[index].schedule!.isLectureAttendanceOpen == 1
-                                ? 'The Lecture is open'
-                                : 'The Section is open',
-                            style: TextStyle(
-                              color: kprimarykey,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        : Text(
-                            'The attandance is not open',
-                            style: TextStyle(
-                              color: kprimarykey,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
+                  subtitle: listd[index].schedule!.isLectureAttendanceOpen == 1
+                      ? Text(
+                          'The Lecture is open',
+                          style: TextStyle(
+                            color: kprimarykey,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
                           ),
-                  ),
+                        )
+                      : Text(
+                          'The Lecture is not open',
+                          style: TextStyle(
+                            color: kprimarykey,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                   trailing: trailIcontoTakeAttandance(
                     widget: widget,
                     materialmodelslist: listd[index],

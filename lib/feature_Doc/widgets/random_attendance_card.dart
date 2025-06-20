@@ -12,11 +12,13 @@ class RandomAttendanceCard extends StatefulWidget {
   final Yesattandancemodels user;
   final String token;
   final int id;
+  final String role;
   RandomAttendanceCard({
     super.key,
     required this.user,
     required this.token,
     required this.id,
+    required this.role,
   });
 
   @override
@@ -29,8 +31,11 @@ class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    BlocProvider.of<AbsentCubit>(context).absentStudentsmothed(
-        token: widget.token, id: widget.id, idst: widget.user.student!.id!);
+    // BlocProvider.of<AbsentCubit>(context).absentStudentsmothed(
+    //     role: widget.role,
+    //     token: widget.token,
+    //     id: widget.id,
+    //     idst: widget.user.student!.id!);
   }
 
   bool isloading = false;
@@ -155,10 +160,10 @@ class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
                                         onPressed: () {
                                           BlocProvider.of<AbsentCubit>(context)
                                               .absentStudentsmothed(
+                                                  role: widget.role,
                                                   token: widget.token,
                                                   id: widget.id,
-                                                  idst:
-                                                      widget.user.student!.id!);
+                                                  idst: widget.user.user!.id!);
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
                                                   content: Text(

@@ -7,6 +7,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/core/utils/customelevatedbutton.dart';
+import 'package:project_greduation/features/Auth/presentation/manager/Auth_SendEmail/auth_send_email_cubit.dart';
 import 'package:project_greduation/features/Auth/presentation/manager/auth_SendOTP/auth_send_otp_cubit.dart';
 
 class Forgetresetbodyotp extends StatefulWidget {
@@ -39,8 +40,8 @@ class _ForgetresetbodyotpState extends State<Forgetresetbodyotp> {
             "email": state.email,
             "OTP": state.otp,
           };
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('good bar ${state.data} ${state.otp}')));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('good bar ${state.data} ')));
           GoRouter.of(context).pushReplacement(
             Gorouter.kresetpassword,
             extra: dataofemail,
@@ -138,9 +139,12 @@ class _ForgetresetbodyotpState extends State<Forgetresetbodyotp> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<AuthSendEmailCubit>(context)
+                              .sendpassword(email: widget.email);
+                        },
                         child: const Text(
-                          'Reset',
+                          'Resend',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,
@@ -213,33 +217,47 @@ class _CustompincodeconfirmState extends State<Custompincodeconfirm> {
       padding: const EdgeInsets.symmetric(horizontal: 65),
 
       // to try other  the solveing this problem
+// child: Otpt,
+      child: _pincode(context),
+    );
+  }
 
-      child: PinCodeTextField(
-        appContext: context,
-        validator: (value) {
-          if (value!.isEmpty) {
-            emptybool = true;
-            setState(() {});
-            return 'Enter your code';
-          } else {
-            emptybool = false;
-            return null;
-          }
-        },
-        length: 4,
-        controller: widget.otp,
-        enableActiveFill: true,
-        pinTheme: PinTheme(
-            shape: PinCodeFieldShape.box,
-            activeColor: Colors.white,
-            inactiveColor: !emptybool ? Colors.white : Colors.red,
-            inactiveFillColor: !emptybool ? Colors.white : Colors.red,
-            disabledColor: Colors.white,
-            fieldWidth: 50,
-            errorBorderColor: Colors.red,
-            borderWidth: 1,
-            borderRadius: BorderRadius.circular(12)),
-      ),
+  PinCodeTextField _pincode(BuildContext context) {
+    return PinCodeTextField(
+      appContext: context,
+      onSubmitted: (value) {
+        if (value!.isEmpty) {
+          emptybool = true;
+          setState(() {});
+          //  return 'Enter your code';
+        } else {
+          emptybool = false;
+          return null;
+        }
+      },
+      // validator: (value) {
+      //   if (value!.isEmpty) {
+      //     emptybool = true;
+      //     setState(() {});
+      //     return 'Enter your code';
+      //   } else {
+      //     emptybool = false;
+      //     return null;
+      //   }
+      // },
+      length: 4,
+      controller: widget.otp,
+      enableActiveFill: true,
+      pinTheme: PinTheme(
+          shape: PinCodeFieldShape.box,
+          activeColor: Colors.white,
+          inactiveColor: !emptybool ? Colors.white : Colors.red,
+          inactiveFillColor: !emptybool ? Colors.white : Colors.red,
+          disabledColor: Colors.white,
+          fieldWidth: 50,
+          errorBorderColor: Colors.red,
+          borderWidth: 1,
+          borderRadius: BorderRadius.circular(12)),
     );
   }
 }

@@ -35,7 +35,7 @@ class Usermodels {
         doctor: user['doctor'] == null
             ? null
             : Doctormodels.fromJson(user['doctor'] as Map<String, dynamic>),
-            assistant: user['assistant'] == null
+        assistant: user['assistant'] == null
             ? null
             : Assistant.fromJson(user['assistant'] as Map<String, dynamic>),
         email: user['email'] as String?,
@@ -64,6 +64,6 @@ class Usermodels {
         'created_at': createdAt?.toIso8601String(),
         'updated_at': updatedAt?.toIso8601String(),
         'student': student?.toJson(),
-        'assistant':assistant?.toJson(),
+        'assistant': assistant?.toJson(),
       };
 }

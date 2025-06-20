@@ -15,8 +15,8 @@ final class IsAvailablesSucuessLecture extends IsAvailablesState {
 
 final class IsAvailablesSucuessSection extends IsAvailablesState {
   final bool isactive;
-
-  IsAvailablesSucuessSection({required this.isactive});
+  final int numberindex;
+  IsAvailablesSucuessSection( {required this.numberindex,required this.isactive});
 }
 
 final class IsAvailablesfailure extends IsAvailablesState {
