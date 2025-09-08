@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
@@ -8,6 +9,7 @@ import 'package:project_greduation/core/styles/textstyles.dart';
 import 'package:project_greduation/core/utils/sharedperfernace.dart';
 import 'package:project_greduation/features/home/data/models/material/materialmodel.dart';
 import 'package:project_greduation/features/takeattendance/presentation/manger/cubit/takelocation_cubit.dart';
+import 'package:safe_device/safe_device.dart';
 
 class Takeattendancebody extends StatefulWidget {
   const Takeattendancebody({super.key, required this.materialmodels});
@@ -35,7 +37,7 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
     return ListView(
       children: [
         SizedBox(
-          height: 80,
+          height: 70,
         ),
         // Center(
         //   child: Text(
@@ -47,31 +49,27 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '${widget.materialmodels.schedule!.lectureDay}',
+              'Day: ${widget.materialmodels.schedule!.lectureDay}',
               style: Textstyles.font26medinmblue
                   .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
             ),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '${widget.materialmodels.schedule!.doctor!.user!.name}',
-              style: Textstyles.font26medinmblue
-                  .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
-            ),
-            SizedBox(
-              width: 40,
-            ),
-            Center(
-              child: Text(
-                '${widget.materialmodels.schedule!.lectureHall!.name}',
-                style: Textstyles.font26medinmblue.copyWith(
-                    fontWeight: FontWeight.w400, color: kthirdcolorkey),
-              ),
-            ),
-          ],
+
+        Center(
+          child: Text(
+            ' Name: ${widget.materialmodels.schedule!.doctor!.user!.name}',
+            style: Textstyles.font26medinmblue
+                .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
+          ),
+        ),
+
+        Center(
+          child: Text(
+            'Hall:${widget.materialmodels.schedule!.lectureHall!.name}',
+            style: Textstyles.font26medinmblue
+                .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
+          ),
         ),
         Center(
           child: Text(
@@ -90,17 +88,29 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
             backgroundColor: kbackgroundcolor,
             child: GestureDetector(
               onTap: () async {
-                String token = await Sharedperfernace.getString('token') ?? '';
-                var data = await location.getLocation();
-                print(" ${data.latitude} ${data.longitude}");
-                await context.read<TakelocationCubit>().getlocationmothed(
-                    id: widget.materialmodels.academicScheduleId!,
-                    token: token,
-                    latitude: data.latitude
-                        .toString(), // "30.669295878641602", // data.latitude.toString(),
-                    longitude: data.longitude.toString(),
-                    // "30.070144100553378", //data.longitude.toString(),
-                    session: "lecture");
+                bool isMockLocation = true;
+                isMockLocation = await SafeDevice.isMockLocation;
+                var connectivityResult =
+                    await Connectivity().checkConnectivity();
+                //  var isVpn = connectivityResult == ConnectivityResult.vpn;
+                if (!isMockLocation) {
+                  String token =
+                      await Sharedperfernace.getString('token') ?? '';
+                  var data =await getlocations();
+                  print(" ${data.latitude} ${data.longitude}");
+                  await context.read<TakelocationCubit>().getlocationmothed(
+                      id: widget.materialmodels.academicScheduleId!,
+                      token: token,
+                      latitude: data.latitude
+                          .toString(), // "30.669295878641602", // data.latitude.toString(),
+                      longitude: data.longitude.toString(),
+                      // "30.070144100553378", //data.longitude.toString(),
+                      session: "lecture");
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('You use fake loaction')));
+                  print("there are fake loaction---------------------------");
+                }
               },
               child: consumerchecklocation(),
             ),
@@ -168,13 +178,16 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
     );
   }
 
-  void getlocations() async {
+Future  <LocationData > getlocations() async {
+   var datav= await SafeDevice.isMockLocation;
     var isactive = await location.serviceEnabled();
-    if (!isactive) {
+    if (!isactive && !datav) {
       isactive = await location.requestService();
       if (!isactive) {}
     }
     getpremission();
+    var data = await location.getLocation();
+    return data;
   }
 
   void getpremission() async {

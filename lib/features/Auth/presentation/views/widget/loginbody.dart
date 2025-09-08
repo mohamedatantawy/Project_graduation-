@@ -27,13 +27,13 @@ class _LoginbodyState extends State<Loginbody> {
           isloading = true;
         } else if (state is AuthLoginSucessStudent) {
           isloading = false;
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('welcome in Attandance project')));
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(content: Text('welcome in Attandance project')));
           GoRouter.of(context).push(Gorouter.homeView, extra: state.user);
         } else if (state is AuthLoginSucessDoctor) {
           isloading = false;
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('welcome in Attandance project')));
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(content: Text('welcome in Attandance project')));
           GoRouter.of(context)
               .pushReplacement(Gorouter.kdocHomeView, extra: state.user);
           // Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -183,16 +183,15 @@ class _loginbodyformState extends State<loginbodyform> {
                     await Sharedperfernace.setbool('isremid', false);
                     await Sharedperfernace.setString('email', email.text);
                   }
-                  // if (isremid == true) {
-                  //   await Sharedperfernace.setString('email', email.text);
-                  //   await Sharedperfernace.setString('password', password.text);
-                  //   await Sharedperfernace.setbool('isremid', isremid);
-                  // }else{
-                  //    await Sharedperfernace.setString('email', '');
-                  //   await Sharedperfernace.setString('password', '');
-                  //                       await Sharedperfernace.setbool('isremid', false);
-
-                  // }
+                  if (isremid == true) {
+                    await Sharedperfernace.setString('email', email.text);
+                    await Sharedperfernace.setString('password', password.text);
+                    await Sharedperfernace.setbool('isremid', isremid!);
+                  } else {
+                    await Sharedperfernace.setString('email', '');
+                    await Sharedperfernace.setString('password', '');
+                    await Sharedperfernace.setbool('isremid', false);
+                  }
                 },
                 checkColor: Colors.white,
                 shape: CircleBorder(),

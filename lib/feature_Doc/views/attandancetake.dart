@@ -142,6 +142,10 @@ class _AttandancetakeState extends State<Attandancetake> {
                 listener: (context, state) {
               if (state is AttendanceLoading) {
                 isloading = true;
+              } else if (state is AttendanceFailure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('${state.errMessage.toString()}')));
+                isloading = false;
               } else {
                 isloading = false;
               }

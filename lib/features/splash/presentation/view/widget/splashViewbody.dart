@@ -27,8 +27,8 @@ class _SplashviewbodyState extends State<Splashviewbody>
   }
 
   void navigatorhome() async {
-    int num = 0;
-    // await Sharedperfernace.getint('onb') ?? 0;
+    int num = 
+     await Sharedperfernace.getint('onb') ?? 0;
     Future.delayed(
       const Duration(seconds: 5),
       () {

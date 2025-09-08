@@ -5,7 +5,10 @@ import 'package:project_greduation/features/attendance/data/models/reportattanda
 import 'package:project_greduation/features/attendance/presentation/view/widget/attendancemothedbody.dart';
 
 class Attendancemothed extends StatelessWidget {
-  const Attendancemothed({super.key, required this.reportattandancemodel});
+  const Attendancemothed({
+    super.key,
+    required this.reportattandancemodel,
+  });
   final Reportattandancemodel reportattandancemodel;
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class Attendancemothed extends StatelessWidget {
               style: Textstyles.font18lightwithe,
             ),
             Text(
-              "Lecture",
+              "Your attandance",
               style: Textstyles.font18boldblue,
             ),
           ],

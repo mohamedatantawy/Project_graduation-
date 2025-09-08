@@ -22,6 +22,8 @@ class takeattandanceforSection extends StatelessWidget {
       children: List.generate(
         materialmodelslist.schedule!.sections!.length,
         (index) {
+          List numberSection =
+              materialmodelslist.schedule!.sections![index].section_numbers!;
           return TextButton(
             style: ButtonStyle(
                 // shape: ,
@@ -40,22 +42,33 @@ class takeattandanceforSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Section ',
+                      'Section  ',
                       style: Textstyles.font18boldblue,
                     ),
+                     materialmodelslist.schedule!.sections!.length > 1
+                        ? Text(
+                            "${index + 1}",
+                            style: Textstyles.font18boldblue,
+                          )
+                        : Text(
+                            "",
+                            style: Textstyles.font18boldblue,
+                          ),
+                    Spacer(),
                     Text(
                       materialmodelslist.schedule!.sections![index]
                                   .isSectionAttendanceOpen ==
                               1
-                          ? 'open'
-                          : "close",
+                          ? 'opened'
+                          : "closed",
                       style: materialmodelslist.schedule!.sections![index]
                                   .isSectionAttendanceOpen ==
                               1
                           ? Textstyles.font14medinmblue
+                              .copyWith(color: Colors.green)
                           : Textstyles.font14medinmblue
                               .copyWith(color: Colors.red),
                     ),
@@ -72,7 +85,10 @@ class takeattandanceforSection extends StatelessWidget {
                       width: 10,
                     ),
                     Text(
-                      '${materialmodelslist.schedule!.sections![index].sectionStartHour.toString().substring(0, 5)}',
+                      materialmodelslist
+                          .schedule!.sections![index].sectionStartHour
+                          .toString()
+                          .substring(0, 5),
                       style: Textstyles.font14medinmblue,
                     ),
                   ],

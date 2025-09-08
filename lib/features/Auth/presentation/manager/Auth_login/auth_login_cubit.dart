@@ -36,7 +36,9 @@ class AuthLoginCubit extends Cubit<AuthLoginState> {
     emit(AuthLoginLoading());
     var data = await authsUseCaseLogin.Call(email: email, password: password);
     data.fold((failure) {
-      emit(AuthLoginFailure(emassage: failure.errormassage));
+     
+        emit(AuthLoginFailure(emassage: failure.errormassage));
+      
     }, (user) async {
       if (isremid == true) {
         await Sharedperfernace.setString('email', email);

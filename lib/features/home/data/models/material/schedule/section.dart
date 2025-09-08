@@ -14,9 +14,11 @@ class Section {
   DateTime? updatedAt;
   Assistant? assistant;
   SectionHall? sectionHall;
+  List? section_numbers;
 
   Section({
     this.id,
+    this.section_numbers,
     this.academicScheduleId,
     this.assistantId,
     this.sectionHallId,
@@ -32,6 +34,7 @@ class Section {
 
   factory Section.fromJson(Map<String, dynamic> json) => Section(
         id: json['id'] as int?,
+        section_numbers: json['section_numbers'] as List?,
         academicScheduleId: json['academic_schedule_id'] as int?,
         assistantId: json['assistant_id'] as int?,
         sectionHallId: json['section_hall_id'] as int?,
@@ -54,6 +57,7 @@ class Section {
 
   Map<String, dynamic> toJson() => {
         'id': id,
+        "section_numbers":section_numbers,
         'academic_schedule_id': academicScheduleId,
         'assistant_id': assistantId,
         'section_hall_id': sectionHallId,

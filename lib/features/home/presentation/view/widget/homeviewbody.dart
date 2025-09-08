@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/features/Auth/data/models/user/user.dart';
 import 'package:project_greduation/features/home/presentation/manger/cubit/materialshow_cubit.dart';
 import 'package:project_greduation/features/home/presentation/view/widget/listviewhomeviewbody.dart';
@@ -47,6 +49,9 @@ class _HomeviewbodyState extends State<Homeviewbody> {
       listener: (context, state) {
         if (state is Materialshowloading) {
           //   isloading = true;
+        } else if (state is MaterialshowFirst) {
+          GoRouter.of(context)
+              .push(Gorouter.kchangepassword, extra: state.token);
         } else if (state is MaterialshowSucess) {
           ///  isloading = false;
           subjectnumber = state.data.length;
@@ -79,6 +84,7 @@ class _HomeviewbodyState extends State<Homeviewbody> {
               onLoading: _onLoading,
               onRefresh: _onRefresh,
               enablePullDown: true,
+              header: WaterDropHeader(),
               child: ListViewhomeViewbody(
                   listd: state.data,
                   subjectnumber: subjectnumber,

@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_greduation/constants.dart';
+import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/core/utils/customelevatedbutton.dart';
 import 'package:project_greduation/features/Auth/presentation/views/widget/textfield.dart';
+import 'package:project_greduation/features/home/presentation/manger/cubit/materialshow_cubit.dart';
 import 'package:project_greduation/features/profile/presentation/mange/cubit/changepassword_cubit.dart';
 
 class Changepassword extends StatefulWidget {
@@ -29,6 +31,7 @@ class _ChangepasswordState extends State<Changepassword> {
           backgroundColor: kbackgroundcolor,
           leading: IconButton(
             onPressed: () {
+              //   BlocProvider.of<MaterialshowCubit>(context).Restart();
               GoRouter.of(context).pop();
             },
             icon: const Icon(
@@ -44,7 +47,12 @@ class _ChangepasswordState extends State<Changepassword> {
             isloading = false;
             ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Your Password is change Now')));
-            GoRouter.of(context).pop();
+
+            // BlocProvider.of<MaterialshowCubit>(context).Restart();
+            print('pop the page ');
+            GoRouter.of(context).pushReplacement(
+              Gorouter.klogin,
+            );
           } else if (state is ChangepasswordFailure) {
             isloading = false;
             ScaffoldMessenger.of(context)

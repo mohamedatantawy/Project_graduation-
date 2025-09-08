@@ -53,12 +53,13 @@ class Attendanceviewbody extends StatelessWidget {
                       ]),
                   child: Card(
                     shadowColor: Colors.black,
+                    color: kcolorcard,
                     child: Center(
                         child: Text(
                       '${materialmodels[index].schedule!.course!.name}',
                       style: Textstyles.font15semiboldwite,
+                      textAlign: TextAlign.center,
                     )),
-                    color: kcolorcard,
                   ),
                 ),
               );

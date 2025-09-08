@@ -13,6 +13,13 @@ final class MaterialshowSucess extends MaterialshowState {
   MaterialshowSucess({required this.data});
 }
 
+final class MaterialshowFirst extends MaterialshowState {
+  final String token;
+
+  MaterialshowFirst({required this.token});
+
+}
+
 final class Materialshowfailure extends MaterialshowState {
   final String emassage;
 

@@ -27,26 +27,30 @@ class Takeattendance extends StatelessWidget {
             color: Color(0xff06224D),
           ),
         ),
-        title: ListTile(
-            title: Text(
-              '${user.user.name}',
-              style: Textstyles.font22medinmwithe.copyWith(color: kprimarykey),
-            ),
-            subtitle: Text(
-              '${user.user.email}',
-              style: Textstyles.font11lightwithe.copyWith(color: kprimarykey),
-            ),
-            leading: Container(
-              //  margin: EdgeInsets.only(left: 4),
-              width: 55,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    colors: [Colors.amber, Colors.red]),
-                borderRadius: BorderRadius.circular(16),
-                color: Colors.amber,
-              ),
-            )),
+        title: Text(
+          'Attandance View',
+          style: Textstyles.font22medinmwithe.copyWith(color: kbluesetting),
+        ),
+        // title: ListTile(
+        //     title: Text(
+        //       '${user.user.name}',
+        //       style: Textstyles.font22medinmwithe.copyWith(color: kprimarykey),
+        //     ),
+        //     subtitle: Text(
+        //       '${user.user.email}',
+        //       style: Textstyles.font11lightwithe.copyWith(color: kprimarykey),
+        //     ),
+        //     leading: Container(
+        //       //  margin: EdgeInsets.only(left: 4),
+        //       width: 55,
+        //       decoration: BoxDecoration(
+        //         gradient: LinearGradient(
+        //             begin: Alignment.topCenter,
+        //             colors: [Colors.amber, Colors.red]),
+        //         borderRadius: BorderRadius.circular(16),
+        //         color: Colors.amber,
+        //       ),
+        //     )),
       ),
       body: Container(
         margin: EdgeInsets.only(top: 20),

@@ -43,3 +43,5 @@ android {
 flutter {
     source = "../.."
 }
+//  <key>NSLocationWhenInUseUsageDescription</key>
+//  <string>We need your location to determine connectivity.</string>

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/utils/server_loaction.dart';
 import 'package:project_greduation/features/Auth/data/models/user/user.dart';
+import 'package:project_greduation/features/home/data/ReposImple/RepoImpleHome.dart';
 import 'package:project_greduation/features/home/data/data_sources/home_Remote_data_source.dart';
 import 'package:project_greduation/features/home/presentation/manger/cubit/cubit/is_availables_cubit.dart';
 import 'package:project_greduation/features/home/presentation/manger/cubit/materialshow_cubit.dart';
@@ -18,13 +19,11 @@ class Homeview extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) =>
-              MaterialshowCubit(getIt.get<HomeRemoteDataSourceImple>())
-                ..getsubjectcu(token: user.token!),
+          create: (context) => MaterialshowCubit(getIt.get<Repoimplehome>())
+            ..getsubjectcu(token: user.token!),
         ),
         BlocProvider(
-          create: (context) =>
-              IsAvailablesCubit(getIt.get<HomeRemoteDataSourceImple>()),
+          create: (context) => IsAvailablesCubit(getIt.get<Repoimplehome>()),
         ),
       ],
       child: Scaffold(

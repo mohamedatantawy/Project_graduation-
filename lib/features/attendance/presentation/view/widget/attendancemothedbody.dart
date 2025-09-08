@@ -11,34 +11,63 @@ class Attendancemothedbody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          Expanded(
-            flex: 7,
-            child: Container(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Container(
               //   width: 400,
               margin: EdgeInsets.all(12),
               // color: kcolorwhite,
               decoration: BoxDecoration(
-                  color: kcolorwhite, borderRadius: BorderRadius.circular(12)),
+                  color: kcolorwhite,
+                  borderRadius: BorderRadius.circular(12)),
               child: customtablecalendar(
                 reword: reportattandancemodel.attendanceRecords!,
                 reportattandancemodel: reportattandancemodel,
               ),
             ),
-          ),
-          SizedBox(
-            height: 55,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                children: [
-                  SizedBox(
+            SizedBox(
+              height: 25,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    SizedBox(
+                        width: 170,
+                        height: 40,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: kbluesetting,
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Center(
+                            child: Text(
+                              "Present",
+                              style: Textstyles.font16boldwithe,
+                            ),
+                          ),
+                        )),
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: kcolorwhite,
+                      ),
+                      child: Center(
+                          child: Text(
+                              reportattandancemodel.totalPresent.toString())),
+                    )
+                  ],
+                ),
+                Column(
+                  children: [
+                    SizedBox(
                       width: 170,
                       height: 40,
                       child: Container(
@@ -47,65 +76,33 @@ class Attendancemothedbody extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12)),
                         child: Center(
                           child: Text(
-                            "Present",
+                            "Absent",
                             style: Textstyles.font16boldwithe,
                           ),
                         ),
-                      )),
-                  Container(
-                    margin: EdgeInsets.only(top: 20),
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: kcolorwhite,
-                    ),
-                    child: Center(
-                        child: Text(
-                            reportattandancemodel.totalPresent.toString())),
-                  )
-                ],
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                    width: 170,
-                    height: 40,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: kbluesetting,
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Center(
-                        child: Text(
-                          "Absent",
-                          style: Textstyles.font16boldwithe,
-                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 20),
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: kcolorwhite,
-                    ),
-                    child: Center(
-                        child:
-                            Text(reportattandancemodel.totalAbsent.toString())),
-                  )
-                ],
-              ),
-            ],
-          ),
-          Expanded(
-            flex: 2,
-            child: SizedBox(
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: kcolorwhite,
+                      ),
+                      child: Center(
+                          child: Text(
+                              reportattandancemodel.totalAbsent.toString())),
+                    )
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(
               height: 10,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

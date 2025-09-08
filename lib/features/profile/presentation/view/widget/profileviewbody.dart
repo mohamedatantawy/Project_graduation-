@@ -23,9 +23,7 @@ class _ProfileviewbodyState extends State<Profileviewbody> {
     Profilemodelstitle(
       title: 'Email',
     ),
-    Profilemodelstitle(
-      title: 'Date Of Birth',
-    ),
+
     Profilemodelstitle(
       title: 'Deparment ( It Found )',
     ),
@@ -75,7 +73,7 @@ class _ProfileviewbodyState extends State<Profileviewbody> {
             height: 3,
           ),
           Text(
-            '${widget.user.email}',
+            widget.user.email != 'null' ? '${widget.user.email}' : 'notavaible',
             textAlign: TextAlign.center,
             style: Textstyles.font11lightwithe.copyWith(
               color: kthirdcolorkey,
@@ -119,8 +117,7 @@ class _ProfileviewbodyState extends State<Profileviewbody> {
                                   ? "${widget.user.student!.grade}"
                                   : index == 2
                                       ? "${widget.user.email}"
-                                      : index == 3
-                                          ? "${widget.user.student!.dateOfBirth}"
+                                      
                                           : index == 4
                                               ? "${widget.user.student!.department}"
                                               : "${widget.user.phone}",
@@ -159,7 +156,9 @@ class _ProfileviewbodyState extends State<Profileviewbody> {
                                       ? widget.user.role == 'doctor'
                                           ? "${widget.user.doctor!.department}"
                                           : "${widget.user.assistant!.department}"
-                                      : "${widget.user.phone}",
+                                      : widget.user.phone == null
+                                          ? "${widget.user.phone}"
+                                          : 'notavaible',
                           style: Textstyles.font15extrlightblue,
                         ),
                       )

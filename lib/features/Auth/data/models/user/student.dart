@@ -2,30 +2,34 @@ class Student {
   int? id;
   String? department;
   int? grade;
-  String? dateOfBirth;
-  String? address;
+  int? code;
+  int? national_id;
+
 
   Student({
     this.id,
     this.department,
     this.grade,
-    this.dateOfBirth,
-    this.address,
+    this.code,
+    this.national_id,
+  
   });
 
   factory Student.fromJson(Map<String, dynamic> json) => Student(
         id: json['id'] as int?,
         department: json['department']['department'] as String?,
         grade: json['grade'] as int?,
-        dateOfBirth: json['date_of_birth'] as String?,
-        address: json['address'] as String?,
+        code:  json['code'] as int?,
+        national_id:  json['national_id'] as int?,
+       
       );
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'department': department,
         'grade': grade,
-        'date_of_birth': dateOfBirth,
-        'address': address,
+        'code': code,
+        'national_id': national_id,
+        
       };
 }

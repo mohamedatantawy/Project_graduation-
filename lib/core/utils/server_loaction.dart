@@ -11,7 +11,9 @@ import 'package:project_greduation/features/Auth/domain/Use_case/Auths_Use_Case_
 import 'package:project_greduation/features/Auth/domain/Use_case/Auths_Use_Case_login.dart';
 import 'package:project_greduation/features/attendance/data/data_source/attendance_Remote_source.dart';
 import 'package:project_greduation/features/attendance/domain/Use_Case/attendance_Use_Case.dart';
+import 'package:project_greduation/features/home/data/ReposImple/RepoImpleHome.dart';
 import 'package:project_greduation/features/home/data/data_sources/home_Remote_data_source.dart';
+import 'package:project_greduation/features/home/domain/Repos/homeRepos.dart';
 import 'package:project_greduation/features/notification/data/notification_Remote_source/notification_Remote_source_imple.dart';
 import 'package:project_greduation/features/notification/domain/Use_case/notification_Use_case.dart';
 import 'package:project_greduation/features/profile/data/Profile_Remote_source/profile_Remote_source_Impl.dart';
@@ -27,6 +29,9 @@ void setupO() {
   getIt.registerLazySingleton<Api>(() => Api(getIt<Dio>()));
   getIt.registerLazySingleton<HomeRemoteDataSourceImple>(
     () => HomeRemoteDataSourceImple(api: getIt<Api>()),
+  );
+  getIt.registerLazySingleton<Repoimplehome>(
+    () => Repoimplehome( getIt<HomeRemoteDataSourceImple>()),
   );
   getIt.registerLazySingleton<AttendanceRemoteSourceImple>(
       () => AttendanceRemoteSourceImple(api: Api(getIt<Dio>())));

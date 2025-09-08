@@ -33,9 +33,41 @@ class _takeatandanceforLectureState extends State<takeatandanceforLecture> {
                 token: widget.widget.user.token!,
                 session: 'lecture');
       },
-      child: Text(
-        'Lecture',
-        style: Textstyles.font18boldblue,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Lecture',
+                style: Textstyles.font18boldblue,
+              ),
+              Text(
+                widget.materialmodelslist.schedule!.isLectureAttendanceOpen == 1
+                    ? 'opened'
+                    : 'closed',
+                style: widget.materialmodelslist.schedule!
+                            .isLectureAttendanceOpen ==
+                        1
+                    ? Textstyles.font14medinmblue.copyWith(color:Colors.green)
+                    : Textstyles.font14medinmblue.copyWith(color: Colors.red),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                " ${widget.materialmodelslist.schedule!.lectureDay}",
+                style: Textstyles.font14medinmblue,
+              ),
+              Text(
+                " ${widget.materialmodelslist.schedule!.lectureStartHour.toString().substring(0, 5)}",
+                style: Textstyles.font14medinmblue,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

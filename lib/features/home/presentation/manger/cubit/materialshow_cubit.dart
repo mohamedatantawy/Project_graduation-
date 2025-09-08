@@ -8,19 +8,30 @@ part 'materialshow_state.dart';
 class MaterialshowCubit extends Cubit<MaterialshowState> {
   MaterialshowCubit(this.homeRemoteDataSource) : super(MaterialshowInitial());
   // late List<Materialmodels> data;
-  final HomeRemoteDataSource homeRemoteDataSource;
+  final HomeRepoDataSource homeRemoteDataSource;
   getsubjectcu({required String token}) async {
     emit(Materialshowloading());
 
     var data = await homeRemoteDataSource.fetchsubjects(token: token);
     print(data.length.toString());
     data.fold((failure) {
-      emit(Materialshowfailure(emassage: failure.errormassage));
+      print(failure.errormassage.toString());
+      if (failure.errormassage == 'must change password first') {
+        print('First one -----------------');
+        emit(MaterialshowFirst(token: token));
+      } else {
+        print('no one -----------------{${failure.errormassage}}');
+
+        emit(Materialshowfailure(emassage: failure.errormassage));
+      }
     }, (subject) {
       emit(MaterialshowSucess(data: subject));
     });
   }
 
+  Restart() {
+    emit(MaterialshowInitial());
+  }
   // getAvailable({required String session}) async {
   //   emit(MaterialAvailableloading());
   //    try {

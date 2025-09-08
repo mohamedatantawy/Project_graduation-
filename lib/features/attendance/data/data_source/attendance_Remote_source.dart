@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:project_greduation/core/utils/errors/failure.dart';
-import 'package:project_greduation/features/attendance/data/models/reportattandance/attendance_record.dart';
 import 'package:project_greduation/features/attendance/data/models/reportattandance/reportattandance.dart';
 import 'package:project_greduation/features/attendance/domain/repos/attendanceRepos.dart';
 import 'package:project_greduation/helper/api.dart';
@@ -17,8 +16,9 @@ class AttendanceRemoteSourceImple implements Attendance_Data_Source {
       var data = await api.geta(
         token: {
           'Authorization': 'Bearer $token', // Include the token here
-        },
-        path: "student/attendance-history/$id?session_type=$session",
+        },///api/student/schedules/1/attendance/history
+
+        path: "student/schedules/$id/attendance/history?session_type=$session",
       );
 
       Reportattandancemodel subjectList;

@@ -21,7 +21,7 @@ class ProfileRemoteSourceImpl implements ProfileremoteSource {
             "new_password": newpassword,
             "new_password_confirmation": confrim,
           },
-          path: "https://nubaria.ddns.net/api/change-password",
+          path: "change-password",
           token: {
             'Authorization': 'Bearer $token', // Include the token here
           });

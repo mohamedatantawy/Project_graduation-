@@ -89,10 +89,10 @@ class _TakeSectionbody extends State<TakeSectionbody> {
                           id: widget.materialmodels.schedule!
                               .sections![widget.number].id!,
                           token: token,
-                          latitude:  "30.669295878641602",
-                            //  data.latitude.toString(),
-                          longitude:  "30.070144100553378",
-                             // data.longitude.toString(), //"30.070144100553378",
+                          latitude: // "30.669295878641602",
+                             data.latitude.toString(),
+                          longitude:  //"30.070144100553378",
+                              data.longitude.toString(), //"30.070144100553378",
                           session: "section");
                     }
                   : () {},

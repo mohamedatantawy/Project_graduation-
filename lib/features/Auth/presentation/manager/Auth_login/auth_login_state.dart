@@ -29,4 +29,5 @@ final class AuthLoginFailure extends AuthLoginState {
   AuthLoginFailure({required this.emassage});
 }
 
+
 final class AuthLoginisAlready extends AuthLoginState {}

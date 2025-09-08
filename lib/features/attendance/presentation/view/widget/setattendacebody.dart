@@ -139,7 +139,7 @@ class _attandanceItemsCardBlocState extends State<attandanceItemsCardBloc> {
                                                 'token') ??
                                             '';
                                     print(
-                                        "${token + widget.materialmodels.academicScheduleId!.toString()}");
+                                        "${token + widget.materialmodels.id!.toString()}");
                                     if (token != '') {
                                       await context
                                           .read<AttandanceReportCubit>()

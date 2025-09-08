@@ -26,7 +26,7 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       //  print(e.response!.data['message'].toString());
       emit(
         AttendanceFailure(
-          errMessage: e.response!.data.toString(),
+          errMessage: e.response!.data['message'] ?? 'There was an Error',
         ),
       );
     }

@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 80,
                             child: ListTile(
                               subtitle: Text(
-                                'Take attandance }',
+                                'Take attandance ',
                                 style: Textstyles.font14medinmblue,
                               ),
                               title: Text(
@@ -117,11 +117,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: Textstyles.font14medinmblue,
                               ),
                               title: Text(
-                                state.section[index].academicSchedule!.course!
-                                    .name
-                                    .toString(),
+                                state.section[index].section_numbers!.length > 1
+                                    ? '${state.section[index].academicSchedule!.course!.name}  ${state.section[index].section_numbers.toString().substring(1, (state.section[index].section_numbers!.length * 3 - 1))}'
+                                    : state.section[index].academicSchedule!
+                                        .course!.name
+                                        .toString(),
                                 style: Textstyles.font26medinmblue
                                     .copyWith(color: kprimarykey),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
                               ),
                               trailing: IconButton(
                                 iconSize: 50,
