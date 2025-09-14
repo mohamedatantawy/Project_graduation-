@@ -130,19 +130,23 @@ class _AttandancedrawerState extends State<Attandancedrawer> {
                 ),
               );
             } else if (state is AttandancedrewerLoading) {
-              return Container(
-                height: 350,
-                child: ModalProgressHUD(inAsyncCall: true, child: Container()),
+              return Expanded(
+                child: SizedBox(
+                  height: 350,
+                  child: ModalProgressHUD(inAsyncCall: true, child: Container()),
+                ),
               );
             } else {
-              return Container(
-                height: 100,
-                // color: Colors.amber,
-                child: Center(
-                    child: Text(
-                  'There was an Error',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                )),
+              return Expanded(
+                child: SizedBox(
+                  height: 100,
+                  // color: Colors.amber,
+                  child: Center(
+                      child: Text(
+                    'There was an Error',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  )),
+                ),
               );
             }
           },

@@ -58,13 +58,15 @@ class _HomeScreenState extends State<HomeScreen> {
               child: BlocBuilder<LectureCubit, LectureState>(
                 builder: (context, state) {
                   if (state is LectureLoading) {
-                    return SizedBox(
-                      height: 100,
-                      child: ModalProgressHUD(
-                          inAsyncCall: true,
-                          child: Container(
-                            color: const Color(0xFFE8EBF2),
-                          )),
+                    return Expanded(
+                      child: SizedBox(
+                        height: 100,
+                        child: ModalProgressHUD(
+                            inAsyncCall: true,
+                            child: Container(
+                              color: const Color(0xFFE8EBF2),
+                            )),
+                      ),
                     );
                   } else if (state is LectureSuccess) {
                     lectures = state.lectures;
@@ -146,9 +148,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         }));
                   } else {
-                    return Container(
-                      color: Colors.transparent,
-                      height: 100,
+                    return Expanded(
+                      child: Container(
+                        color: Colors.transparent,
+                        height: 100,
+                      ),
                     );
                   }
                 },

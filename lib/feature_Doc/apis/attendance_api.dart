@@ -10,7 +10,7 @@ class AttendanceApi {
       required int id,
       required int minute,
       required String depname}) async {
-    var res;
+    Response res;
     depname == 'assistant'
         ? {
             res = await dio.patch(
@@ -44,7 +44,7 @@ class AttendanceApi {
 
   Future<dynamic> closeAtendance(
       {required String token, required int id, required String depname}) async {
-    var res;
+    Response res;
     depname == "assistant"
         ? {
             res = await dio.patch(

@@ -3,41 +3,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_greduation/core/styles/textstyles.dart';
 import 'package:project_greduation/feature_Doc/logic/absentcubit/absent_cubit.dart';
-import 'package:project_greduation/feature_Doc/logic/yesattandancecubit/yesattandance_cubit.dart';
-import 'package:project_greduation/feature_Doc/models/yesattandancemodels/yesattandancemodels.dart';
-import 'package:project_greduation/feature_Doc/views/attendance/view/random_attendance.dart';
-import 'package:project_greduation/features/Auth/data/models/user/user.dart';
+import 'package:project_greduation/feature_Doc/logic/presentStudentCubit/present_student_cubit.dart';
+import 'package:project_greduation/feature_Doc/models/studentsfordrawermodels.dart';
 
-class RandomAttendanceCard extends StatefulWidget {
-  final Yesattandancemodels user;
+class TakeAttendancefeatue extends StatefulWidget {
+  const TakeAttendancefeatue(
+      {super.key,
+      required this.token,
+      required this.id,
+      required this.role,
+      required this.user});
   final String token;
+  final Studentsfordrawermodels user;
   final int id;
   final String role;
-  const RandomAttendanceCard({
-    super.key,
-    required this.user,
-    required this.token,
-    required this.id,
-    required this.role,
-  });
-
   @override
-  State<RandomAttendanceCard> createState() => _RandomAttendanceCardState();
+  State<TakeAttendancefeatue> createState() => _TakeAttendancefeatueState();
 }
 
-class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
+class _TakeAttendancefeatueState extends State<TakeAttendancefeatue> {
   String? selectedStatus;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // BlocProvider.of<AbsentCubit>(context).absentStudentsmothed(
-    //     role: widget.role,
-    //     token: widget.token,
-    //     id: widget.id,
-    //     idst: widget.user.student!.id!);
-  }
-
   bool isloading = false;
   @override
   Widget build(BuildContext context) {
@@ -57,9 +42,7 @@ class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
               backgroundColor: const Color(0xFF97BCE8),
               radius: 20,
               child: Text(
-                widget.user.user!.name!.isNotEmpty
-                    ? widget.user.user!.name![0]
-                    : "?",
+                widget.user.name!.isNotEmpty ? widget.user.name![0] : "?",
                 style: const TextStyle(
                   fontSize: 20,
                   color: Colors.white,
@@ -72,20 +55,19 @@ class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.user.user!.name!,
+                  Text(widget.user.name!,
                       style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 14)),
-                  Text(widget.user.user!.email!,
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 13)),
+                  //       Text(widget.user.,
+                  // style: const TextStyle(
+                  //     color: Colors.white,
+                  //     fontWeight: FontWeight.bold,
+                  //     fontSize: 14)),
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      buildStatusButton(
-                          isloading, "Absent", Colors.red, Colors.black),
-                      const SizedBox(width: 10),
                       buildStatusButton(isloading, "Present",
                           const Color(0xFF0D2442), Colors.white),
                     ],
@@ -104,18 +86,18 @@ class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
     bool isSelected = selectedStatus == label.toLowerCase();
     return ElevatedButton(
       onPressed: () {
-        if (label == 'Absent') {
+        if (label == 'Present') {
           //show dioyout
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
               title: Text(
-                'This student is Absent',
+                'This student is present',
                 style: Textstyles.font18boldblue,
               ),
               content: SizedBox(
                 height: 120,
-                child: BlocConsumer<AbsentCubit, AbsentState>(
+                child: BlocConsumer<PresentStudentCubit, PresentStudentState>(
                   listener: (context, state) {
                     if (state is Absentloading) {
                       isloading = true;
@@ -123,7 +105,7 @@ class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
                       isloading = false;
                       // BlocProvider.of<YesattandanceCubit>(context).reset();
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('This student is absent now ')));
+                          content: Text('This student is present now ')));
                       Navigator.pop(context);
                     } else {
                       isloading = false;
@@ -156,16 +138,18 @@ class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
                                     width: MediaQuery.sizeOf(context).width,
                                     child: ElevatedButton(
                                         onPressed: () {
-                                          BlocProvider.of<AbsentCubit>(context)
-                                              .absentStudentsmothed(
+                                          BlocProvider.of<PresentStudentCubit>(
+                                                  context)
+                                              .PresentStudentsmothed(
                                                   role: widget.role,
                                                   token: widget.token,
                                                   id: widget.id,
-                                                  idst: widget.user.user!.id!);
+                                                  idst: widget.user.studentId!);
+
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
                                                   content: Text(
-                                                      'This student is absent Now ')));
+                                                      'This student is Present Now ')));
                                           Navigator.pop(context);
                                         },
                                         style: ElevatedButton.styleFrom(

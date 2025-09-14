@@ -12,6 +12,7 @@ import 'package:project_greduation/feature_Doc/models/lecture_model/lecture_mode
 import 'package:project_greduation/feature_Doc/models/section_models/section_models.dart';
 import 'package:project_greduation/feature_Doc/views/attendance/view/attendance_lecturee.dart';
 import 'package:project_greduation/feature_Doc/views/attendance/view/random_attendance.dart';
+import 'package:project_greduation/feature_Doc/views/attendance/view/takeattadance.dart';
 import 'package:project_greduation/features/Auth/data/models/user/user.dart';
 
 class Attandancetake extends StatefulWidget {
@@ -143,8 +144,12 @@ class _AttandancetakeState extends State<Attandancetake> {
               if (state is AttendanceLoading) {
                 isloading = true;
               } else if (state is AttendanceFailure) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('${state.errMessage.toString()}')));
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                  state.errMessage.toString(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                )));
                 isloading = false;
               } else {
                 isloading = false;
@@ -156,8 +161,8 @@ class _AttandancetakeState extends State<Attandancetake> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12), color: ksecandkey),
                 child: SizedBox(
-                  height: 250,
-                  width: 270,
+                  height: 300,
+                  width: MediaQuery.sizeOf(context).width * 0.7,
                   child: ModalProgressHUD(
                     inAsyncCall: isloading,
                     child: Column(
@@ -258,81 +263,117 @@ class _AttandancetakeState extends State<Attandancetake> {
                                 )),
                           ],
                         ),
-                        Row(
-                          children: [
-                            ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return AttendanceLecture(
-                                      role: widget.user.role!,
-                                      token: widget.user.token!,
-                                      id: widget.user.role == 'assistant'
-                                          ? widget.section!.id!
-                                          : widget.lecture!
-                                              .id!, //widget.lecture.course!.id!,
-                                    );
-                                  }));
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: kprimarykey,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12))),
-                                child: Text(
-                                  'Attendance Lecture',
-                                  style: Textstyles.font16boldwithe,
-                                )),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: kprimarykey,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12))),
-                                child: BlocBuilder<CounterCubit, CounterState>(
-                                  builder: (context, state) {
-                                    if (state is CounterSucess) {
-                                      number = state.present;
-                                      return Text(
-                                        state.present.toString(),
-                                        style: Textstyles.font16boldwithe,
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return AttendanceLecture(
+                                        role: widget.user.role!,
+                                        token: widget.user.token!,
+                                        id: widget.user.role == 'assistant'
+                                            ? widget.section!.id!
+                                            : widget.lecture!
+                                                .id!, //widget.lecture.course!.id!,
                                       );
-                                    } else {
-                                      return Text(
-                                        number.toString(),
-                                        style: Textstyles.font16boldwithe,
-                                      );
-                                    }
+                                    }));
                                   },
-                                )),
-                          ],
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: kprimarykey,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12))),
+                                  child: Text(
+                                    'Attendance Lecture',
+                                    style: Textstyles.font16boldwithe,
+                                  )),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: kprimarykey,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12))),
+                                  child:
+                                      BlocBuilder<CounterCubit, CounterState>(
+                                    builder: (context, state) {
+                                      if (state is CounterSucess) {
+                                        number = state.present;
+                                        return Text(
+                                          state.present.toString(),
+                                          style: Textstyles.font16boldwithe,
+                                        );
+                                      } else {
+                                        return Text(
+                                          number.toString(),
+                                          style: Textstyles.font16boldwithe,
+                                        );
+                                      }
+                                    },
+                                  )),
+                            ],
+                          ),
                         ),
-                        ElevatedButton(
-                            //RandomAttendanceScreen
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return RandomAttendanceScreen(
-                                  role: widget.user.role!,
-                                  token: widget.user.token!,
-                                  id: widget.user.role == 'assistant'
-                                      ? widget.section!.id!
-                                      : widget.lecture!.id!,
-                                );
-                              }));
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: kprimarykey,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12))),
-                            child: Text(
-                              'Random Attendance',
-                              style: Textstyles.font16boldwithe,
-                            ))
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                              //RandomAttendanceScreen
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return RandomAttendanceScreen(
+                                    role: widget.user.role!,
+                                    token: widget.user.token!,
+                                    id: widget.user.role == 'assistant'
+                                        ? widget.section!.id!
+                                        : widget.lecture!.id!,
+                                  );
+                                }));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: kprimarykey,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12))),
+                              child: Text(
+                                'Random Attendance',
+                                style: Textstyles.font16boldwithe,
+                              )),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return Takeattadancec(
+                                    role: widget.user.role!,
+                                    token: widget.user.token!,
+                                    id: widget.user.role == 'assistant'
+                                        ? widget.section!.id!
+                                        : widget.lecture!
+                                            .id!, //widget.lecture.course!.id!,
+                                  );
+                                }));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: kprimarykey,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12))),
+                              child: Text(
+                                'Take Attendance',
+                                style: Textstyles.font16boldwithe,
+                              )),
+                        ),
                       ],
                     ),
                   ),

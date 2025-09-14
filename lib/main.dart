@@ -8,10 +8,12 @@ import 'package:project_greduation/feature_Doc/apis/attendance_api.dart';
 import 'package:project_greduation/feature_Doc/apis/attendancedrawer.dart';
 import 'package:project_greduation/feature_Doc/apis/conterpresent.dart';
 import 'package:project_greduation/feature_Doc/apis/getStudentAttendance.dart';
+import 'package:project_greduation/feature_Doc/apis/presentStudents.dart';
 import 'package:project_greduation/feature_Doc/logic/absentcubit/absent_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/attandancecubitdreaer/attandancedrewer_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/attendance/attendance_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/counter/counter_cubit.dart';
+import 'package:project_greduation/feature_Doc/logic/presentStudentCubit/present_student_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/yesattandancecubit/yesattandance_cubit.dart';
 import 'package:project_greduation/features/Auth/domain/Use_case/Auth_Use_Case_SendNewPassword.dart';
 import 'package:project_greduation/features/Auth/domain/Use_case/Auths_Use_Case_SendEmail.dart';
@@ -57,6 +59,9 @@ class PorjectGreduation extends StatelessWidget {
           create: (context) => CounterCubit(Conterpresent(dio: Dio())),
         ),
         BlocProvider(
+          create: (context) => PresentStudentCubit(Presentstudents(dio: Dio())),
+        ),
+        BlocProvider(
           create: (context) =>
               YesattandanceCubit(Getstudentattendance(dio: Dio())),
         ),
@@ -91,8 +96,7 @@ class PorjectGreduation extends StatelessWidget {
               NotificationcubitCubit(getIt.get<NotificationUseCase>()),
         ),
         BlocProvider(
-          create: (context) =>
-              IsAvailablesCubit(getIt.get<Repoimplehome>()),
+          create: (context) => IsAvailablesCubit(getIt.get<Repoimplehome>()),
         ),
         BlocProvider<TakelocationCubit>(
           create: (context) =>

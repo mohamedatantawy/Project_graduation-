@@ -22,11 +22,11 @@ class Serverfailure extends Failure {
         return Serverfailure(
             errormassage: "badCertificate timeout with ApiServer ");
       case DioExceptionType.badResponse:
-  return Serverfailure(
-            errormassage: dioEx.response!.data!['message'] );
+
         return Serverfailure.fromResponse(
             dioEx.response!.data!, dioEx.response!.statusCode!);
-
+  return Serverfailure(
+            errormassage: dioEx.response!.data!['message'] );
       case DioExceptionType.cancel:
         return Serverfailure(
             errormassage: "Request  with ApiServer is Cancel ");

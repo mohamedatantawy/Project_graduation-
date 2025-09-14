@@ -88,15 +88,18 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
             backgroundColor: kbackgroundcolor,
             child: GestureDetector(
               onTap: () async {
-                bool isMockLocation = true;
-                isMockLocation = await SafeDevice.isMockLocation;
-                var connectivityResult =
-                    await Connectivity().checkConnectivity();
-                //  var isVpn = connectivityResult == ConnectivityResult.vpn;
-                if (!isMockLocation) {
+                // bool isMockLocation = true;
+                // isMockLocation = await SafeDevice.isMockLocation;
+                // var connectivityResult =
+                //     await Connectivity().checkConnectivity();
+                // //  var isVpn = connectivityResult == ConnectivityResult.vpn;
+                var data = await location.getLocation();
+
+                if (data.isMock!) {
                   String token =
                       await Sharedperfernace.getString('token') ?? '';
-                  var data =await getlocations();
+                  // var data =await getlocations();
+                  var data = await location.getLocation();
                   print(" ${data.latitude} ${data.longitude}");
                   await context.read<TakelocationCubit>().getlocationmothed(
                       id: widget.materialmodels.academicScheduleId!,
@@ -130,7 +133,9 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
                   color: kprimarykey,
                 ),
                 Text(
-                  '${widget.materialmodels.schedule!.lectureStartHour.toString().substring(0, 5)}',
+                  widget.materialmodels.schedule!.lectureStartHour
+                      .toString()
+                      .substring(0, 5),
                   style: Textstyles.font22medinmwithe.copyWith(
                       fontWeight: FontWeight.bold, color: kprimarykey),
                 ),
@@ -155,7 +160,9 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
                   color: kprimarykey,
                 ),
                 Text(
-                  '${widget.materialmodels.schedule!.lectureEndHour.toString().substring(0, 5)}',
+                  widget.materialmodels.schedule!.lectureEndHour
+                      .toString()
+                      .substring(0, 5),
                   style: Textstyles.font22medinmwithe.copyWith(
                       fontWeight: FontWeight.bold, color: kprimarykey),
                 ),
@@ -178,8 +185,8 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
     );
   }
 
-Future  <LocationData > getlocations() async {
-   var datav= await SafeDevice.isMockLocation;
+  Future<LocationData> getlocations() async {
+    var datav = await SafeDevice.isMockLocation;
     var isactive = await location.serviceEnabled();
     if (!isactive && !datav) {
       isactive = await location.requestService();
@@ -200,7 +207,7 @@ Future  <LocationData > getlocations() async {
 }
 
 class consumerchecklocation extends StatefulWidget {
-  consumerchecklocation({
+  const consumerchecklocation({
     super.key,
   });
 
@@ -234,7 +241,7 @@ class _consumerchecklocationState extends State<consumerchecklocation> {
         } else if (state is TakelocationFailure) {
           isloading = false;
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('${state.emassage}')));
+              .showSnackBar(SnackBar(content: Text(state.emassage)));
         } else {
           isloading = false;
         }
