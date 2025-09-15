@@ -5,6 +5,7 @@ import 'package:project_greduation/core/styles/textstyles.dart';
 import 'package:project_greduation/feature_Doc/logic/absentcubit/absent_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/presentStudentCubit/present_student_cubit.dart';
 import 'package:project_greduation/feature_Doc/models/studentsfordrawermodels.dart';
+import 'package:project_greduation/feature_Doc/models/yesattandancemodels/yesattandancemodels.dart';
 
 class TakeAttendancefeatue extends StatefulWidget {
   const TakeAttendancefeatue(
@@ -14,7 +15,7 @@ class TakeAttendancefeatue extends StatefulWidget {
       required this.role,
       required this.user});
   final String token;
-  final Studentsfordrawermodels user;
+  final Yesattandancemodels user;
   final int id;
   final String role;
   @override
@@ -42,7 +43,7 @@ class _TakeAttendancefeatueState extends State<TakeAttendancefeatue> {
               backgroundColor: const Color(0xFF97BCE8),
               radius: 20,
               child: Text(
-                widget.user.name!.isNotEmpty ? widget.user.name![0] : "?",
+                widget.user.user!.name!.isNotEmpty ? widget.user.user!.name![0] : "?",
                 style: const TextStyle(
                   fontSize: 20,
                   color: Colors.white,
@@ -55,7 +56,7 @@ class _TakeAttendancefeatueState extends State<TakeAttendancefeatue> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.user.name!,
+                  Text(widget.user.user!.name!,
                       style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

@@ -52,6 +52,7 @@ class _AttandancetakeState extends State<Attandancetake> {
   //       () => BlocProvider.of<CounterCubit>(context).showPresent2(
   //           token: widget.user.token!, id: widget.lecture.course!.id!));
   // }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +152,14 @@ class _AttandancetakeState extends State<Attandancetake> {
                   overflow: TextOverflow.ellipsis,
                 )));
                 isloading = false;
-              } else {
+              } else if (state is AttendanceSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                  state.message.toString(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                )));
+
                 isloading = false;
               }
             }, builder: (context, state) {
@@ -221,9 +229,8 @@ class _AttandancetakeState extends State<Attandancetake> {
                                           depname: widget.user.role!,
                                           token: widget.user.token!,
                                           id: widget.user.role == 'assistant'
-                                              ? widget.section!
-                                                  .academicSchedule!.course!.id!
-                                              : widget.lecture!.course!.id!);
+                                              ? widget.section!.id!
+                                              : widget.lecture!.id!);
                                 },
                                 icon: Icon(
                                   Icons.pause_circle_filled_outlined,

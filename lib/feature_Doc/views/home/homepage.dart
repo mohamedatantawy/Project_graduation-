@@ -5,6 +5,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/styles/textstyles.dart';
 import 'package:project_greduation/feature_Doc/apis/lecture_info_api.dart';
+import 'package:project_greduation/feature_Doc/logic/counter/counter_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/lecture/lecture_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/lecture/lecture_state.dart';
 import 'package:project_greduation/feature_Doc/models/lecture_model/lecture_model.dart';
@@ -58,15 +59,13 @@ class _HomeScreenState extends State<HomeScreen> {
               child: BlocBuilder<LectureCubit, LectureState>(
                 builder: (context, state) {
                   if (state is LectureLoading) {
-                    return Expanded(
-                      child: SizedBox(
-                        height: 100,
-                        child: ModalProgressHUD(
-                            inAsyncCall: true,
-                            child: Container(
-                              color: const Color(0xFFE8EBF2),
-                            )),
-                      ),
+                    return SizedBox(
+                      height: 100,
+                      child: ModalProgressHUD(
+                          inAsyncCall: true,
+                          child: Container(
+                            color: const Color(0xFFE8EBF2),
+                          )),
                     );
                   } else if (state is LectureSuccess) {
                     lectures = state.lectures;
@@ -150,8 +149,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   } else {
                     return Expanded(
                       child: Container(
-                        color: Colors.transparent,
+                        color: Colors.white,
                         height: 100,
+                        child: Center(
+                          child: Text('not found any Students '),
+                        ),
                       ),
                     );
                   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_greduation/feature_Doc/logic/attandancecubitdreaer/attandancedrewer_cubit.dart';
+import 'package:project_greduation/feature_Doc/logic/getAbsent/get_absent_cubit.dart';
 import 'package:project_greduation/feature_Doc/views/attendance/view/searchStudent.dart';
 import 'package:project_greduation/feature_Doc/widgets/CardAttandDrawer.dart';
 import 'package:project_greduation/feature_Doc/widgets/random_attendance_card.dart';
@@ -22,8 +23,8 @@ class _TakeattadanceState extends State<Takeattadancec> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    BlocProvider.of<AttandancedrewerCubit>(context)
-        .getallStudents(token: widget.token, id: widget.id, role: widget.role);
+    BlocProvider.of<GetAbsentCubit>(context).getAbsentStudents(
+        token: widget.token, id: widget.id, role: widget.role);
   }
 
   bool isloading = false;
@@ -47,8 +48,7 @@ class _TakeattadanceState extends State<Takeattadancec> {
                 }),
             const SizedBox(width: 35),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
               decoration: BoxDecoration(
                 color: const Color(0xFF0D2442),
                 borderRadius: BorderRadius.circular(12),
@@ -66,24 +66,24 @@ class _TakeattadanceState extends State<Takeattadancec> {
             ),
           ],
         ),
-      
-        BlocConsumer<AttandancedrewerCubit, AttandancedrewerState>(
+
+        BlocConsumer<GetAbsentCubit, GetAbsentState>(
           listener: (context, state) {
-            if (state is AttandancedrewerLoading) {
+            if (state is GetAbsentLoading) {
               isloading = true;
             } else {
               isloading = false;
             }
           },
           builder: (context, state) {
-            if (state is AttandancedrewerSucess) {
+            if (state is GetAbsentSucess) {
               return Searchstudent(
-                students: state.students,
+                students: state.data,
                 role: widget.role,
                 token: widget.token,
                 id: widget.id,
               );
-            } else if (state is AttandancedrewerLoading) {
+            } else if (state is GetAbsentLoading) {
               return Flexible(
                 child: SizedBox(
                   height: 350,

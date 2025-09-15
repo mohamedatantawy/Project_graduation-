@@ -8,11 +8,13 @@ import 'package:project_greduation/feature_Doc/apis/attendance_api.dart';
 import 'package:project_greduation/feature_Doc/apis/attendancedrawer.dart';
 import 'package:project_greduation/feature_Doc/apis/conterpresent.dart';
 import 'package:project_greduation/feature_Doc/apis/getStudentAttendance.dart';
+import 'package:project_greduation/feature_Doc/apis/getadsenttoday.dart';
 import 'package:project_greduation/feature_Doc/apis/presentStudents.dart';
 import 'package:project_greduation/feature_Doc/logic/absentcubit/absent_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/attandancecubitdreaer/attandancedrewer_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/attendance/attendance_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/counter/counter_cubit.dart';
+import 'package:project_greduation/feature_Doc/logic/getAbsent/get_absent_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/presentStudentCubit/present_student_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/yesattandancecubit/yesattandance_cubit.dart';
 import 'package:project_greduation/features/Auth/domain/Use_case/Auth_Use_Case_SendNewPassword.dart';
@@ -50,13 +52,16 @@ class PorjectGreduation extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        //AttandancedrewerCubit
+        //AttandancedrewerCubit//GetAbsentCubit
         BlocProvider(
           create: (context) =>
               AuthLoginCubit(getIt.get<AuthsUseCaseLogin>())..alreadylogin(),
         ),
         BlocProvider(
           create: (context) => CounterCubit(Conterpresent(dio: Dio())),
+        ),
+         BlocProvider(
+          create: (context) => GetAbsentCubit(Getadsenttoday (dio: Dio())),
         ),
         BlocProvider(
           create: (context) => PresentStudentCubit(Presentstudents(dio: Dio())),

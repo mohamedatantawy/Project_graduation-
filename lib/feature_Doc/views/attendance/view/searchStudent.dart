@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_greduation/core/styles/textstyles.dart';
 import 'package:project_greduation/feature_Doc/models/studentsfordrawermodels.dart';
+import 'package:project_greduation/feature_Doc/models/yesattandancemodels/yesattandancemodels.dart';
 import 'package:project_greduation/feature_Doc/widgets/takeattendancesecend.dart';
 
 class Searchstudent extends StatefulWidget {
@@ -10,7 +11,7 @@ class Searchstudent extends StatefulWidget {
       required this.token,
       required this.id,
       required this.role});
-  final List<Studentsfordrawermodels> students;
+  final List<Yesattandancemodels> students;
   final String token;
   // final Studentsfordrawermodels user;
   final int id;
@@ -20,7 +21,7 @@ class Searchstudent extends StatefulWidget {
 }
 
 class _SearchstudentState extends State<Searchstudent> {
-  List<Studentsfordrawermodels> studentit = [];
+  List<Yesattandancemodels> studentit = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -36,7 +37,7 @@ class _SearchstudentState extends State<Searchstudent> {
         studentit = widget.students
             .where(
               (element) =>
-                  element.name!.toLowerCase().contains(q.toLowerCase()),
+                  element.user!.name!.toLowerCase().contains(q.toLowerCase()),
             )
             .toList();
       }
