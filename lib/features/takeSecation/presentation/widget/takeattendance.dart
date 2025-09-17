@@ -26,7 +26,7 @@ class _TakeSectionbody extends State<TakeSectionbody> {
   void initState() {
     location = Location();
     getlocations();
-    // TODO: implement initState
+    
     super.initState();
   }
 
@@ -35,7 +35,7 @@ class _TakeSectionbody extends State<TakeSectionbody> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        SizedBox(
+     const   SizedBox(
           height: 40,
         ),
         Row(
@@ -50,15 +50,15 @@ class _TakeSectionbody extends State<TakeSectionbody> {
         ),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
-            '${widget.materialmodels.schedule!.sections![widget.number].sectionHall!.name!}',
+            widget.materialmodels.schedule!.sections![widget.number].sectionHall!.name!,
             style: Textstyles.font26medinmblue
                 .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
           ),
-          SizedBox(
+         const SizedBox(
             width: 40,
           ),
           Text(
-            '${widget.materialmodels.schedule!.sections![widget.number].sectionDay!}',
+            widget.materialmodels.schedule!.sections![widget.number].sectionDay!,
             style: Textstyles.font26medinmblue
                 .copyWith(fontWeight: FontWeight.w400, color: kthirdcolorkey),
           ),
@@ -69,7 +69,7 @@ class _TakeSectionbody extends State<TakeSectionbody> {
             style: Textstyles.font26medinmblue,
           ),
         ),
-        SizedBox(
+      const  SizedBox(
           height: 20,
         ),
         CircleAvatar(
@@ -102,7 +102,7 @@ class _TakeSectionbody extends State<TakeSectionbody> {
             ),
           ),
         ),
-        SizedBox(
+      const  SizedBox(
           height: 30,
         ),
         Row(
@@ -110,17 +110,17 @@ class _TakeSectionbody extends State<TakeSectionbody> {
           children: [
             Column(
               children: [
-                Icon(
+             const   Icon(
                   Icons.timer_outlined,
                   size: 30,
                   color: kprimarykey,
                 ),
                 Text(
-                  "${widget.materialmodels.schedule!.sections![widget.number].sectionStartHour.toString().substring(0, 5)}",
+                  widget.materialmodels.schedule!.sections![widget.number].sectionStartHour.toString().substring(0, 5),
                   style: Textstyles.font22medinmwithe.copyWith(
                       fontWeight: FontWeight.bold, color: kprimarykey),
                 ),
-                SizedBox(
+              const  SizedBox(
                   width: 20,
                 ),
                 Text(
@@ -135,17 +135,17 @@ class _TakeSectionbody extends State<TakeSectionbody> {
             ),
             Column(
               children: [
-                Icon(
+               const Icon(
                   Icons.alarm,
                   size: 30,
                   color: kprimarykey,
                 ),
                 Text(
-                  "${widget.materialmodels.schedule!.sections![widget.number].sectionEndHour.toString().substring(0, 5)}",
+                  widget.materialmodels.schedule!.sections![widget.number].sectionEndHour.toString().substring(0, 5),
                   style: Textstyles.font22medinmwithe.copyWith(
                       fontWeight: FontWeight.bold, color: kprimarykey),
                 ),
-                SizedBox(
+             const   SizedBox(
                   width: 20,
                 ),
                 Text(
@@ -202,23 +202,23 @@ class _consumerschecklocationState extends State<consumerschecklocation> {
           isloading = false;
           widget.isSucess = false;
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Your attandance is done')));
+              .showSnackBar(const SnackBar(content: Text('Your attandance is done')));
         } else if (state is Takelocationloading) {
           isloading = true;
         } else if (state is TakelocationalrdayRegister) {
           isloading = false;
           widget.isSucess = false;
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('You are already is register')));
+            const  SnackBar(content: Text('You are already is register')));
         } else if (state is Takelocationoutthecollege) {
           isloading = false;
           widget.isSucess = false;
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('You are not in the college')));
+          const    SnackBar(content: Text('You are not in the college')));
         } else if (state is TakelocationFailure) {
           isloading = false;
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('${state.emassage}')));
+              .showSnackBar(SnackBar(content: Text(state.emassage)));
         } else {
           isloading = false;
         }
@@ -232,7 +232,7 @@ class _consumerschecklocationState extends State<consumerschecklocation> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(Assets.assetsImageChechm),
-                SizedBox(
+               const SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -251,7 +251,7 @@ class _consumerschecklocationState extends State<consumerschecklocation> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(Assets.assetsImageGroup2),
-                SizedBox(
+               const SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -270,7 +270,7 @@ class _consumerschecklocationState extends State<consumerschecklocation> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(Assets.assetsImageGroup2),
-                SizedBox(
+              const  SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -289,7 +289,7 @@ class _consumerschecklocationState extends State<consumerschecklocation> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(Assets.assetsImageGroup2),
-                SizedBox(
+               const SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -310,7 +310,7 @@ class _consumerschecklocationState extends State<consumerschecklocation> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(Assets.assetsImageGroup2),
-                  SizedBox(
+                const  SizedBox(
                     height: 10,
                   ),
                   Text(

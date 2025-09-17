@@ -27,7 +27,7 @@ class _customtextFormFieldState extends State<customtextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 70,
       child: TextFormField(
         controller: widget.text,
@@ -46,7 +46,7 @@ class _customtextFormFieldState extends State<customtextFormField> {
         decoration: InputDecoration(
           hintText: widget.title,
 
-          hintStyle: TextStyle(),
+          hintStyle:const TextStyle(),
           prefixIcon: Icon(
             widget.icon,
             size: 20,
@@ -60,8 +60,8 @@ class _customtextFormFieldState extends State<customtextFormField> {
                   },
                   icon: Visibility(
                     visible: isactive,
-                    child: Icon(Icons.visibility),
-                    replacement: Icon(Icons.visibility_off),
+                    replacement:const Icon(Icons.visibility_off),
+                    child:const Icon(Icons.visibility),
                   ))
               : null,
           // labelText: 'Eamil',

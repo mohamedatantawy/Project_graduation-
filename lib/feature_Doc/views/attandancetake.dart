@@ -103,7 +103,7 @@ class _AttandancetakeState extends State<Attandancetake> {
                               ? widget.lecture!.course!.name.toString()
                               : widget.section!.academicSchedule!.course!.name
                                   .toString(),
-                          style: TextStyle(
+                          style:const TextStyle(
                             color: Colors.white,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -134,7 +134,7 @@ class _AttandancetakeState extends State<Attandancetake> {
                   : "Day: ${widget.section!.sectionDay.toString()}\nHall: ${widget.section!.sectionHall!.name.toString()} ",
               //    'Saturday, Nov 7\nIn Hall 1',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style:const TextStyle(
                 color: Color(0xFF0D2442),
                 fontSize: 20,
               ),
@@ -164,8 +164,8 @@ class _AttandancetakeState extends State<Attandancetake> {
               }
             }, builder: (context, state) {
               return Container(
-                margin: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                padding: EdgeInsets.symmetric(vertical: 30, horizontal: 40),
+                margin:const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                padding:const EdgeInsets.symmetric(vertical: 30, horizontal: 40),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12), color: ksecandkey),
                 child: SizedBox(
@@ -232,7 +232,7 @@ class _AttandancetakeState extends State<Attandancetake> {
                                               ? widget.section!.id!
                                               : widget.lecture!.id!);
                                 },
-                                icon: Icon(
+                                icon:const Icon(
                                   Icons.pause_circle_filled_outlined,
                                   color: kcolorwhite,
                                   size: 35,
@@ -263,7 +263,7 @@ class _AttandancetakeState extends State<Attandancetake> {
                                   //             .closed())
                                   //     : null;
                                 },
-                                icon: Icon(
+                                icon:const Icon(
                                   Icons.play_circle,
                                   color: kcolorwhite,
                                   size: 35,
@@ -297,7 +297,7 @@ class _AttandancetakeState extends State<Attandancetake> {
                                     'Attendance Lecture',
                                     style: Textstyles.font16boldwithe,
                                   )),
-                              SizedBox(
+                            const  SizedBox(
                                 width: 5,
                               ),
                               ElevatedButton(
@@ -327,7 +327,7 @@ class _AttandancetakeState extends State<Attandancetake> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                       const SizedBox(
                           height: 8,
                         ),
                         Expanded(
@@ -354,7 +354,7 @@ class _AttandancetakeState extends State<Attandancetake> {
                                 style: Textstyles.font16boldwithe,
                               )),
                         ),
-                        SizedBox(
+                     const  SizedBox(
                           height: 8,
                         ),
                         Expanded(

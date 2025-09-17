@@ -45,8 +45,7 @@ class _ChangepasswordState extends State<Changepassword> {
             isloading = true;
           } else if (state is ChangepasswordSucess) {
             isloading = false;
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Your Password is change Now')));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Your Password is change Now')));
 
             // BlocProvider.of<MaterialshowCubit>(context).Restart();
             print('pop the page ');
@@ -107,7 +106,7 @@ class _ResetpasswordbodyState extends State<Resetpasswordbodyd> {
           child: ListView(
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+            const  Text(
                 'Change Password',
                 textAlign: TextAlign.center,
                 style: TextStyle(

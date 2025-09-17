@@ -72,6 +72,7 @@ flutter:
   assets:
     - asset/image/
     - asset/image/usi.png
+    - asset/icon/icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -111,7 +112,5 @@ flutter_assets:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "asset/image/Vector (1).png"
-  adaptive_icon_foreground: "asset/image/Vector (4).png"
-  #asset\image\download.png
-  adaptive_icon_background: "asset/image/download.png"
+  image_path: "asset/icon/icon.png" 
+  

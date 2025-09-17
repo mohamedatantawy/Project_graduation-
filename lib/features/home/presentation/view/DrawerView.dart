@@ -41,7 +41,7 @@ class _DrawerviewState extends State<Drawerview> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.sizeOf(context).width * 0.75,
-      decoration: BoxDecoration(
+      decoration:const BoxDecoration(
           //color: Colors.blue,
           gradient: LinearGradient(
               begin: Alignment.topCenter,

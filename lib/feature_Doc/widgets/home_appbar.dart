@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_greduation/core/assets.dart';
 import 'package:project_greduation/features/Auth/data/models/user/user.dart';
 
 class HomeAppbar extends StatelessWidget {
@@ -18,25 +17,25 @@ class HomeAppbar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          SizedBox(width: 16),
+         const SizedBox(width: 26),
           // CircleAvatar(
           //   radius: 30,
           //   backgroundImage: AssetImage(
           //       Assets.assetsImageVector), // replace with actual image path
           // ),
-          SizedBox(width: 16),
+        
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Hello, ${user.name}',
-                style: TextStyle(
+                style:const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
               ),
-              Text(
+             const Text(
                 'Have a nice day !',
                 style: TextStyle(
                   color: Colors.white,

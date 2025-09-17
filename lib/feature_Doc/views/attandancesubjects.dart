@@ -29,7 +29,7 @@ class Attandancesubjects extends StatelessWidget {
           style: Textstyles.font26medinmblue.copyWith(color: kcolorwhite),
         ),
         centerTitle: true,
-        shape: RoundedRectangleBorder(
+        shape:const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(100),
                 bottomRight: Radius.circular(100))),
@@ -41,8 +41,8 @@ class Attandancesubjects extends StatelessWidget {
             onPressed: () {
               GoRouter.of(context).pop();
             },
-            icon: Padding(
-              padding: const EdgeInsets.only(top: 30),
+            icon:const Padding(
+              padding:  EdgeInsets.only(top: 30),
               child: const Icon(
                 Icons.arrow_back_ios,
                 color: kcolorwhite,
@@ -79,7 +79,7 @@ class Attandancebody extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: [
-        SizedBox(
+       const SizedBox(
           height: 20,
         ),
         Text(
@@ -91,7 +91,7 @@ class Attandancebody extends StatelessWidget {
           height: MediaQuery.sizeOf(context).height * 0.62,
           child: GridView.builder(
             itemCount: role == 'assistant' ? section!.length : lectures!.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 30,
@@ -114,11 +114,11 @@ class Attandancebody extends StatelessWidget {
                   }
                 },
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin:const EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [
-                        BoxShadow(
+                     const   BoxShadow(
                           color: Colors.black,
                           offset: Offset(10, 10),
                           blurRadius: 1,
@@ -127,12 +127,12 @@ class Attandancebody extends StatelessWidget {
                       ]),
                   child: Card(
                     shadowColor: Colors.black,
+                    color: kcolorcard,
                     child: Center(
                         child: Text(
                       '${role == 'assistant' ? section![index].academicSchedule!.course!.name : lectures![index].course!.name}',
                       style: Textstyles.font15semiboldwite,
                     )),
-                    color: kcolorcard,
                   ),
                 ),
               );

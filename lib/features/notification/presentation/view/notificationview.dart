@@ -49,9 +49,7 @@ class _NotificationviewState extends State<Notificationview> {
               data: state.worning,
             );
           } else if (state is Notificationcubitfailure) {
-            return Container(
-              child: Text(state.emassage),
-            );
+            return Text(state.emassage);
           } else {
             return ModalProgressHUD(
               inAsyncCall: true,

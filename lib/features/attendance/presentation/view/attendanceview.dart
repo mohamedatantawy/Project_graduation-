@@ -11,14 +11,14 @@ class Attendanceview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF5F5F5),
+      backgroundColor:const Color(0xffF5F5F5),
       appBar: AppBar(
         title: Text(
           'Attendance Report ',
           style: Textstyles.font26medinmblue.copyWith(color: kcolorwhite),
         ),
         centerTitle: true,
-        shape: RoundedRectangleBorder(
+        shape:const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(100),
                 bottomRight: Radius.circular(100))),
@@ -30,7 +30,7 @@ class Attendanceview extends StatelessWidget {
             onPressed: () {
               GoRouter.of(context).pop();
             },
-            icon: Padding(
+            icon:const Padding(
               padding: const EdgeInsets.only(top: 30),
               child: const Icon(
                 Icons.arrow_back_ios,

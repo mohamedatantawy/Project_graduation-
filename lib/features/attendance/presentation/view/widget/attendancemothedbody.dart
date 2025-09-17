@@ -14,12 +14,12 @@ class Attendancemothedbody extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
               //   width: 400,
-              margin: EdgeInsets.all(12),
+              margin:const EdgeInsets.all(12),
               // color: kcolorwhite,
               decoration: BoxDecoration(
                   color: kcolorwhite,
@@ -29,7 +29,7 @@ class Attendancemothedbody extends StatelessWidget {
                 reportattandancemodel: reportattandancemodel,
               ),
             ),
-            SizedBox(
+          const  SizedBox(
               height: 25,
             ),
             Row(
@@ -52,7 +52,7 @@ class Attendancemothedbody extends StatelessWidget {
                           ),
                         )),
                     Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin:const EdgeInsets.only(top: 20),
                       height: 40,
                       width: 40,
                       decoration: BoxDecoration(
@@ -83,7 +83,7 @@ class Attendancemothedbody extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin:const EdgeInsets.only(top: 20),
                       height: 40,
                       width: 40,
                       decoration: BoxDecoration(
@@ -98,7 +98,7 @@ class Attendancemothedbody extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
+          const  SizedBox(
               height: 10,
             ),
           ],
@@ -193,7 +193,7 @@ class _customtablecalendarState extends State<customtablecalendar> {
         selectedBuilder: (context, data, _) {
           if (days.any((d) => isSameDay(d, data))) {
             return Container(
-              decoration: BoxDecoration(
+              decoration:const BoxDecoration(
                 color: Colors.red, // Color for the first list
                 shape: BoxShape.circle,
               ),
@@ -201,7 +201,7 @@ class _customtablecalendarState extends State<customtablecalendar> {
             );
           } else {
             return Container(
-              decoration: BoxDecoration(
+              decoration:const BoxDecoration(
                 color: Colors.green, // Color for the first list
                 shape: BoxShape.circle,
               ),
@@ -211,7 +211,7 @@ class _customtablecalendarState extends State<customtablecalendar> {
         },
         todayBuilder: (context, date, _) {
           return Container(
-            decoration: BoxDecoration(
+            decoration:const BoxDecoration(
               color: Colors.white, // Color for the focused day
               shape: BoxShape.circle,
             ),
@@ -231,7 +231,7 @@ class _customtablecalendarState extends State<customtablecalendar> {
       daysOfWeekStyle: DaysOfWeekStyle(
         dowTextFormatter: (date, locale) =>
             ['Mo', 'tu', 'We', 'Th', 'Fr', 'Sa', 'Su'][date.weekday - 1],
-        weekendStyle: TextStyle(
+        weekendStyle:const TextStyle(
           decorationThickness: 100,
           fontSize: 20,
           color: kcolorwhite,
@@ -240,10 +240,10 @@ class _customtablecalendarState extends State<customtablecalendar> {
           borderRadius: BorderRadius.circular(12),
           color: kprimarykey,
         ),
-        weekdayStyle: TextStyle(
+        weekdayStyle:const TextStyle(
             fontSize: 20, color: kcolorwhite, backgroundColor: kprimarykey),
       ),
-      headerStyle: HeaderStyle(titleCentered: true, formatButtonVisible: false),
+      headerStyle:const HeaderStyle(titleCentered: true, formatButtonVisible: false),
       focusedDay: DateTime.now(),
       firstDay: DateTime.utc(2010, 2, 10),
       lastDay: DateTime.utc(2030, 2, 10),

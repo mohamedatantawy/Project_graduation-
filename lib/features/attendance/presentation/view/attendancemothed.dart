@@ -13,9 +13,9 @@ class Attendancemothed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffDDDEE5),
+      backgroundColor:const Color(0xffDDDEE5),
       appBar: AppBar(
-        backgroundColor: Color(0xffDDDEE5),
+        backgroundColor:const Color(0xffDDDEE5),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {

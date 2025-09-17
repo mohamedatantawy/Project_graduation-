@@ -21,7 +21,7 @@ class Takeattadancec extends StatefulWidget {
 class _TakeattadanceState extends State<Takeattadancec> {
   @override
   void initState() {
-    // TODO: implement initState
+   
     super.initState();
     BlocProvider.of<GetAbsentCubit>(context).getAbsentStudents(
         token: widget.token, id: widget.id, role: widget.role);
@@ -92,7 +92,7 @@ class _TakeattadanceState extends State<Takeattadancec> {
                 ),
               );
             } else {
-              return Flexible(
+              return const Flexible(
                 child: SizedBox(
                   height: 100,
                   // color: Colors.amber,

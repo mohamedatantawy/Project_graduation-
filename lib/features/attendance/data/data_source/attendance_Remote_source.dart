@@ -29,9 +29,9 @@ class AttendanceRemoteSourceImple implements Attendance_Data_Source {
       print(subjectList.toString());
       return right(subjectList);
     } catch (e) {
-      if (e is DioException)
+      if (e is DioException) {
         return left(Serverfailure.fromdioerror(e));
-      else {
+      } else {
         return left(Serverfailure(
           errormassage: e.toString(),
         ));

@@ -1,9 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:project_greduation/feature_Doc/apis/absentStudents.dart';
-import 'package:project_greduation/feature_Doc/logic/absentcubit/absent_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/counter/counter_cubit.dart';
 import 'package:project_greduation/feature_Doc/logic/yesattandancecubit/yesattandance_cubit.dart';
 import 'package:project_greduation/feature_Doc/models/yesattandancemodels/yesattandancemodels.dart';
@@ -13,7 +10,7 @@ class RandomAttendanceScreen extends StatefulWidget {
   final String token;
   final int id;
   final String role;
-  RandomAttendanceScreen(
+  const RandomAttendanceScreen(
       {super.key, required this.token, required this.id, required this.role});
 
   @override
@@ -29,7 +26,6 @@ class _RandomAttendanceScreenState extends State<RandomAttendanceScreen> {
   });
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     BlocProvider.of<YesattandanceCubit>(context).getyesattandance(
       token: widget.token,
@@ -101,13 +97,13 @@ class _RandomAttendanceScreenState extends State<RandomAttendanceScreen> {
                     }
                   }
                   nn.shuffle();
-                  List<Yesattandancemodels> randum = nn.take(10).toList();
+                  List<Yesattandancemodels> randum = nn.take(50).toList();
                   return Expanded(
                     child: ListView.builder(
                       itemCount: randum.length,
                       itemBuilder: (context, index) {
                         //BlocProvider.of<YesattandanceCubit>(context).reset();
-                        return randum.length == 0
+                        return randum.isEmpty
                             ? Container()
                             : RandomAttendanceCard(
                                 role: widget.role,
@@ -120,7 +116,7 @@ class _RandomAttendanceScreenState extends State<RandomAttendanceScreen> {
                   );
                 } else if (state is YesattandanceLoading) {
                   return Expanded(
-                    child: Container(
+                    child: SizedBox(
                       height: 400,
                       child: ModalProgressHUD(
                           inAsyncCall: true, child: Container()),

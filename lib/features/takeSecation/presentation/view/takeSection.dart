@@ -17,9 +17,9 @@ class Takesection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffDDDEE5),
+      backgroundColor:const Color(0xffDDDEE5),
       appBar: AppBar(
-        backgroundColor: Color(0xffDDDEE5),
+        backgroundColor:const Color(0xffDDDEE5),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -44,7 +44,7 @@ class Takesection extends StatelessWidget {
               //  margin: EdgeInsets.only(left: 4),
               width: 55,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
+                gradient:const LinearGradient(
                     begin: Alignment.topCenter,
                     colors: [Colors.amber, Colors.red]),
                 borderRadius: BorderRadius.circular(16),
@@ -53,7 +53,7 @@ class Takesection extends StatelessWidget {
             )),
       ),
       body: Container(
-        margin: EdgeInsets.only(top: 20),
+        margin:const EdgeInsets.only(top: 20),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(

@@ -34,7 +34,7 @@ class Homeview extends StatelessWidget {
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
-              icon: Icon(
+              icon:const Icon(
                 Icons.menu,
                 size: 40,
                 color: kprimarykey,

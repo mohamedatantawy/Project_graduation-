@@ -17,7 +17,7 @@ class Settingview extends StatelessWidget {
           style: Textstyles.font26medinmblue,
         ),
         centerTitle: true,
-        shape: RoundedRectangleBorder(
+        shape:const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(100),
                 bottomRight: Radius.circular(100))),
@@ -29,9 +29,9 @@ class Settingview extends StatelessWidget {
             onPressed: () {
               GoRouter.of(context).pop();
             },
-            icon: Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: const Icon(
+            icon:const Padding(
+              padding:  EdgeInsets.only(top: 30),
+              child:  Icon(
                 Icons.arrow_back_ios,
                 color: Color(0xff06224D),
               ),

@@ -3,10 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_greduation/core/styles/textstyles.dart';
 import 'package:project_greduation/feature_Doc/logic/absentcubit/absent_cubit.dart';
-import 'package:project_greduation/feature_Doc/logic/yesattandancecubit/yesattandance_cubit.dart';
 import 'package:project_greduation/feature_Doc/models/yesattandancemodels/yesattandancemodels.dart';
-import 'package:project_greduation/feature_Doc/views/attendance/view/random_attendance.dart';
-import 'package:project_greduation/features/Auth/data/models/user/user.dart';
 
 class RandomAttendanceCard extends StatefulWidget {
   final Yesattandancemodels user;
@@ -27,16 +24,7 @@ class RandomAttendanceCard extends StatefulWidget {
 
 class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
   String? selectedStatus;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // BlocProvider.of<AbsentCubit>(context).absentStudentsmothed(
-    //     role: widget.role,
-    //     token: widget.token,
-    //     id: widget.id,
-    //     idst: widget.user.student!.id!);
-  }
+ 
 
   bool isloading = false;
   @override
@@ -85,9 +73,6 @@ class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
                     children: [
                       buildStatusButton(
                           isloading, "Absent", Colors.red, Colors.black),
-                      const SizedBox(width: 10),
-                      buildStatusButton(isloading, "Present",
-                          const Color(0xFF0D2442), Colors.white),
                     ],
                   )
                 ],
@@ -122,24 +107,24 @@ class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
                     } else if (state is AbsentSucess) {
                       isloading = false;
                       // BlocProvider.of<YesattandanceCubit>(context).reset();
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(const  SnackBar(
                           content: Text('This student is absent now ')));
                       Navigator.pop(context);
                     } else {
                       isloading = false;
                       ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text('Try again')));
+                          .showSnackBar(const SnackBar(content: Text('Try again')));
                       Navigator.pop(context);
                     }
                     //else if (state is IsAvailablesSucuessSection) {
                     // } else if (state is IsAvailablesloading) {
                     //   //   isloading = true;
                     //   //   ScaffoldMessenger.of(context).showSnackBar(
-                    //   //       SnackBar(content: Text('This Lecture is loading')));
+                    //   //        (content: Text('This Lecture is loading')));
                     //   // } else {
                     //   //   isloading = false;
                     //   //   ScaffoldMessenger.of(context).showSnackBar(
-                    //   //       SnackBar(content: Text('This Lecture is not allow')));
+                    //   //        (content: Text('This Lecture is not allow')));
                     // }
                   },
                   builder: (context, state) {
@@ -163,7 +148,7 @@ class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
                                                   id: widget.id,
                                                   idst: widget.user.user!.id!);
                                           ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
+                                              .showSnackBar( const SnackBar(
                                                   content: Text(
                                                       'This student is absent Now ')));
                                           Navigator.pop(context);
@@ -179,7 +164,7 @@ class _RandomAttendanceCardState extends State<RandomAttendanceCard> {
                                         )),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.only(top: 12),
+                                    margin:const EdgeInsets.only(top: 12),
                                     height: 45,
                                     width: MediaQuery.sizeOf(context).width,
                                     child: TextButton(

@@ -105,13 +105,13 @@ class _TakeAttendancefeatueState extends State<TakeAttendancefeatue> {
                     } else if (state is AbsentSucess) {
                       isloading = false;
                       // BlocProvider.of<YesattandanceCubit>(context).reset();
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text('This student is present now ')));
                       Navigator.pop(context);
                     } else {
                       isloading = false;
                       ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text('Try again')));
+                          .showSnackBar(const SnackBar(content: Text('Try again')));
                       Navigator.pop(context);
                     }
                     //else if (state is IsAvailablesSucuessSection) {
@@ -148,7 +148,7 @@ class _TakeAttendancefeatueState extends State<TakeAttendancefeatue> {
                                                   idst: widget.user.studentId!);
 
                                           ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
+                                              .showSnackBar(const SnackBar(
                                                   content: Text(
                                                       'This student is Present Now ')));
                                           Navigator.pop(context);
@@ -164,7 +164,7 @@ class _TakeAttendancefeatueState extends State<TakeAttendancefeatue> {
                                         )),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.only(top: 12),
+                                    margin:const EdgeInsets.only(top: 12),
                                     height: 45,
                                     width: MediaQuery.sizeOf(context).width,
                                     child: TextButton(

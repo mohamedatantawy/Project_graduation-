@@ -45,7 +45,7 @@ class CustomDrawer extends StatelessWidget {
                   child: ListTile(
                     title: Text(
                       user.name.toString(),
-                      style: TextStyle(
+                      style:const TextStyle(
                         color: Colors.white,
                         fontSize: 23,
                         fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ class CustomDrawer extends StatelessWidget {
                     ),
                     subtitle: Text(
                       user.email.toString(),
-                      style: TextStyle(
+                      style:const TextStyle(
                         color: Colors.white,
                         fontSize: 12,
                       ),
@@ -69,14 +69,14 @@ class CustomDrawer extends StatelessWidget {
                   children: List.generate(itemsdrawer.length, (index) {
                 return Column(
                   children: [
-                    SizedBox(
+                   const SizedBox(
                       height: 10,
                     ),
                     ListTile(
                       title: Center(
                         child: Text(
                           itemsdrawer[index].title,
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style:const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
                       leading: Icon(itemsdrawer[index].icon),
@@ -107,7 +107,7 @@ class CustomDrawer extends StatelessWidget {
                         }
                       },
                     ),
-                    SizedBox(
+                 const   SizedBox(
                       height: 10,
                     ),
                     const Divider(

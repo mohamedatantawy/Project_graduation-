@@ -93,7 +93,7 @@ class _AttendanceLectureState extends State<AttendanceLecture> {
               );
             } else if (state is YesattandanceLoading) {
               return Expanded(
-                child: Container(
+                child: SizedBox(
                   height: 350,
                   child:
                       ModalProgressHUD(inAsyncCall: true, child: Container()),

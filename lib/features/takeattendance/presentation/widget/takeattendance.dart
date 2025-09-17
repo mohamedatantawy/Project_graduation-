@@ -27,7 +27,7 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
     location = Location();
 
     getlocations();
-    // TODO: implement initState
+   
     super.initState();
   }
 
@@ -77,7 +77,7 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
             style: Textstyles.font26medinmblue,
           ),
         ),
-        SizedBox(
+      const  SizedBox(
           height: 20,
         ),
         CircleAvatar(
@@ -111,15 +111,15 @@ class _TakeattendancebodyState extends State<Takeattendancebody> {
                       session: "lecture");
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('You use fake loaction')));
+                     const SnackBar(content: Text('You use fake loaction')));
                   print("there are fake loaction---------------------------");
                 }
               },
-              child: consumerchecklocation(),
+              child:const consumerchecklocation(),
             ),
           ),
         ),
-        SizedBox(
+      const  SizedBox(
           height: 30,
         ),
         Row(
@@ -225,19 +225,19 @@ class _consumerchecklocationState extends State<consumerchecklocation> {
           isloading = false;
 
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('the doctor take your attandance')));
+            const  SnackBar(content: Text('the doctor take your attandance')));
         } else if (state is Takelocationloading) {
           isloading = true;
         } else if (state is TakelocationalrdayRegister) {
           isloading = false;
 
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('This Lecture is already is register')));
+           const   SnackBar(content: Text('This Lecture is already is register')));
         } else if (state is Takelocationoutthecollege) {
           isloading = false;
 
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('You are not in the college')));
+             const SnackBar(content: Text('You are not in the college')));
         } else if (state is TakelocationFailure) {
           isloading = false;
           ScaffoldMessenger.of(context)
@@ -255,7 +255,7 @@ class _consumerchecklocationState extends State<consumerchecklocation> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(Assets.assetsImageChechm),
-                SizedBox(
+              const  SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -274,7 +274,7 @@ class _consumerchecklocationState extends State<consumerchecklocation> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(Assets.assetsImageGroup2),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -293,7 +293,7 @@ class _consumerchecklocationState extends State<consumerchecklocation> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(Assets.assetsImageGroup2),
-                SizedBox(
+              const  SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -312,7 +312,7 @@ class _consumerchecklocationState extends State<consumerchecklocation> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(Assets.assetsImageGroup2),
-                SizedBox(
+               const SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -333,7 +333,7 @@ class _consumerchecklocationState extends State<consumerchecklocation> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(Assets.assetsImageGroup2),
-                  SizedBox(
+                const  SizedBox(
                     height: 10,
                   ),
                   Text(

@@ -60,7 +60,7 @@ class _LoginbodyState extends State<Loginbody> {
               ),
             ),
             child: const Padding(
-              padding: const EdgeInsets.all(16),
+              padding:  EdgeInsets.all(16),
               child: loginbodyform(),
             ),
           ),
@@ -194,7 +194,7 @@ class _loginbodyformState extends State<loginbodyform> {
                   }
                 },
                 checkColor: Colors.white,
-                shape: CircleBorder(),
+                shape:const CircleBorder(),
               ),
               const Text(
                 'Remind me ',
@@ -204,7 +204,7 @@ class _loginbodyformState extends State<loginbodyform> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              Expanded(
+           const   Expanded(
                 child: SizedBox(
                   width: 80,
                 ),

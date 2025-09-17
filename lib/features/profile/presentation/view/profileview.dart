@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_greduation/constants.dart';
 import 'package:project_greduation/core/gorouter.dart';
 import 'package:project_greduation/features/Auth/data/models/user/user.dart';
-import 'package:project_greduation/features/profile/presentation/mange/cubit/changepassword_cubit.dart';
 import 'package:project_greduation/features/profile/presentation/view/widget/profileviewbody.dart';
 
 class Profileview extends StatelessWidget {
@@ -21,7 +19,7 @@ class Profileview extends StatelessWidget {
                     GoRouter.of(context)
                         .push(Gorouter.kchangepassword, extra: user.token);
                   },
-                  icon: Icon(
+                  icon:const Icon(
                     Icons.password,
                     size: 38,
                     color: kprimarykey,
